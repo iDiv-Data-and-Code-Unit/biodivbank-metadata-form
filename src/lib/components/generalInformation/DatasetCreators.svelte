@@ -1,0 +1,233 @@
+<script lang="ts">
+	import Pen from '$lib/icons/Pen.svelte';
+	import Trash from '$lib/icons/Trash.svelte';
+	import { nanoid } from 'nanoid';
+	import EditModal from './EditModal.svelte';
+	import TextInput from '../TextInput.svelte';
+	import { flip } from 'svelte/animate';
+	import clsx from 'clsx';
+	import Handle from '$lib/icons/Handle.svelte';
+	import Plus from '$lib/icons/Plus.svelte';
+	import OrcId from '../OrcId.svelte';
+	import type { ListAuthor, Author } from '$lib/types/author';
+	import { generalInformation } from '$lib/stores/generalInformation';
+	import Checkbox from '../Checkbox.svelte';
+	import Star from '$lib/icons/Star.svelte';
+	import StarOutline from '$lib/icons/StarOutline.svelte';
+
+	let authors = $generalInformation.authors;
+
+	$: generalInformation.update((gi) => {
+		gi.authors = authors;
+		return gi;
+	});
+
+	let formEl: HTMLFormElement;
+	let firstNameEl: HTMLInputElement;
+
+	let firstName = '';
+	let initials = '';
+	let familyName = '';
+	let orcId: string = '';
+	let primaryContact: boolean = false;
+	let orcIdNotAvailable: boolean = false;
+
+	let isOpen = false;
+	let selectedAuthor: ListAuthor | null = null;
+
+	function addAuthor() {
+		authors = [
+			...authors,
+			{ id: nanoid(), firstName, initials, familyName, orcId, primaryContact }
+		];
+		formEl.reset();
+		initials = '';
+		firstNameEl.focus();
+	}
+
+	function removeAuthor(id: string) {
+		authors = authors.filter((author) => author.id !== id);
+	}
+
+	function openEdit(author: ListAuthor) {
+		selectedAuthor = author;
+		isOpen = true;
+	}
+
+	function editAuthor(
+		id: string,
+		firstName: string,
+		initials: string,
+		familyName: string,
+		orcId: string
+	) {
+		authors = authors.map((author) => {
+			if (author.id === id) {
+				return { ...author, firstName, initials, familyName, orcId, primaryContact };
+			}
+			return author;
+		});
+		isOpen = false;
+		selectedAuthor = null;
+	}
+
+	let target: EventTarget | null = null;
+	let hovering: number | null = null;
+
+	function dragStart(event: DragEvent, idx: number, author: Author) {
+		if (target instanceof Element && target?.id.startsWith('handle')) {
+			if (event.dataTransfer) {
+				event.dataTransfer.effectAllowed = 'move';
+				event.dataTransfer.dropEffect = 'move';
+				event.dataTransfer.setData('text/plain', idx.toString());
+			}
+		} else {
+			event.preventDefault();
+		}
+	}
+
+	function drop(event: DragEvent, idx: number) {
+		if (event.dataTransfer) {
+			event.dataTransfer.dropEffect = 'move';
+			const start = parseInt(event.dataTransfer.getData('text/plain'));
+			const newAuthorList = authors;
+
+			if (start < idx) {
+				newAuthorList.splice(idx + 1, 0, newAuthorList[start]);
+				newAuthorList.splice(start, 1);
+			} else {
+				newAuthorList.splice(idx, 0, newAuthorList[start]);
+				newAuthorList.splice(start + 1, 1);
+			}
+			authors = newAuthorList;
+			hovering = null;
+		}
+	}
+
+	function changePrimaryContact(id: string) {
+		authors = authors.map((author) => {
+			if (author.id === id) {
+				return { ...author, primaryContact: !author.primaryContact };
+			}
+			return author;
+		});
+	}
+</script>
+
+{#if authors.length}
+	<div class="col-span-2 space-y-1">
+		{#each authors as author, idx (author.id)}
+			<div
+				on:mousedown={(e) => {
+					target = e.target;
+				}}
+				animate:flip
+				draggable={true}
+				on:dragstart={(e) => dragStart(e, idx, author)}
+				on:dragover|preventDefault
+				on:dragenter={(e) => {
+					hovering = idx;
+				}}
+				on:drop|preventDefault={(e) => drop(e, idx)}
+				class={clsx(
+					'bg-interactive-surface py-4 px-6 text-subtle-text border border-interactive-surface grid grid-cols-3 items-center',
+					hovering === idx && 'border-red-600'
+				)}
+			>
+				<div class="flex items-center gap-6">
+					<div id="handle">
+						<Handle />
+					</div>
+					<button on:click={() => changePrimaryContact(author.id)}>
+						{#if author.primaryContact}
+							<Star class="h-6 w-6 text-secondary" />
+						{:else}
+							<StarOutline class="h-6 w-6 text-secondary" />
+						{/if}
+					</button>
+					<span class="text-black-text"
+						>{author.firstName} {author.initials} {author.familyName}</span
+					>
+				</div>
+				<span class="justify-self-center">{!!author.orcId ? author.orcId : 'not provided'}</span>
+				<div class="flex items-center gap-6 text-subtle-text justify-end">
+					<button type="button" on:click={() => openEdit(author)}>
+						<Pen class="h-5 w-5" />
+					</button>
+					<button type="button" on:click={() => removeAuthor(author.id)}>
+						<Trash class="h-5 w-5" />
+					</button>
+				</div>
+			</div>
+		{/each}
+		<p class="text-subtle-text text-sm flex items-center">
+			The <img src="/star.svg" class="text-secondary h-4 w-4 inline mx-1" alt="Star icon" /> is a conveniant
+			way to quickly toggle the primary contact status of a creator.
+		</p>
+	</div>
+{:else}
+	<div
+		class="flex items-center justify-center p-4 col-span-2 bg-secondary-white border border-dashed border-secondary-light text-secondary-light"
+	>
+		No creators added yet
+	</div>
+{/if}
+<div class="bg-divider h-px col-span-2 my-4" />
+<form
+	class="flex flex-col col-span-2  gap-4"
+	on:submit|preventDefault={addAuthor}
+	bind:this={formEl}
+>
+	<div class="inline-flex flex-col xl:flex-row gap-4 mt-1">
+		<TextInput
+			bind:value={firstName}
+			required
+			placeholder="E.g. Tarak"
+			bind:el={firstNameEl}
+			label="First name"
+		/>
+		<TextInput
+			bind:value={initials}
+			placeholder="L."
+			label="Initial(s)"
+			pattern={'^ *?[A-Z]\\.(\\s[A-Z]\\.)* *?$'}
+			errorMsg="Please enter initials in capitals separated \nby a dot and a space. Eg: E. G."
+		/>
+		<TextInput
+			bind:value={familyName}
+			required
+			placeholder="Tidjani Kadal"
+			label="Family name(s)"
+		/>
+	</div>
+	<div class="w-1/2">
+		<OrcId
+			bind:value={orcId}
+			bind:notAvailable={orcIdNotAvailable}
+			name="orcId-author-list"
+			label="ORCiD"
+			maxLength={19}
+			pattern="\d\d\d\d[-]\d\d\d\d[-]\d\d\d\d[-]\d\d\d\d"
+			placeholder="Eg: 0000-0000-0000-0000"
+			invalidInputErrorMsg="Only 4-digit numbers seperated by minus are permitted."
+			invalidatedErrorMsg="ORCid does not exist, please check that you have typed it in correctly."
+			confirmCheckboxMsg="No ORCiD available?"
+			validatedMsg="ORCi found."
+		/>
+	</div>
+	<label class="flex items-center gap-3">
+		<input type="checkbox" bind:checked={primaryContact} />
+		<span class="text-sm shrink-0"> Primary contact </span>
+	</label>
+	<button
+		type="submit"
+		class="text-sm shadow-md text-white bg-secondary p-2 mt-3 pr-4 self-start col-span-1 rounded-md flex items-center gap-5"
+	>
+		<Plus />
+		Add Author
+	</button>
+</form>
+
+{#if isOpen && selectedAuthor}
+	<EditModal bind:isOpen author={selectedAuthor} {editAuthor} />
+{/if}
