@@ -21,3 +21,7 @@ input[type='checkbox'] {
 input[type='radio'] {
 	@apply h-5 w-5 checked-interactivity rounded-full transition mr-2 border-none ring-1 ring-divider interactivity;
 }
+
+input[type='checkbox']:disabled + span {
+	@apply text-input-disabled;
+}

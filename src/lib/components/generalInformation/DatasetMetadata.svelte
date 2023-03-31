@@ -6,7 +6,7 @@
 </script>
 
 <TextInput
-	class="col-start-1"
+	class="col-start-1 col-span-2"
 	label="Title"
 	required
 	placeholder="Dataset title"
@@ -15,7 +15,7 @@
 	bind:value={$generalInformation.datasetTitle}
 />
 <Textarea
-	class="col-start-1"
+	class="col-start-1 col-span-2"
 	label="Abstract"
 	required
 	rows={8}

@@ -8,10 +8,6 @@
 	import Question from '$lib/components/formControls/Question.svelte';
 	import Section from '$lib/components/formControls/Section.svelte';
 	import StepTitle from '$lib/components/formControls/StepTitle.svelte';
-	import countries from '$lib/components/generalInformation/countries.json';
-	import Select from '$lib/components/Select.svelte';
-	import TextInput from '$lib/components/TextInput.svelte';
-	import ArrowDown from '$lib/icons/ArrowDown.svelte';
 	import { datasetOverview } from '$lib/stores/datasetOverview';
 	import { step } from '$lib/stores/steps';
 	import { onMount } from 'svelte';
