@@ -11,9 +11,10 @@
 	import OrcId from '../OrcId.svelte';
 	import type { ListAuthor, Author } from '$lib/types/author';
 	import { generalInformation } from '$lib/stores/generalInformation';
-	import Checkbox from '../Checkbox.svelte';
 	import Star from '$lib/icons/Star.svelte';
 	import StarOutline from '$lib/icons/StarOutline.svelte';
+	import Select from '../Select.svelte';
+	import countries from './countries.json';
 
 	let authors = $generalInformation.authors;
 
@@ -219,6 +220,33 @@
 		<input type="checkbox" bind:checked={primaryContact} />
 		<span class="text-sm shrink-0"> Primary contact </span>
 	</label>
+	{#if primaryContact}
+		<TextInput
+			class="col-start-1"
+			label="Email address"
+			required
+			placeholder="E.g. name@organization.domain"
+		/>
+		<div class="col-span-2 flex justify-between items-center gap-3">
+			<TextInput
+				label="Institution name"
+				required
+				placeholder="E.g. Institute of Biodiversity Studies"
+			/>
+			<Select
+				label="Institution country"
+				required
+				placeholder="Select country..."
+				options={countries.map((c) => c.en)}
+			/>
+		</div>
+		<TextInput
+			label="ROR ID"
+			placeholder="xxxxxxxxx"
+			pattern="'^0[a-z|0-9]{6}[0-9]{2}$"
+			errorMsg="Please enter a valid ROR ID."
+		/>
+	{/if}
 	<button
 		type="submit"
 		class="text-sm shadow-md text-white bg-secondary p-2 mt-3 pr-4 self-start col-span-1 rounded-md flex items-center gap-5"
