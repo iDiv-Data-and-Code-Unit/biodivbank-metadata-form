@@ -79,66 +79,6 @@
 
 <StepTitle title="Sampling design & location" />
 <div class="space-y-32">
-	{#if $datasetOverview.coreRealmBiomes.includes('riversAndStreams') || $datasetOverview.coreRealms.includes('terrestrial') || $datasetOverview.transitionalRealms.some( (realm) => realm
-					.toLowerCase()
-					.includes('terrestrial') ) || $samplingDesign.riverCrossSection.riparianZone}
-		<Section title="Sampling location">
-			{#if $datasetOverview.coreRealmBiomes.includes('riversAndStreams')}
-				<RiverZone />
-				<StreamOrder />
-				<RiverCrossSection />
-			{/if}
-			{#if $datasetOverview.coreRealms.includes('terrestrial') || $datasetOverview.transitionalRealms.some( (realm) => realm
-							.toLowerCase()
-							.includes('terrestrial') ) || $samplingDesign.riverCrossSection.riparianZone}
-				<VegetationLayer />
-			{/if}
-		</Section>
-	{/if}
-
-	<Section title="Study design">
-		<Question question="Did the study involve more than one sampling event?">
-			{#each multipleEventsInputs as { label, value }}
-				<label class="flex items-center gap-3">
-					<input
-						type="checkbox"
-						{value}
-						bind:group={$samplingDesign.multipleEvents}
-						name="multipleEvents"
-						disabled={value !== 'no' && $samplingDesign.multipleEvents.includes('no')}
-					/>
-					<span class="text-sm shrink-0">
-						{label}&nbsp;
-					</span>
-				</label>
-			{/each}
-		</Question>
-		{#if $samplingDesign.multipleEvents.length && !$samplingDesign.multipleEvents.includes('no')}
-			<Question
-				question="Did environmental characteristics (e.g. habitat types, disturbance types) or methods (e.g. devices or effort) vary across sampling events?"
-			>
-				<Radio
-					label="Identical"
-					value="identical"
-					bind:group={$samplingDesign.envCharacteristics}
-					name="envCharacteristics"
-				/>
-				<Radio
-					label="Largely similar"
-					value="largelySimilar"
-					bind:group={$samplingDesign.envCharacteristics}
-					name="envCharacteristics"
-				/>
-				<Radio
-					label="Variable"
-					value="variable"
-					bind:group={$samplingDesign.envCharacteristics}
-					name="envCharacteristics"
-				/>
-			</Question>
-		{/if}
-	</Section>
-
 	<Section title="Methods">
 		<Question
 			question="What type of inventory process was involved? (Select all that apply)"
@@ -225,6 +165,49 @@
 		</Question>
 	</Section>
 
+	<Section title="Study design">
+		<Question question="Did the study involve more than one sampling event?">
+			{#each multipleEventsInputs as { label, value }}
+				<label class="flex items-center gap-3">
+					<input
+						type="checkbox"
+						{value}
+						bind:group={$samplingDesign.multipleEvents}
+						name="multipleEvents"
+						disabled={value !== 'no' && $samplingDesign.multipleEvents.includes('no')}
+					/>
+					<span class="text-sm shrink-0">
+						{label}&nbsp;
+					</span>
+				</label>
+			{/each}
+		</Question>
+		{#if $samplingDesign.multipleEvents.length && !$samplingDesign.multipleEvents.includes('no')}
+			<Question
+				question="Did environmental characteristics (e.g. habitat types, disturbance types) or methods (e.g. devices or effort) vary across sampling events?"
+			>
+				<Radio
+					label="Identical"
+					value="identical"
+					bind:group={$samplingDesign.envCharacteristics}
+					name="envCharacteristics"
+				/>
+				<Radio
+					label="Largely similar"
+					value="largelySimilar"
+					bind:group={$samplingDesign.envCharacteristics}
+					name="envCharacteristics"
+				/>
+				<Radio
+					label="Variable"
+					value="variable"
+					bind:group={$samplingDesign.envCharacteristics}
+					name="envCharacteristics"
+				/>
+			</Question>
+		{/if}
+	</Section>
+
 	<Section title="Sampling effort">
 		<Question question="Describe the intensity of sampling (i.e. effort)">
 			<Textarea
@@ -271,6 +254,23 @@ E.g. A single baited camera trap station with motion sensor trigger, deployed fo
 			{/if}
 		</Question>
 	</Section>
+
+	{#if $datasetOverview.coreRealmBiomes.includes('riversAndStreams') || $datasetOverview.coreRealms.includes('terrestrial') || $datasetOverview.transitionalRealms.some( (realm) => realm
+					.toLowerCase()
+					.includes('terrestrial') ) || $samplingDesign.riverCrossSection.riparianZone}
+		<Section title="Sampling location">
+			{#if $datasetOverview.coreRealmBiomes.includes('riversAndStreams')}
+				<RiverZone />
+				<StreamOrder />
+				<RiverCrossSection />
+			{/if}
+			{#if $datasetOverview.coreRealms.includes('terrestrial') || $datasetOverview.transitionalRealms.some( (realm) => realm
+							.toLowerCase()
+							.includes('terrestrial') ) || $samplingDesign.riverCrossSection.riparianZone}
+				<VegetationLayer />
+			{/if}
+		</Section>
+	{/if}
 
 	<Section
 		title="Further Information"
