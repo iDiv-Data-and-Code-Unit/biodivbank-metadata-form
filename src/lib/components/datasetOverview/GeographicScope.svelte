@@ -7,6 +7,7 @@
 </script>
 
 <Question direction="column" question="What is the geographic extent of the dataset?">
+	<img src="/map.png" alt="" />
 	<div class="grid grid-cols-2 gap-8">
 		<div class="col-span-2" />
 		<Select

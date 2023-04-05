@@ -77,7 +77,6 @@
 {#if $datasetOverview.coreRealmBiomes.includes('riversAndStreams') || $datasetOverview.coreRealms.includes('terrestrial') || $datasetOverview.transitionalRealms.some( (realm) => realm
 				.toLowerCase()
 				.includes('terrestrial') ) || $samplingDesign.riverCrossSection.riparianZone}
-	}
 	<Section title="Sampling location">
 		{#if $datasetOverview.coreRealmBiomes.includes('riversAndStreams')}
 			<RiverZone />
