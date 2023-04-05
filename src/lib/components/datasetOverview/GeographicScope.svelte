@@ -17,6 +17,12 @@
 			options={countries.map((c) => c.en)}
 		/>
 		<Select
+			label="Marine Region"
+			placeholder="Select a marine region..."
+			bind:value={$datasetOverview.country}
+			options={countries.map((c) => c.en)}
+		/>
+		<!-- <Select
 			label="Coordiantes"
 			class="col-start-1"
 			placeholder="Select a coordiante input format..."
@@ -34,7 +40,7 @@
 				placeholder="Latitude..."
 				bind:value={$datasetOverview.latitude}
 			/>
-		</div>
+		</div> -->
 		<Select
 			label="Field station"
 			placeholder="Select a field station..."

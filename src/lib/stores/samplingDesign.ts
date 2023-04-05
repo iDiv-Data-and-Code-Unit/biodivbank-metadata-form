@@ -4,7 +4,14 @@ import { browser } from '$app/environment';
 
 const initialStore: SamplingDesign = {
 	vegetationLayer: [],
-	riverZone: []
+	riverZone: [],
+	riverCrossSection: {
+		bank: '',
+		surface: '',
+		riparianZone: false,
+		water: false,
+		bed: ''
+	}
 };
 
 let storedValue: SamplingDesign;

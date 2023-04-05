@@ -76,4 +76,13 @@ export type DatasetOverview = {
 export type SamplingDesign = {
 	vegetationLayer: Array<string>;
 	riverZone: Array<string>;
+	riverCrossSection: RiverCrossSection;
+};
+
+export type RiverCrossSection = {
+	bank: string;
+	surface: string;
+	riparianZone: boolean;
+	water: boolean;
+	bed: string;
 };

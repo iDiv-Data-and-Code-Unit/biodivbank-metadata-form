@@ -2,6 +2,7 @@
 	import Question from '$lib/components/formControls/Question.svelte';
 	import Section from '$lib/components/formControls/Section.svelte';
 	import StepTitle from '$lib/components/formControls/StepTitle.svelte';
+	import RiverCrossSection from '$lib/components/sampling-design/RiverCrossSection.svelte';
 	import RiverZone from '$lib/components/sampling-design/RiverZone.svelte';
 	import StreamOrder from '$lib/components/sampling-design/StreamOrder.svelte';
 	import VegetationLayer from '$lib/components/sampling-design/VegetationLayer.svelte';
@@ -18,14 +19,15 @@
 <StepTitle title="Sampling design & location" />
 
 <Section title="Sampling location">
-	{#if $datasetOverview.coreRealms.includes('terrestrial') || $datasetOverview.transitionalRealms.some( (realm) => realm
-					.toLowerCase()
-					.includes('terrestrial') )}
-		<VegetationLayer />
-	{/if}
 	{#if $datasetOverview.coreRealmBiomes.includes('riversAndStreams')}
 		<RiverZone />
 		<StreamOrder />
+		<RiverCrossSection />
+	{/if}
+	{#if $datasetOverview.coreRealms.includes('terrestrial') || $datasetOverview.transitionalRealms.some( (realm) => realm
+					.toLowerCase()
+					.includes('terrestrial') ) || $samplingDesign.riverCrossSection.riparianZone}
+		<VegetationLayer />
 	{/if}
 </Section>
 

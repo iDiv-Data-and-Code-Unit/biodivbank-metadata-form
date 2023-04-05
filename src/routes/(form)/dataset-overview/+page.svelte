@@ -65,7 +65,7 @@
 	</Section>
 
 	<Section
-		title="Taxonimic scope"
+		title="Taxonomic scope"
 		description="Which taxonomic groups are represented in the dataset? (Select all that apply)"
 	>
 		<Question question="Which kingdoms are involved?">
