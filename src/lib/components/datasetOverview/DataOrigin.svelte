@@ -60,7 +60,7 @@
 		layout="stacked"
 	/>
 </Question>
-<Question question="What is the source if the data? (Select all that apply)" direction="grid">
+<Question question="What is the source of the data? (Select all that apply)" direction="grid">
 	<CheckboxGroup name="dataSource" bind:group={$datasetOverview.dataSource} inputs={sources} />
 	<!-- {#each sources as { label, addition, value }}
 		<Checkbox

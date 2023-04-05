@@ -21,6 +21,7 @@ specifiers:
   prettier-plugin-svelte: ^2.8.1
   svelte: ^3.54.0
   svelte-check: ^3.0.1
+  svelte-multiselect: ^8.6.0
   tailwindcss: ^3.2.7
   tslib: ^2.4.1
   typescript: ^4.9.3
@@ -33,6 +34,7 @@ dependencies:
   clsx: 1.2.1
   just-safe-set: 4.2.1
   nanoid: 4.0.1
+  svelte-multiselect: 8.6.0
 
 devDependencies:
   '@playwright/test': 1.31.2
@@ -1917,6 +1919,12 @@ packages:
     dependencies:
       svelte: 3.57.0
     dev: true
+
+  /svelte-multiselect/8.6.0:
+    resolution: {integrity: sha512-ce1axNn5YrvDwpUA1R4pSKC7oCD8buP7If61VRoOEM5cxMU8t14tLp5fJf27qd8FBJ7vzvJokiN9BUl1u8oL6w==}
+    dependencies:
+      svelte: 3.57.0
+    dev: false
 
   /svelte-preprocess/5.0.3_ybrbwhhu54cxvzb5hyvixtn33q:
     resolution: {integrity: sha512-GrHF1rusdJVbOZOwgPWtpqmaexkydznKzy5qIC2FabgpFyKN57bjMUUUqPRfbBXK5igiEWn1uO/DXsa2vJ5VHA==}

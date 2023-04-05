@@ -56,5 +56,3 @@
 		<RelatedResources />
 	</Section>
 </div>
-
-<pre>{JSON.stringify($generalInformation, null, 2)}</pre>

@@ -11,7 +11,16 @@ const initialStore: SamplingDesign = {
 		riparianZone: false,
 		water: false,
 		bed: ''
-	}
+	},
+	furtherInformation: '',
+	multipleEvents: [],
+	envCharacteristics: '',
+	inventory: {
+		stage1: [],
+		stage2: [],
+		stage3: []
+	},
+	effortIdentical: ''
 };
 
 let storedValue: SamplingDesign;

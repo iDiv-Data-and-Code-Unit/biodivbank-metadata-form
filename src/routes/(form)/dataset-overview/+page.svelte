@@ -73,5 +73,3 @@
 		</Question>
 	</Section>
 </div>
-
-<pre>{JSON.stringify($datasetOverview, null, 2)}</pre>

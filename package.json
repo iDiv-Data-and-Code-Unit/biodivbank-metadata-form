@@ -41,6 +41,7 @@
 		"@rgossiaux/svelte-headlessui": "^1.0.2",
 		"clsx": "^1.2.1",
 		"just-safe-set": "^4.2.1",
-		"nanoid": "^4.0.1"
+		"nanoid": "^4.0.1",
+		"svelte-multiselect": "^8.6.0"
 	}
 }

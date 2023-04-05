@@ -77,6 +77,15 @@ export type SamplingDesign = {
 	vegetationLayer: Array<string>;
 	riverZone: Array<string>;
 	riverCrossSection: RiverCrossSection;
+	furtherInformation: string;
+	multipleEvents: string[];
+	envCharacteristics: string;
+	inventory: {
+		stage1: string[];
+		stage2: string[];
+		stage3: string[];
+	};
+	effortIdentical: string;
 };
 
 export type RiverCrossSection = {

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Question from '../formControls/Question.svelte';
 	import Select from '../Select.svelte';
+	import MultiSelect from 'svelte-multiselect';
 
 	let classificationSystem = [
 		'Strahler',
@@ -10,6 +11,8 @@
 		'Classical / Topological',
 		'Other'
 	];
+
+	let selected: string[] = [];
 
 	let streamOrder = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
 </script>
@@ -30,11 +33,12 @@
 			value=""
 			options={classificationSystem}
 		/>
-		<Select
-			label="Stream order"
-			placeholder="Select a value that applies..."
-			value=""
+		<MultiSelect
+			id="stream-order"
+			outerDivClass="!w-full !bg-input !rounded-md !px-4 !py-3 !border-none !text-base !text-placeholder"
 			options={streamOrder}
+			placeholder="Select all values that apply..."
+			bind:selected
 		/>
 	</div>
 </Question>
