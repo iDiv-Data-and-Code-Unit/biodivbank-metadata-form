@@ -21,7 +21,7 @@
 	<TextInput
 		label="Family name(s)"
 		required
-		placeholder="Garcia"
+		placeholder="de Melo"
 		bind:value={$generalInformation.familyName}
 	/>
 </div>

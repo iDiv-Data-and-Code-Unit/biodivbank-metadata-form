@@ -8,6 +8,7 @@
 	export let options: string[];
 	let classes: string = '';
 	export { classes as class };
+	export let helpText = '';
 </script>
 
 <label class={clsx('w-full flex flex-col', classes)}>
@@ -17,6 +18,9 @@
 			<span class="text-red-600">*</span>
 		{/if}
 	</span>
+	{#if helpText}
+		<span class="text-xs text-subtle-text">{helpText}</span>
+	{/if}
 	<select
 		class={clsx('bg-input rounded-md px-4 py-3 border-none w-full', !value && 'text-placeholder')}
 		{required}

@@ -7,7 +7,7 @@
 	import CheckboxGroup from '../CheckboxGroup.svelte';
 
 	let sources = [
-		{ label: 'Field survey', value: 'fieldSurvey', addition: 'includes stratified sampling' },
+		{ label: 'Field survey', value: 'fieldSurvey' },
 		{ label: 'Remote sensing', value: 'remoteSensing' },
 		{ label: 'Field experiment', value: 'fieldExperiment' },
 		{ label: 'Sensor platform', value: 'sensorPlatform' },

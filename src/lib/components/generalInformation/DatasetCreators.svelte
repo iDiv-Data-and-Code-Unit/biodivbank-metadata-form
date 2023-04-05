@@ -139,18 +139,20 @@
 					<div id="handle">
 						<Handle />
 					</div>
-					<button on:click={() => changePrimaryContact(author.id)}>
+					<span>
 						{#if author.primaryContact}
 							<Star class="h-6 w-6 text-secondary" />
 						{:else}
 							<StarOutline class="h-6 w-6 text-secondary" />
 						{/if}
-					</button>
+					</span>
 					<span class="text-black-text"
 						>{author.firstName} {author.initials} {author.familyName}</span
 					>
 				</div>
-				<span class="justify-self-center">{!!author.orcId ? author.orcId : 'not provided'}</span>
+				<span class="justify-self-center"
+					>{!!author.orcId ? author.orcId : 'No ORCiD provided'}</span
+				>
 				<div class="flex items-center gap-6 text-subtle-text justify-end">
 					<button type="button" on:click={() => openEdit(author)}>
 						<Pen class="h-5 w-5" />
@@ -162,8 +164,8 @@
 			</div>
 		{/each}
 		<p class="text-subtle-text text-sm flex items-center">
-			The <img src="/star.svg" class="text-secondary h-4 w-4 inline mx-1" alt="Star icon" /> is a conveniant
-			way to quickly toggle the primary contact status of a creator.
+			The <img src="/star.svg" class="text-secondary h-4 w-4 inline mx-1" alt="Star icon" /> indicates
+			the primary contact status of a creator.
 		</p>
 	</div>
 {:else}
@@ -218,7 +220,7 @@
 	</div>
 	<label class="flex items-center gap-3">
 		<input type="checkbox" bind:checked={primaryContact} />
-		<span class="text-sm shrink-0"> Primary contact </span>
+		<span class="text-sm shrink-0"> Primary contact?</span>
 	</label>
 	{#if primaryContact}
 		<TextInput

@@ -19,7 +19,7 @@
 		{
 			label: 'Marine-Freshwater-Terrestrial',
 			value: 'marineFreshwaterTerrestrial',
-			desc: 'E.g. estuaries, coastal inlets, intermittently open lakes'
+			desc: 'E.g. coastal deltas, saltmarshes, intertidal forests'
 		},
 		{
 			label: 'Terrestrial-Freshwater',

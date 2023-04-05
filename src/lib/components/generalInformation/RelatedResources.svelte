@@ -16,7 +16,7 @@
 		'Code (statistical script, model, package, software)',
 		'Computational notebook',
 		'Workflow',
-		'Then a slight gap or separator, before the rest of the list',
+		// '---',
 		'Audio',
 		'Audiovisual',
 		'Book',

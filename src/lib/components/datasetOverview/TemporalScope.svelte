@@ -1,6 +1,7 @@
 <script lang="ts">
 	import ArrowDown from '$lib/icons/ArrowDown.svelte';
 	import clsx from 'clsx';
+	import Question from '../formControls/Question.svelte';
 
 	let months = [
 		'January',
@@ -21,7 +22,8 @@
 	let endMonth = '';
 </script>
 
-<div class="col-span-2 flex flex-col gap-4 items-center">
+<Question question="What is the temporal extent of the dataset?" direction="column">
+	<!-- <div class="col-span-2 flex flex-col gap-4 items-center"> -->
 	<div class="w-full">
 		<div class="flex gap-4 items-center">
 			<h4 class="shrink-0">Start date</h4>
@@ -77,4 +79,5 @@
 			/>
 		</div>
 	</div>
-</div>
+	<!-- </div> -->
+</Question>

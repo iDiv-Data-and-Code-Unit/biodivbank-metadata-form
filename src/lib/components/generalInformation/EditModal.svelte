@@ -46,25 +46,30 @@
 			<DialogDescription>
 				<form class="flex flex-col col-span-4  gap-4" on:submit|preventDefault={onSubmit}>
 					<div class="inline-flex flex-col xl:flex-row gap-4 mt-1">
-						<TextInput label="First Name" required bind:value={firstName} placeholder="Eg: Sara" />
+						<TextInput
+							label="First name"
+							required
+							bind:value={firstName}
+							placeholder="E.g. Tarak"
+						/>
 						<TextInput
 							bind:value={initials}
-							placeholder="Eg: E. G."
+							placeholder="L."
 							label="Initial(s)"
 							pattern={'^ *?[A-Z]\\.(\\s[A-Z]\\.)* *?$'}
 						/>
 						<TextInput
-							label="Family Name"
+							label="Family name"
 							required
 							bind:value={familyName}
-							placeholder="Eg: Garcia"
+							placeholder="Tidjani Kadal"
 						/>
 					</div>
 					<IndieOrcId
 						bind:value={orcId}
 						bind:notAvailable={orcIdNotAvailable}
 						name="orcId-author-list"
-						label="OrcID"
+						label="ORCiD"
 						maxLength={19}
 						pattern="\d\d\d\d[-]\d\d\d\d[-]\d\d\d\d[-]\d\d\d\d"
 						placeholder="Eg: 0000-0000-0000-0000"

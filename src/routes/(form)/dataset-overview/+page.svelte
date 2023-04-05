@@ -26,10 +26,7 @@
 
 	<Section
 		title="Temporal scope"
-		description={[
-			'What is the temporal extent of the dataset',
-			'Please provide dates to the highest resolution possible'
-		]}
+		description="Please provide dates to the highest resolution possible"
 	>
 		<TemporalScope />
 	</Section>
@@ -37,7 +34,7 @@
 	<Section
 		title="Geographic scope"
 		description={[
-			'Where was the data collected',
+			'Where were the data collected?',
 			'E.g. if several neighbouring countries are involved select "Regional"; if the countries are spread widely across one continent select "Continental".'
 		]}
 	>
@@ -47,7 +44,7 @@
 	<Section
 		title="Realm"
 		description={[
-			'Which realms do the data involve',
+			'Which realms do the data involve?',
 			"We use the IUCNGET classification - click <a class='underline' href='https://global-ecosystems.org/explore' target='_blank'>here</a> for definitions"
 		]}
 	>

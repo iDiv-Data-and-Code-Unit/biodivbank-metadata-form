@@ -17,6 +17,7 @@ const initialStore: GeneralInformation = {
 	datasetAbstract: '',
 	yearPublished: '',
 	accessPolicy: '',
+	embargoEndDate: '',
 	authors: [],
 	funders: [],
 	resources: []

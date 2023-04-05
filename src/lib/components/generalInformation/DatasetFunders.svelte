@@ -67,7 +67,8 @@
 				<div class="flex items-center gap-6">
 					<span class="text-black-text">{funder.name}</span>
 				</div>
-				<span class="justify-self-center">{funder.funderId ? funder.funderId : 'not provided'}</span
+				<span class="justify-self-center"
+					>{funder.funderId ? funder.funderId : 'No funder ID provided'}</span
 				>
 				<span class="">{funder.grantNumber}</span>
 				<div class="flex items-center gap-6 text-subtle-text justify-end">
@@ -105,7 +106,7 @@
 	<div>
 		<TextInput
 			bind:value={funderId}
-			placeholder="xxxxxxxxxxxx"
+			placeholder="E.g. 501100001659"
 			label="Crossref Funder ID"
 			pattern="[0-9]&lbrace;12&rbrace;"
 			disabled={noFunderId}

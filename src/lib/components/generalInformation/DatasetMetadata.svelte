@@ -21,7 +21,7 @@
 	rows={8}
 	placeholder="Dataset abstract"
 	maxlength={1500}
-	helpText="Note that the short summary of a dataset is not the same as the abstract of any accompanying paper! See [here] for an explanation of what content should be included and an example. Allowed: 1500 characters."
+	helpText="See [here] for an explanation of what content should be included and an example. Allowed: 1500 characters."
 	bind:value={$generalInformation.datasetAbstract}
 />
 <!-- <TextInput
@@ -31,15 +31,35 @@
 	bind:value={$generalInformation.yearPublished}
 /> -->
 <Select
-	class="col-start-1"
-	label="Access Policy"
+	class="col-start-1 col-span-2"
+	label="Data access policy"
 	placeholder="Select an access policy..."
+	helpText="See [here] for an explanation of our policy and [here] for licence definitions"
 	bind:value={$generalInformation.accessPolicy}
 	options={[
 		'Open - CC0 1.0',
 		'Open - CC BY 4.0',
 		'Temporary embargo',
 		'Request from author',
-		'Restricted'
+		'Restricted',
+		'Other'
 	]}
 />
+
+{#if $generalInformation.accessPolicy === 'Temporary embargo'}
+	<TextInput
+		class="col-span-2"
+		label="Embargo end date"
+		placeholder="YYYY/MM/DD"
+		bind:value={$generalInformation.embargoEndDate}
+	/>
+{/if}
+
+{#if $generalInformation.accessPolicy === 'Other'}
+	<TextInput
+		class="col-span-2"
+		label="Licence"
+		placeholder="Please state licence..."
+		bind:value={$generalInformation.embargoEndDate}
+	/>
+{/if}
