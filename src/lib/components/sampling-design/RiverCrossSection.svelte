@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Question from '../formControls/Question.svelte';
 	import { samplingDesign } from '$lib/stores/samplingDesign';
+	import TextInput from '../TextInput.svelte';
 
 	let riparianZone = false;
 	let water = false;
@@ -55,5 +56,44 @@
 				<option value="inSubstrate">In substrate</option>
 			</select>
 		</label>
+	</div>
+	<div class="relative grid grid-cols-4 gap-8 col-span-2 mt-8">
+		<div class="col-span-2 grid grid-cols-2 gap-8">
+			<label class="flex items-center gap-3">
+				<input type="checkbox" bind:checked={$samplingDesign.riverCrossSection.water} />
+				<span class="text-sm shrink-0">Riffle&nbsp; </span>
+			</label>
+			<label class="flex items-center gap-3">
+				<input type="checkbox" bind:checked={$samplingDesign.riverCrossSection.water} />
+				<span class="text-sm shrink-0">Rapids&nbsp; </span>
+			</label>
+			<label class="flex items-center gap-3">
+				<input type="checkbox" bind:checked={$samplingDesign.riverCrossSection.water} />
+				<span class="text-sm shrink-0">Levée&nbsp; </span>
+			</label>
+			<label class="flex items-center gap-3">
+				<input type="checkbox" bind:checked={$samplingDesign.riverCrossSection.water} />
+				<span class="text-sm shrink-0">Oxbow lake&nbsp; </span>
+			</label>
+			<label class="flex items-center gap-3">
+				<input type="checkbox" bind:checked={$samplingDesign.riverCrossSection.water} />
+				<span class="text-sm shrink-0">Meander belt&nbsp; </span>
+			</label>
+			<label class="flex items-center gap-3">
+				<input type="checkbox" bind:checked={$samplingDesign.riverCrossSection.water} />
+				<span class="text-sm shrink-0">Flood plain&nbsp; </span>
+			</label>
+			<label class="flex items-center gap-3">
+				<input type="checkbox" bind:checked={$samplingDesign.riverCrossSection.water} />
+				<span class="text-sm shrink-0">Alluvial plain&nbsp; </span>
+			</label>
+		</div>
+		<div class="col-span-2 flex flex-col gap-4">
+			<label class="flex items-center gap-3">
+				<input type="checkbox" bind:checked={$samplingDesign.riverCrossSection.water} />
+				<span class="text-sm shrink-0">Other area?&nbsp; </span>
+			</label>
+			<TextInput label="" placeholder="Please tell us more..." />
+		</div>
 	</div>
 </Question>
