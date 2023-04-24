@@ -86,6 +86,11 @@ export type SamplingDesign = {
 		stage2: string[];
 		stage3: string[];
 	};
+	methodTypes: {
+		stage1: string[];
+		stage2: string[];
+		stage3: string[];
+	};
 	effortIdentical: string;
 };
 

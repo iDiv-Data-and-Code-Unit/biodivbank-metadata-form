@@ -20,6 +20,11 @@ const initialStore: SamplingDesign = {
 		stage2: [],
 		stage3: []
 	},
+	methodTypes: {
+		stage1: [],
+		stage2: [],
+		stage3: []
+	},
 	effortIdentical: ''
 };
 
