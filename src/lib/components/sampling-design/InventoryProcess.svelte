@@ -95,6 +95,7 @@
 			inputs={stage1Inputs}
 		/>
 	{:else if selectedStep === 'Stage 2' && $samplingDesign.inventory.stage1.includes('restrictedSearch')}
+		<h3 class="col-span-2 text-sm text-min-contrast-gray">Restricted Search</h3>
 		<CheckboxGroup
 			bind:group={$samplingDesign.inventory.stage2}
 			name="stage-2"
