@@ -36,13 +36,11 @@
 
 <StepTitle title="Sampling design & location" />
 <div class="space-y-32">
-	<Section title="Methods">
-		<InventoryProcess />
-		<MethodType />
-	</Section>
-
 	<Section title="Study design">
-		<Question question="Did the study involve more than one sampling event?">
+		<Question
+			question="Did the study involve more than one sampling event? (Select all that apply)"
+			direction="column"
+		>
 			{#each multipleEventsInputs as { label, value }}
 				<label class="flex items-center gap-3">
 					<input
@@ -61,6 +59,7 @@
 		{#if $samplingDesign.multipleEvents.length && !$samplingDesign.multipleEvents.includes('no')}
 			<Question
 				question="Did environmental characteristics (e.g. habitat types, disturbance types) or methods (e.g. devices or effort) vary across sampling events?"
+				direction="column"
 			>
 				<Radio
 					label="Identical"
@@ -82,6 +81,15 @@
 				/>
 			</Question>
 		{/if}
+	</Section>
+
+	<Section title="Methods">
+		<InventoryProcess />
+		<MethodType />
+	</Section>
+
+	<Section title="Sampling scope">
+		<!-- <Question question></Question> -->
 	</Section>
 
 	<Section title="Sampling effort">
