@@ -92,6 +92,34 @@ export type SamplingDesign = {
 		stage3: string[];
 	};
 	effortIdentical: string;
+	targetedAndExludedTaxa: {
+		targeted: string;
+		excluded: string;
+	};
+	otherTargetedSelectedCategories: string[];
+	otherTargetedCategories: {
+		sex: {
+			targeted: string;
+			excluded: string;
+		};
+		lifeStage: {
+			targeted: string;
+			excluded: string;
+		};
+		reproductiveCondition: {
+			targeted: string;
+			excluded: string;
+		};
+		growthForm: {
+			targeted: string;
+			excluded: string;
+		};
+		other: {
+			name: string;
+			targeted: string;
+			excluded: string;
+		};
+	};
 };
 
 export type RiverCrossSection = {

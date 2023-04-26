@@ -25,7 +25,35 @@ const initialStore: SamplingDesign = {
 		stage2: [],
 		stage3: []
 	},
-	effortIdentical: ''
+	effortIdentical: '',
+	targetedAndExludedTaxa: {
+		targeted: '',
+		excluded: ''
+	},
+	otherTargetedSelectedCategories: [],
+	otherTargetedCategories: {
+		sex: {
+			targeted: '',
+			excluded: ''
+		},
+		lifeStage: {
+			targeted: '',
+			excluded: ''
+		},
+		reproductiveCondition: {
+			targeted: '',
+			excluded: ''
+		},
+		growthForm: {
+			targeted: '',
+			excluded: ''
+		},
+		other: {
+			name: '',
+			targeted: '',
+			excluded: ''
+		}
+	}
 };
 
 let storedValue: SamplingDesign;

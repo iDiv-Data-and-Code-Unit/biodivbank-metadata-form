@@ -16,6 +16,11 @@
 	import clsx from 'clsx';
 	import InventoryProcess from '$lib/components/sampling-design/InventoryProcess.svelte';
 	import MethodType from '$lib/components/sampling-design/MethodType.svelte';
+	import TextInput from '$lib/components/TextInput.svelte';
+	import Select from '$lib/components/Select.svelte';
+	import Plus from '$lib/icons/Plus.svelte';
+	import TargetedAndExcludedTaxa from '$lib/components/sampling-design/TargetedAndExcludedTaxa.svelte';
+	import OtherTargetedCategories from '$lib/components/sampling-design/OtherTargetedCategories.svelte';
 
 	let multipleEventsInputs = [
 		{ label: 'Multiple locations', value: 'multipleLocations' },
@@ -89,7 +94,8 @@
 	</Section>
 
 	<Section title="Sampling scope">
-		<!-- <Question question></Question> -->
+		<TargetedAndExcludedTaxa />
+		<OtherTargetedCategories />
 	</Section>
 
 	<Section title="Sampling effort">

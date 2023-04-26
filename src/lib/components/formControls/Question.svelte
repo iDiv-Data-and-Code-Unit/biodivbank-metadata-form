@@ -3,6 +3,7 @@
 
 	export let title: string = '';
 	export let question: string = '';
+	export let helpText: string = '';
 	export let direction: 'row' | 'column' | 'grid' = 'row';
 </script>
 
@@ -13,6 +14,9 @@
 	<h5 class="text-description col-span-2">
 		{question}
 	</h5>
+{/if}
+{#if helpText}
+	<span class="text-description text-sm col-span-2">{helpText}</span>
 {/if}
 <div
 	class={clsx(
