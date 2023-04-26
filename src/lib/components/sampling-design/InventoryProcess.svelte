@@ -147,7 +147,7 @@
 				class="bg-secondary text-white py-1 px-3 rounded-md flex items-center gap-1"
 			>
 				<ArrowLeft classes="h-4 w-4" />
-				{selectedStep === 'Stage 2' ? 'Stage 1' : 'Stage 2'}
+				Back
 			</button>
 		{/if}
 		{#if selectedStep !== 'Stage 3'}
@@ -155,7 +155,7 @@
 				on:click={() => (selectedStep = steps[steps.findIndex((s) => s === selectedStep) + 1])}
 				class="bg-secondary text-white py-1 px-3 rounded-md flex items-center gap-1"
 			>
-				{selectedStep === 'Stage 1' ? 'Stage 2' : 'Stage 3'}
+				Next
 				<ArrowRight classes="h-4 w-4" />
 			</button>
 		{/if}
