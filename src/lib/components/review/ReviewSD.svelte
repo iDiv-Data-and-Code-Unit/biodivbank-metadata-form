@@ -64,7 +64,7 @@
 			/>
 		</section>
 		<section>
-			<h3 class="text-xl font-medium mb-4">Samplig effort</h3>
+			<h3 class="text-xl font-medium mb-4">Sampling effort</h3>
 			<div class="divide-y divide-placeholder divide-opacity-40 space-y-2">
 				<Point label="Describe the intensity of sampling" value={$samplingDesign.effortIntensity} />
 				<Point
@@ -88,5 +88,6 @@
 				/>
 			</div>
 		</section>
+		<button class="bg-secondary py-3 px-6 text-xl font-medium text-white rounded-md">Submit</button>
 	</div>
 </div>
