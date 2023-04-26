@@ -54,6 +54,9 @@ module.exports = {
 		extend: {
 			fontFamily: {
 				sans: 'Inter'
+			},
+			gridTemplateColumns: {
+				'under-rep': '1fr 1fr auto'
 			}
 		}
 	},

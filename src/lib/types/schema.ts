@@ -120,6 +120,10 @@ export type SamplingDesign = {
 			excluded: string;
 		};
 	};
+	underRepresented: {
+		group: string;
+		reason: string;
+	}[];
 };
 
 export type RiverCrossSection = {

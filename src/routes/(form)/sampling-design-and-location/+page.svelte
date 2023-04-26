@@ -21,6 +21,7 @@
 	import Plus from '$lib/icons/Plus.svelte';
 	import TargetedAndExcludedTaxa from '$lib/components/sampling-design/TargetedAndExcludedTaxa.svelte';
 	import OtherTargetedCategories from '$lib/components/sampling-design/OtherTargetedCategories.svelte';
+	import UnderRepresented from '$lib/components/sampling-design/UnderRepresented.svelte';
 
 	let multipleEventsInputs = [
 		{ label: 'Multiple locations', value: 'multipleLocations' },
@@ -96,6 +97,7 @@
 	<Section title="Sampling scope">
 		<TargetedAndExcludedTaxa />
 		<OtherTargetedCategories />
+		<UnderRepresented />
 	</Section>
 
 	<Section title="Sampling effort">

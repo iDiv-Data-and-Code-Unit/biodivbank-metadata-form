@@ -53,7 +53,8 @@ const initialStore: SamplingDesign = {
 			targeted: '',
 			excluded: ''
 		}
-	}
+	},
+	underRepresented: []
 };
 
 let storedValue: SamplingDesign;
