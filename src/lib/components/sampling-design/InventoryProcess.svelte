@@ -102,6 +102,7 @@
 		/>
 	{:else if selectedStep === 'Stage 3'}
 		{#if $samplingDesign.inventory.stage2.includes('plot')}
+			<h3 class="col-span-2 text-sm text-min-contrast-gray">Plot</h3>
 			<CheckboxGroup
 				bind:group={$samplingDesign.inventory.stage3}
 				name="stage-3-plot"
@@ -109,6 +110,7 @@
 			/>
 		{/if}
 		{#if $samplingDesign.inventory.stage2.includes('transect')}
+			<h3 class="col-span-2 text-sm text-min-contrast-gray">Transect</h3>
 			<CheckboxGroup
 				bind:group={$samplingDesign.inventory.stage3}
 				name="stage-3-plot"
@@ -116,6 +118,7 @@
 			/>
 		{/if}
 		{#if $samplingDesign.inventory.stage2.includes('quadrat')}
+			<h3 class="col-span-2 text-sm text-min-contrast-gray">Quadrat</h3>
 			<CheckboxGroup
 				bind:group={$samplingDesign.inventory.stage3}
 				name="stage-3-plot"
@@ -123,6 +126,7 @@
 			/>
 		{/if}
 		{#if $samplingDesign.inventory.stage2.includes('plotless')}
+			<h3 class="col-span-2 text-sm text-min-contrast-gray">Plotless</h3>
 			<CheckboxGroup
 				bind:group={$samplingDesign.inventory.stage3}
 				name="stage-3-plot"
