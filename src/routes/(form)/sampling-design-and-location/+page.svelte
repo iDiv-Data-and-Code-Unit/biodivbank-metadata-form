@@ -170,7 +170,7 @@ E.g. A single baited camera trap station with motion sensor trigger, deployed fo
 	{/if}
 
 	<Section
-		title="Further Information"
+		title="Further information"
 		description={[
 			'For example, could another person re-run your field study, or fully interpret and reuse this dataset, without additional information? If not, please use the textbox to add further detail.',
 			'Existing summaries from articles or reports are acceptable, provided their use does not violate copyright or any licence stated.'
