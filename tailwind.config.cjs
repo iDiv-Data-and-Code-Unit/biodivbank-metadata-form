@@ -56,7 +56,11 @@ module.exports = {
 				sans: 'Inter'
 			},
 			gridTemplateColumns: {
-				'under-rep': '1fr 1fr auto'
+				'under-rep': '1fr 1fr auto',
+				14: 'repeat(14, minmax(0, 1fr))'
+			},
+			gridTemplateRows: {
+				12: 'repeat(12, minmax(0, 1fr))'
 			}
 		}
 	},

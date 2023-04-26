@@ -12,14 +12,14 @@
 
 	const gridMap: Record<number, string> = {
 		0: 'col-start-2',
-		1: 'col-start-3 row-start-2',
-		2: 'col-start-5 row-start-4',
+		1: 'col-start-4 row-start-3',
+		2: 'col-start-7 row-start-5',
 		3: 'col-start-7 row-start-6'
 	};
 </script>
 
 <Question title="River zone" question="In which river zone(s) did you sample?" direction="column">
-	<div class="relative grid grid-cols-12 h-96">
+	<div class="relative grid grid-cols-14 h-96">
 		<img src="/riverzone.svg" alt="" class="absolute h-80 bottom-0" />
 		{#each riverZones as { value, addition, label }, idx}
 			<label class={clsx('flex items-center gap-3', gridMap[idx])}>
