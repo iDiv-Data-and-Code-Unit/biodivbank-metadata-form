@@ -94,7 +94,10 @@
 		<MethodType />
 	</Section>
 
-	<Section title="Sampling scope">
+	<Section
+		title="Sampling scope"
+		description="If a specific list of target taxa was used in the survey, please upload it [here]."
+	>
 		<TargetedAndExcludedTaxa />
 		<OtherTargetedCategories />
 		<UnderRepresented />

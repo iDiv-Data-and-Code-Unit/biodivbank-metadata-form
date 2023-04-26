@@ -55,7 +55,7 @@
 
 <Question
 	question="What type of inventory process was involved? (Select all that apply)"
-	direction="grid"
+	direction="column"
 >
 	<div class="flex items-center gap-2 text-sm text-description col-span-full">
 		<span

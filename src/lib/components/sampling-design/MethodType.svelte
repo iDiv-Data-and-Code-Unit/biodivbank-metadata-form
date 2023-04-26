@@ -129,7 +129,7 @@
 	let selectedStep = 'Stage 1';
 </script>
 
-<Question question="How were the data obtained? (Select all that apply)" direction="grid">
+<Question question="How were the data obtained? (Select all that apply)" direction="column">
 	<div class="flex items-center gap-2 text-sm text-description col-span-full">
 		<span
 			on:click={() => {
