@@ -16,7 +16,7 @@
 			</div>
 		{/if}
 	</div>
-	<div class="col-start-2 col-span-2 grid grid-cols-2 gap-x-8 mb-8 last:mb-0 gap-y-4">
+	<div class="col-start-2 col-span-2 grid grid-cols-2 gap-x-8 mb-8 last:mb-0 gap-y-8">
 		<slot />
 	</div>
 </div>
