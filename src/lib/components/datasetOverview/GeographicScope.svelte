@@ -76,16 +76,19 @@
 			/>
 		</div> -->
 		<img class="col-span-2" src="/map.png" alt="" />
-		<Select
-			label="Field station"
-			placeholder="Select a field station..."
-			bind:value={$datasetOverview.fieldStation}
-			options={['Field station 1', 'Field station 2', 'Field station 3']}
-		/>
-		<TextInput
-			bind:value={$datasetOverview.fieldStationROR}
-			label="Field station ROR"
-			placeholder="Type the ROR ID here..."
-		/>
 	</div>
+</Question>
+<Question
+	question="Was the original work carried out at a named field station, ecological observatory or network?"
+>
+	<TextInput
+		label="Field station"
+		placeholder="E.g. Smithsonian Tropical Research Institute, Barro Colorado Island"
+		bind:value={$datasetOverview.fieldStation}
+	/>
+	<TextInput
+		bind:value={$datasetOverview.fieldStationROR}
+		label="Field station ROR"
+		placeholder="Type the ROR ID here..."
+	/>
 </Question>
