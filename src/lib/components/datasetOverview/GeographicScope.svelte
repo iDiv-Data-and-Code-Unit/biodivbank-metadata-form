@@ -80,6 +80,7 @@
 </Question>
 <Question
 	question="Was the original work carried out at a named field station, ecological observatory or network?"
+	direction="column"
 >
 	<TextInput
 		label="Field station"
