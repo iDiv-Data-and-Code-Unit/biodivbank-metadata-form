@@ -114,7 +114,7 @@ E.g. A single baited camera trap station with motion sensor trigger, deployed fo
 				rows={10}
 			/>
 		</Question>
-		<Question question="Was sampling effort identical for all sampling events?" direction="grid">
+		<Question question="Was sampling effort identical for all sampling events?" direction="column">
 			<Radio
 				label="Yes"
 				value="yes"
