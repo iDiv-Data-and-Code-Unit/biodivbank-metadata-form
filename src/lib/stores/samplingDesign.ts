@@ -26,6 +26,8 @@ const initialStore: SamplingDesign = {
 		stage3: []
 	},
 	effortIdentical: '',
+	effortVariation: '',
+	effortIntensity: '',
 	targetedAndExludedTaxa: {
 		targeted: '',
 		excluded: ''

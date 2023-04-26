@@ -92,6 +92,8 @@ export type SamplingDesign = {
 		stage3: string[];
 	};
 	effortIdentical: string;
+	effortVariation: string;
+	effortIntensity: string;
 	targetedAndExludedTaxa: {
 		targeted: string;
 		excluded: string;

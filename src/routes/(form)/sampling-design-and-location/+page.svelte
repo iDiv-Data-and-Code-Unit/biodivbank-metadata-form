@@ -103,6 +103,7 @@
 	<Section title="Sampling effort">
 		<Question question="Describe the intensity of sampling (i.e. effort)">
 			<Textarea
+				bind:value={$samplingDesign.effortIntensity}
 				placeholder="E.g. 40 box traps, deployed at even spacings along 4 parallel 100 m transects placed 50 m apart, and visited at 6-hourly intervals over a 48 hour period.
 E.g. Two people occupying a bird hide for a period of 8 hours and undertaking a 30-minute count of species within the 150 degree field of view every 2 hours.
 E.g. A single baited camera trap station with motion sensor trigger, deployed for a period of 10 days and configured for detecting large fauna moving through a known traffic way."
@@ -138,6 +139,7 @@ E.g. A single baited camera trap station with motion sensor trigger, deployed fo
 			/>
 			{#if $samplingDesign.effortIdentical === 'no'}
 				<Textarea
+					bind:value={$samplingDesign.effortVariation}
 					class="col-start-1 col-span-2"
 					placeholder="Please describe how effort varied between locations or at different points in time"
 					label=""

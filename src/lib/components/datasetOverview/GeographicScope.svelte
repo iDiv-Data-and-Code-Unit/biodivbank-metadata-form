@@ -10,32 +10,37 @@
 
 <Question direction="column" question="What is the geographic extent of the dataset?">
 	<Radio
-		group={$datasetOverview.spatialScope}
+		bind:group={$datasetOverview.spatialScope}
 		label="Local"
 		name="spatialScope"
-		value="local"
+		value="Local"
 		addition="subnational"
 	/>
 	<Radio
-		group={$datasetOverview.spatialScope}
+		bind:group={$datasetOverview.spatialScope}
 		label="National"
 		name="spatialScope"
-		value="national"
+		value="National"
 	/>
 	<Radio
-		group={$datasetOverview.spatialScope}
+		bind:group={$datasetOverview.spatialScope}
 		label="Regional"
 		name="spatialScope"
-		value="regional"
+		value="Regional"
 		addition="multinational"
 	/>
 	<Radio
-		group={$datasetOverview.spatialScope}
+		bind:group={$datasetOverview.spatialScope}
 		label="Continental"
 		name="spatialScope"
-		value="continental"
+		value="Continental"
 	/>
-	<Radio group={$datasetOverview.spatialScope} label="Global" name="spatialScope" value="global" />
+	<Radio
+		bind:group={$datasetOverview.spatialScope}
+		label="Global"
+		name="spatialScope"
+		value="Global"
+	/>
 	<div class="grid grid-cols-2 gap-8">
 		<div class="col-span-2" />
 		<Select
