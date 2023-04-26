@@ -3,6 +3,9 @@
 	import Question from '../formControls/Question.svelte';
 	import CheckboxGroup from '../CheckboxGroup.svelte';
 	import { samplingDesign } from '$lib/stores/samplingDesign';
+	import { step } from '$lib/stores/steps';
+	import ArrowLeft from '$lib/icons/ArrowLeft.svelte';
+	import ArrowRight from '$lib/icons/ArrowRight.svelte';
 
 	let stage1Inputs = [
 		{ label: 'Restricted search', value: 'restrictedSearch' },
@@ -132,4 +135,24 @@
 	{:else}
 		<p>No possible input</p>
 	{/if}
+	<div class="col-start-1 flex items-center gap-3">
+		{#if selectedStep !== 'Stage 1'}
+			<button
+				on:click={() => (selectedStep = steps[steps.findIndex((s) => s === selectedStep) - 1])}
+				class="bg-secondary text-white py-1 px-3 rounded-md flex items-center gap-1"
+			>
+				<ArrowLeft classes="h-4 w-4" />
+				{selectedStep === 'Stage 2' ? 'Stage 1' : 'Stage 2'}
+			</button>
+		{/if}
+		{#if selectedStep !== 'Stage 3'}
+			<button
+				on:click={() => (selectedStep = steps[steps.findIndex((s) => s === selectedStep) + 1])}
+				class="bg-secondary text-white py-1 px-3 rounded-md flex items-center gap-1"
+			>
+				{selectedStep === 'Stage 1' ? 'Stage 2' : 'Stage 3'}
+				<ArrowRight classes="h-4 w-4" />
+			</button>
+		{/if}
+	</div>
 </Question>
