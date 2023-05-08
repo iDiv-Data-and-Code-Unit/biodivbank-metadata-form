@@ -36,6 +36,8 @@
 	let isOpen = false;
 	let selectedAuthor: ListAuthor | null = null;
 
+	let notAvailable = false;
+
 	function addAuthor() {
 		authors = [
 			...authors,
@@ -242,12 +244,21 @@
 				options={countries.map((c) => c.en)}
 			/>
 		</div>
-		<TextInput
-			label="ROR ID"
-			placeholder="xxxxxxxxx"
-			pattern="'^0[a-z|0-9]{6}[0-9]{2}$"
-			errorMsg="Please enter a valid ROR ID."
-		/>
+		<div>
+			<TextInput
+				label="ROR ID"
+				placeholder="xxxxxxxxx"
+				pattern="'^0[a-z|0-9]{6}[0-9]{2}$"
+				errorMsg="Please enter a valid ROR ID."
+				disabled={notAvailable}
+			/>
+			<div class="mt-1">
+				<label class="text-sm mr-1"
+					><span>No ROR ID availbale?</span>
+					<input type="checkbox" class="ml-1 !w-4 !h-4" bind:checked={notAvailable} />
+				</label>
+			</div>
+		</div>
 	{/if}
 	<button
 		type="submit"

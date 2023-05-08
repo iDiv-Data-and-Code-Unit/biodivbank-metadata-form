@@ -18,7 +18,12 @@
 	};
 </script>
 
-<Question title="River zone" question="In which river zone(s) did you sample?" direction="column">
+<Question
+	title="River zone"
+	question="In which river zone(s) did you sample?"
+	direction="column"
+	helpText="Because you selected &quot;Rivers and streams&quot;"
+>
 	<div class="relative grid grid-cols-12 h-96">
 		<img src="/riverzone.svg" alt="" class="absolute h-80 bottom-0" />
 		{#each riverZones as { value, addition, label }, idx}

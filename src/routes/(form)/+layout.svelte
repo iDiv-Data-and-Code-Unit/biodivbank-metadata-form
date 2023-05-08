@@ -36,7 +36,12 @@
 					<span>{s}</span>
 				</a>
 				{#if idx < steps.length - 1}
-					<div class="h-1 bg-neutral-light w-32 rounded-lg" />
+					<div
+						class={clsx(
+							'h-1 w-32 rounded-lg',
+							$step >= idx + 2 ? 'bg-tertiary' : 'bg-neutral-light'
+						)}
+					/>
 				{/if}
 			</div>
 		{/each}

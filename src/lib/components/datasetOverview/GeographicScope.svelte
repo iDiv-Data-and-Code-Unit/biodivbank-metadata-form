@@ -6,6 +6,8 @@
 	import { datasetOverview } from '$lib/stores/datasetOverview';
 	import Radio from '$lib/components/Radio.svelte';
 	// import Radio from '$lib/components/Radio';
+
+	let notAvailable = false;
 </script>
 
 <Question direction="column" question="What is the geographic extent of the dataset?">
@@ -87,9 +89,18 @@
 		placeholder="E.g. Smithsonian Tropical Research Institute, Barro Colorado Island"
 		bind:value={$datasetOverview.fieldStation}
 	/>
-	<TextInput
-		bind:value={$datasetOverview.fieldStationROR}
-		label="Field station ROR"
-		placeholder="Type the ROR ID here..."
-	/>
+	<div>
+		<TextInput
+			bind:value={$datasetOverview.fieldStationROR}
+			label="ROR ID"
+			placeholder="xxxxxxxxx"
+			disabled={notAvailable}
+		/>
+		<div class="mt-1">
+			<label class="text-sm mr-1"
+				><span>No ROR ID availbale?</span>
+				<input type="checkbox" class="ml-1 !w-4 !h-4" bind:checked={notAvailable} />
+			</label>
+		</div>
+	</div>
 </Question>

@@ -114,7 +114,7 @@
 			errorMsg="Please enter a valid Crossref Funder ID (12 digits)"
 		/>
 		<label class="flex items-center gap-3">
-			<span class="text-sm shrink-0">No Crossref Funder ID</span>
+			<span class="text-sm shrink-0">No Crossref Funder ID available?</span>
 			<input type="checkbox" class="!h-4 !w-4" bind:checked={noFunderId} />
 		</label>
 	</div>

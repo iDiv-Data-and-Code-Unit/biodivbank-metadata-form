@@ -64,6 +64,11 @@
 					bind:group={$datasetOverview.transitionalRealms}
 					name="coreRealm"
 				/>
+				<div class="flex items-center">
+					{#each label.toLowerCase().split('-') as realm}
+						<img class="w-8 h-8 -ml-3 first:ml-0" src={`/${realm}.svg`} alt={realm} />
+					{/each}
+				</div>
 				<div class="flex flex-col">
 					<span class="text-sm">
 						{label}&nbsp;
