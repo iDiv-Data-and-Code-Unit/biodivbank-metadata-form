@@ -17,7 +17,7 @@
 		<img src="/crosssection.svg" alt="" class="absolute w-3/4" />
 		<label
 			class={clsx(
-				'absolute top-1 left-7 w-32 text-center',
+				'absolute top-1 left-7 text-center',
 				$samplingDesign.riverCrossSection.bank ? 'w-32' : 'w-10'
 			)}
 		>
