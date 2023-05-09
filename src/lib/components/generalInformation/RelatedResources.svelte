@@ -82,10 +82,12 @@
 			<div
 				class="bg-secondary-white py-4 px-6 text-subtle-text border border-interactive-surface grid grid-cols-3 items-center"
 			>
-				<div class="flex items-center gap-6">
+				<div class="flex items-center gap-6 font-medium">
 					<span class="text-black-text">{resource.type}</span>
 				</div>
-				<span class="justify-self-center">{resource.DOI}</span>
+				<span class="justify-self-center text-black-text"
+					><span class="text-subtle-text">doi:</span>{resource.DOI}</span
+				>
 				<div class="flex items-center gap-6 text-subtle-text justify-end">
 					<button type="button" on:click={() => openEdit(resource)}>
 						<Pen class="h-5 w-5" />
@@ -101,7 +103,7 @@
 	<div
 		class="flex items-center justify-center p-4 col-span-2 bg-secondary-white border border-dashed border-secondary-light text-secondary-light"
 	>
-		No resources added yet
+		No resource identifiers added yet
 	</div>
 {/if}
 <div class="bg-divider h-px col-span-2 my-4" />

@@ -24,7 +24,9 @@
 		{:else}
 			{#each $samplingDesign.underRepresented as ur}
 				<span class="text-description text-base">{ur.group}</span>
-				<span class="text-description text-base">{ur.reason}</span>
+				<span class="text-description text-base"
+					>{ur.reason.length >= 20 ? ur.reason.substring(0, 20) + '...' : ur.reason}</span
+				>
 				<div class="justify-self-end flex gap-4">
 					<button><Pen class="h-6 w-6 text-description" /></button>
 					<button

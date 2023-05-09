@@ -12,11 +12,12 @@
 		bind:value={$generalInformation.firstName}
 	/>
 	<TextInput
-		label="Initial(s)"
+		label="Middle initial(s)"
 		placeholder="M. L."
 		pattern={'^ *?[A-Z]\\.(\\s[A-Z]\\.)* *?$'}
-		errorMsg="Please enter initials in capitals separated \nby a dot and a space. Eg: E. G."
+		errorMsg="Please enter initials in capitals separated by a dot and a space. Eg: E. G."
 		bind:value={$generalInformation.initials}
+		class="w-2/5"
 	/>
 	<TextInput
 		label="Family name(s)"

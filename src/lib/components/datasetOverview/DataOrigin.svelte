@@ -8,14 +8,15 @@
 
 	let sources = [
 		{ label: 'Field survey', value: 'fieldSurvey' },
-		{ label: 'Remote sensing', value: 'remoteSensing' },
+		{ label: 'Museum/herbarium specimens', value: 'museumCollection' },
 		{ label: 'Field experiment', value: 'fieldExperiment' },
-		{ label: 'Sensor platform', value: 'sensorPlatform' },
+		{ label: 'Literature-based research', value: 'literatureBasedResearch' },
+		// { label: 'Sensor platform', value: 'sensorPlatform' },
 		{ label: 'Laboratory experiment', value: 'laboratoryExperiment' },
-		{ label: 'Environmental DNA', value: 'environmentalDNA' },
-		{ label: 'Museum collection', value: 'museumCollection' },
+		{ label: 'Expert knowledge', value: 'expertKnowledge' },
+		{ label: 'Remote sensing', value: 'remoteSensing' },
 		{ label: 'Other', value: 'other' },
-		{ label: 'Literature-based research', value: 'literatureBasedResearch' }
+		{ label: 'Environmental DNA', value: 'environmentalDNA' }
 	];
 </script>
 

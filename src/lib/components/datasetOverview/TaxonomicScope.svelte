@@ -21,6 +21,7 @@
 	<Kingdoms />
 	<!-- {:else if step === 2} -->
 	<div class="grid col-start-2 gap-8">
+		<!-- <h3>Indicate the subcategories of taxa represente</h3> -->
 		<Phylum />
 	</div>
 	<!-- {:else if step === 3} -->

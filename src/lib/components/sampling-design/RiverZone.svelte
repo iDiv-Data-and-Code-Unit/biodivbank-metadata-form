@@ -24,19 +24,59 @@
 	direction="column"
 	helpText="Because you selected &quot;Rivers and streams&quot;"
 >
-	<div class="relative grid grid-cols-12 h-96">
+	<div class="relative h-96">
 		<img src="/riverzone.svg" alt="" class="absolute h-80 bottom-0" />
-		{#each riverZones as { value, addition, label }, idx}
-			<label class={clsx('flex items-center gap-3', gridMap[idx])}>
-				<input type="checkbox" {value} bind:group={$samplingDesign.riverZone} name="riverZone" />
-				<span class="text-sm shrink-0">
-					{label}&nbsp;
-					{#if addition}
-						<span class="text-description text-xs">({addition})</span>
-					{/if}
-				</span>
-			</label>
-		{/each}
+		<!-- {#each riverZones as { value, addition, label }, idx} -->
+		<!-- 1 -->
+		<label class={clsx('flex items-center gap-3 absolute top-8 left-24')}>
+			<input
+				type="checkbox"
+				value="sourceZone"
+				bind:group={$samplingDesign.riverZone}
+				name="riverZone"
+			/>
+			<span class="text-sm shrink-0">
+				Source zone&nbsp;
+				<span class="text-description text-xs">(crenon)</span>
+			</span>
+		</label>
+		<!-- 2 -->
+		<label class={clsx('flex items-center gap-3 absolute top-40 left-52')}>
+			<input
+				type="checkbox"
+				value="upstream"
+				bind:group={$samplingDesign.riverZone}
+				name="riverZone"
+			/>
+			<span class="text-sm shrink-0">
+				Upstream / transition zone&nbsp;
+				<span class="text-description text-xs">(rhithron)</span>
+			</span>
+		</label>
+		<!-- 3 -->
+		<label class={clsx('flex items-center gap-3 absolute bottom-28 right-40')}>
+			<input
+				type="checkbox"
+				value="downstream"
+				bind:group={$samplingDesign.riverZone}
+				name="riverZone"
+			/>
+			<span class="text-sm shrink-0">
+				Downstream / floodplain zone&nbsp;
+				<span class="text-description text-xs">(potamon)</span>
+			</span>
+		</label>
+		<!-- 4 -->
+		<label class={clsx('flex items-center gap-3 absolute bottom-0 right-80')}>
+			<input
+				type="checkbox"
+				value="mouth"
+				bind:group={$samplingDesign.riverZone}
+				name="riverZone"
+			/>
+			<span class="text-sm shrink-0"> Mouth </span>
+		</label>
+		<!-- {/each} -->
 	</div>
 	<div class="flex flex-col gap-2">
 		<label class="flex items-center gap-3">

@@ -41,7 +41,7 @@
 <Question
 	question="Was a particular sex, age class or life stage, growth form, etc, specifically targeted for sampling? Were any groups intentionally excluded from sampling?"
 	helpText="Multiple examples of a category can be entered in the textbox; separate the words or phrases using a comma."
-	direction="grid"
+	direction="column"
 >
 	<CheckboxGroup
 		name="Category"
