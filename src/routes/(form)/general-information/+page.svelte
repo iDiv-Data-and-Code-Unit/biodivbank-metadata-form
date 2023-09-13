@@ -1,16 +1,14 @@
 <script lang="ts">
 	import Section from '$lib/components/formControls/Section.svelte';
 	import StepTitle from '$lib/components/formControls/StepTitle.svelte';
+	import DatasetCreators from '$lib/components/generalInformation/DatasetCreators.svelte';
+	import DatasetFunders from '$lib/components/generalInformation/DatasetFunders.svelte';
+	import DatasetMetadata from '$lib/components/generalInformation/DatasetMetadata.svelte';
+	import Institution from '$lib/components/generalInformation/Institution.svelte';
 	import PersonalInformation from '$lib/components/generalInformation/PersonalInformation.svelte';
+	import RelatedResources from '$lib/components/generalInformation/RelatedResources.svelte';
 	import { step } from '$lib/stores/steps';
 	import { onMount } from 'svelte';
-	import Institution from '$lib/components/generalInformation/Institution.svelte';
-	import DatasetMetadata from '$lib/components/generalInformation/DatasetMetadata.svelte';
-	import { generalInformation } from '$lib/stores/generalInformation';
-	import DatasetCreators from '$lib/components/generalInformation/DatasetCreators.svelte';
-	import Handle from '$lib/icons/Handle.svelte';
-	import DatasetFunders from '$lib/components/generalInformation/DatasetFunders.svelte';
-	import RelatedResources from '$lib/components/generalInformation/RelatedResources.svelte';
 
 	onMount(() => {
 		step.set(1);
