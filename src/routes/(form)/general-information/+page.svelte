@@ -9,6 +9,14 @@
 	import RelatedResources from '$lib/components/generalInformation/RelatedResources.svelte';
 	import { step } from '$lib/stores/steps';
 	import { onMount } from 'svelte';
+	import type { PageData } from './$types';
+	import { superForm } from 'sveltekit-superforms/client';
+	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
+	import { testSchema } from './+page.server';
+
+	export let data: PageData;
+
+	const { form } = superForm(data.form);
 
 	onMount(() => {
 		step.set(1);
@@ -16,6 +24,12 @@
 </script>
 
 <StepTitle title="General information" />
+
+<Form.Root form={data.form} schema={testSchema} method="POST" let:config debug={true}>
+	<Form.Field {config} name="name" />
+	<Form.Field {config} name="email" />
+</Form.Root>
+<SuperDebug data={$form} />
 
 <div class="space-y-32">
 	<Section
