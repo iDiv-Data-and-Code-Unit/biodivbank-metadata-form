@@ -1,12 +1,10 @@
 <script lang="ts">
-	import Pen from '$lib/icons/Pen.svelte';
-	import Plus from '$lib/icons/Plus.svelte';
-	import Trash from '$lib/icons/Trash.svelte';
 	import { generalInformation } from '$lib/stores/generalInformation';
 	import type { Resource } from '$lib/types/schema';
 	import { nanoid } from 'nanoid';
 	import Select from '../Select.svelte';
 	import TextInput from '../TextInput.svelte';
+	import Icon from '@iconify/svelte';
 
 	let resourceTypes = [
 		'Journal article',
@@ -90,10 +88,10 @@
 				>
 				<div class="flex items-center gap-6 text-subtle-text justify-end">
 					<button type="button" on:click={() => openEdit(resource)}>
-						<Pen class="h-5 w-5" />
+						<Icon icon="heroicons:pencil" class="h-5 w-5" />
 					</button>
 					<button type="button" on:click={() => removeResource(resource.id)}>
-						<Trash class="h-5 w-5" />
+						<Icon icon="heroicons:trash" class="h-5 w-5" />
 					</button>
 				</div>
 			</div>
@@ -108,7 +106,7 @@
 {/if}
 <div class="bg-divider h-px col-span-2 my-4" />
 <form
-	class="flex flex-col col-span-2  gap-4"
+	class="flex flex-col col-span-2 gap-4"
 	on:submit|preventDefault={addResource}
 	bind:this={formEl}
 >
@@ -135,7 +133,7 @@
 		type="submit"
 		class="text-sm shadow-md text-white bg-secondary p-2 mt-3 pr-4 self-start col-span-1 rounded-md flex items-center gap-5"
 	>
-		<Plus />
+		<Icon icon="heroicons:plus" class="h-6 w-6" />
 		Add Resource
 	</button>
 </form>

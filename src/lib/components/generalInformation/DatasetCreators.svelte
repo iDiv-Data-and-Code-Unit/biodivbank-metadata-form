@@ -1,20 +1,15 @@
 <script lang="ts">
-	import Pen from '$lib/icons/Pen.svelte';
-	import Trash from '$lib/icons/Trash.svelte';
 	import { nanoid } from 'nanoid';
 	import EditModal from './EditModal.svelte';
 	import TextInput from '../TextInput.svelte';
 	import { flip } from 'svelte/animate';
 	import clsx from 'clsx';
-	import Handle from '$lib/icons/Handle.svelte';
-	import Plus from '$lib/icons/Plus.svelte';
 	import OrcId from '../OrcId.svelte';
-	import type { ListAuthor, Author } from '$lib/types/author';
+	import type { ListAuthor } from '$lib/types/author';
 	import { generalInformation } from '$lib/stores/generalInformation';
-	import Star from '$lib/icons/Star.svelte';
-	import StarOutline from '$lib/icons/StarOutline.svelte';
 	import Select from '../Select.svelte';
 	import countries from './countries.json';
+	import Icon from '@iconify/svelte';
 
 	let authors = $generalInformation.authors;
 
@@ -77,7 +72,7 @@
 	let target: EventTarget | null = null;
 	let hovering: number | null = null;
 
-	function dragStart(event: DragEvent, idx: number, author: Author) {
+	function dragStart(event: DragEvent, idx: number) {
 		if (target instanceof Element && target?.id.startsWith('handle')) {
 			if (event.dataTransfer) {
 				event.dataTransfer.effectAllowed = 'move';
@@ -124,11 +119,13 @@
 				on:mousedown={(e) => {
 					target = e.target;
 				}}
+				role="button"
+				tabindex={idx}
 				animate:flip
 				draggable={true}
-				on:dragstart={(e) => dragStart(e, idx, author)}
+				on:dragstart={(e) => dragStart(e, idx)}
 				on:dragover|preventDefault
-				on:dragenter={(e) => {
+				on:dragenter={() => {
 					hovering = idx;
 				}}
 				on:drop|preventDefault={(e) => drop(e, idx)}
@@ -139,13 +136,13 @@
 			>
 				<div class="flex items-center gap-6">
 					<div id="handle">
-						<Handle />
+						<Icon icon="radix-icons:drag-handle-dots-2" id="handle-path" class="h-6 w-6" />
 					</div>
 					<span>
 						{#if author.primaryContact}
-							<Star class="h-6 w-6 text-secondary" />
+							<Icon icon="heroicons:star-solid" class="h-6 w-6 text-secondary" />
 						{:else}
-							<StarOutline class="h-6 w-6 text-secondary" />
+							<Icon icon="heroicons:star" class="h-6 w-6 text-secondary" />
 						{/if}
 					</span>
 					<span class="text-black-text"
@@ -157,10 +154,10 @@
 				>
 				<div class="flex items-center gap-6 text-subtle-text justify-end">
 					<button type="button" on:click={() => openEdit(author)}>
-						<Pen class="h-5 w-5" />
+						<Icon icon="heroicons:pencil" class="h-5 w-5" />
 					</button>
 					<button type="button" on:click={() => removeAuthor(author.id)}>
-						<Trash class="h-5 w-5" />
+						<Icon icon="heroicons:trash" class="h-5 w-5" />
 					</button>
 				</div>
 			</div>
@@ -179,7 +176,7 @@
 {/if}
 <div class="bg-divider h-px col-span-2 my-4" />
 <form
-	class="flex flex-col col-span-2  gap-4"
+	class="flex flex-col col-span-2 gap-4"
 	on:submit|preventDefault={addAuthor}
 	bind:this={formEl}
 >
@@ -264,7 +261,7 @@
 		type="submit"
 		class="text-sm shadow-md text-white bg-secondary p-2 mt-3 pr-4 self-start col-span-1 rounded-md flex items-center gap-5"
 	>
-		<Plus />
+		<Icon icon="heroicons:plus" class="h-6 w-6" />
 		Add Author
 	</button>
 </form>

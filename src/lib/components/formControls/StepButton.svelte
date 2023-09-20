@@ -1,7 +1,6 @@
 <script lang="ts">
-	import ChevronLeft from '$lib/icons/ChevronLeft.svelte';
-	import ChevronRight from '$lib/icons/ChevronRight.svelte';
 	import { step } from '$lib/stores/steps';
+	import Icon from '@iconify/svelte';
 
 	export let direction: 'prev' | 'next';
 </script>
@@ -11,8 +10,9 @@
 	disabled={direction === 'prev' ? $step === step.min : $step === step.max}
 	class="h-14 w-14 rounded-2xl shadow-md bg-secondary flex items-center justify-center text-white disabled:bg-gray-400"
 	>{#if direction === 'prev'}
-		<ChevronLeft />
+		<Icon icon="heroicons:chevron-left" class="h-6 w-6" />
+		<!--		<ChevronLeft />-->
 	{:else}
-		<ChevronRight />
+		<Icon icon="heroicons:chevron-right" class="h-6 w-6" />
 	{/if}</button
 >

@@ -12,13 +12,8 @@
 	import { step } from '$lib/stores/steps';
 	import { onMount } from 'svelte';
 	import Radio from '$lib/components/Radio.svelte';
-	import CheckboxGroup from '$lib/components/CheckboxGroup.svelte';
-	import clsx from 'clsx';
 	import InventoryProcess from '$lib/components/sampling-design/InventoryProcess.svelte';
 	import MethodType from '$lib/components/sampling-design/MethodType.svelte';
-	import TextInput from '$lib/components/TextInput.svelte';
-	import Select from '$lib/components/Select.svelte';
-	import Plus from '$lib/icons/Plus.svelte';
 	import TargetedAndExcludedTaxa from '$lib/components/sampling-design/TargetedAndExcludedTaxa.svelte';
 	import OtherTargetedCategories from '$lib/components/sampling-design/OtherTargetedCategories.svelte';
 	import UnderRepresented from '$lib/components/sampling-design/UnderRepresented.svelte';

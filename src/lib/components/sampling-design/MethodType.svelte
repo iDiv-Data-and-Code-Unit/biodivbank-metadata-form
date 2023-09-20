@@ -3,8 +3,7 @@
 	import Question from '../formControls/Question.svelte';
 	import CheckboxGroup from '../CheckboxGroup.svelte';
 	import { samplingDesign } from '$lib/stores/samplingDesign';
-	import ArrowLeft from '$lib/icons/ArrowLeft.svelte';
-	import ArrowRight from '$lib/icons/ArrowRight.svelte';
+	import Icon from '@iconify/svelte';
 
 	let stage1Inputs = [
 		{ label: 'Human / direct observation', value: 'human' },
@@ -272,7 +271,7 @@
 				on:click={() => (selectedStep = steps[steps.findIndex((s) => s === selectedStep) - 1])}
 				class="bg-secondary text-white py-1 px-3 rounded-md flex items-center gap-1"
 			>
-				<ArrowLeft classes="h-4 w-4" />
+				<Icon icon="heroicons:arrow-left" class="h-4 w-4" />
 				Back
 			</button>
 		{/if}
@@ -282,7 +281,8 @@
 				class="bg-secondary text-white py-1 px-3 rounded-md flex items-center gap-1"
 			>
 				Next
-				<ArrowRight classes="h-4 w-4" />
+
+				<Icon icon="heroicons:arrow-right" class="h-4 w-4" />
 			</button>
 		{/if}
 	</div>

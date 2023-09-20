@@ -1,7 +1,6 @@
 <script lang="ts">
-	import CheckIcon from '$lib/icons/Check.svelte';
-	import CrossIcon from '$lib/icons/Cross.svelte';
 	import Spinner from '$lib/icons/Spinner.svelte';
+	import Icon from '@iconify/svelte';
 
 	type ValidityStatus = 'neutral' | 'invalid' | 'valid' | 'loading' | 'invalidated' | 'validated';
 
@@ -108,13 +107,13 @@
 				class:hidden={!(validityStatus === 'validated')}
 				class="absolute flex items-center right-0 inset-y-0"
 			>
-				<CheckIcon classes="transition w-8 h-8 text-primary scale-[65%]" />
+				<Icon icon="heroicons:check" class="transition w-8 h-8 text-primary scale-[65%]" />
 			</span>
 			<span
 				class:hidden={!(validityStatus === 'invalidated')}
 				class="absolute flex items-center right-0 inset-y-0"
 			>
-				<CrossIcon classes="transition w-8 h-8 text-error scale-[65%]" />
+				<Icon icon="heroicons:x-mark" class="transition w-8 h-8 text-error scale-[65%]" />
 			</span>
 			<input
 				id={name}

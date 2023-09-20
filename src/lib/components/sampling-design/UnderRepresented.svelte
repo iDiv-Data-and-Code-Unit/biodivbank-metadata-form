@@ -1,10 +1,8 @@
 <script lang="ts">
-	import Pen from '$lib/icons/Pen.svelte';
-	import Plus from '$lib/icons/Plus.svelte';
-	import Trash from '$lib/icons/Trash.svelte';
 	import { samplingDesign } from '$lib/stores/samplingDesign';
 	import TextInput from '../TextInput.svelte';
 	import Question from '../formControls/Question.svelte';
+	import Icon from '@iconify/svelte';
 
 	let group = '';
 	let reason = '';
@@ -28,14 +26,14 @@
 					>{ur.reason.length >= 20 ? ur.reason.substring(0, 20) + '...' : ur.reason}</span
 				>
 				<div class="justify-self-end flex gap-4">
-					<button><Pen class="h-6 w-6 text-description" /></button>
+					<button><Icon icon="heroicons:pencil" class="h-6 w-6 text-description" /></button>
 					<button
 						on:click={() => {
 							samplingDesign.update((sd) => {
 								sd.underRepresented = sd.underRepresented.filter((u) => u !== ur);
 								return sd;
 							});
-						}}><Trash class="h-6 w-6 text-description" /></button
+						}}><Icon icon="heroicons:trash" class="h-6 w-6 text-description" /></button
 					>
 				</div>
 			{/each}
@@ -61,6 +59,6 @@
 			});
 			group = '';
 			reason = '';
-		}}><Plus /></button
+		}}><Icon icon="heroicons:plus" class="h-6 w-6" /></button
 	>
 </Question>

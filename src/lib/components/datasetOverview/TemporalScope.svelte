@@ -1,7 +1,7 @@
 <script lang="ts">
-	import ArrowDown from '$lib/icons/ArrowDown.svelte';
 	import clsx from 'clsx';
 	import Question from '../formControls/Question.svelte';
+	import Icon from '@iconify/svelte';
 
 	let months = [
 		'January',
@@ -51,7 +51,7 @@
 			/>
 		</div>
 	</div>
-	<ArrowDown classes="h-6 w-6" />
+	<Icon icon="heroicons:arrow-down" class="h-6 w-6" />
 	<div class="w-full">
 		<div class="flex gap-4 items-center">
 			<h4 class="shrink-0">End date</h4>

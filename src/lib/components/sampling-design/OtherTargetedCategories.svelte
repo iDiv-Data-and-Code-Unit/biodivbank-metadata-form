@@ -1,10 +1,8 @@
 <script lang="ts">
 	import TextInput from '../TextInput.svelte';
-	import Select from '../Select.svelte';
 	import Question from '../formControls/Question.svelte';
-	import Plus from '$lib/icons/Plus.svelte';
 	import CheckboxGroup from '../CheckboxGroup.svelte';
-	import { samplingDesign } from '../../stores/samplingDesign';
+	import { samplingDesign } from '$lib/stores/samplingDesign';
 
 	const inputs = [
 		{ label: 'Sex', value: 'sex' },
