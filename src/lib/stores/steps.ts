@@ -3,7 +3,7 @@ import { writable } from 'svelte/store';
 function createSteps() {
 	const { subscribe, update, set } = writable(1);
 	const min = 1;
-	const max = 5;
+	const max = 4;
 
 	return {
 		subscribe,
@@ -16,13 +16,3 @@ function createSteps() {
 }
 
 export const step = createSteps();
-
-
-
-
-
-
-
-
-
-
