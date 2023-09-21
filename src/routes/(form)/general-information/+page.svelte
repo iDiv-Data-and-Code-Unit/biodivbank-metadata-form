@@ -11,12 +11,11 @@
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
-	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
-	import { testSchema } from './+page.server';
+	import { testSchema } from '$lib/schemas/generalInformation';
+	import { Form } from 'formsnap';
+	import TextInput from '$lib/components/forms/TextInput.svelte';
 
 	export let data: PageData;
-
-	const { form } = superForm(data.form);
 
 	onMount(() => {
 		step.set(1);
@@ -25,11 +24,25 @@
 
 <StepTitle title="General information" />
 
-<Form.Root form={data.form} schema={testSchema} method="POST" let:config debug={true}>
-	<Form.Field {config} name="name" />
-	<Form.Field {config} name="email" />
+<Form.Root
+	form={data.form}
+	schema={testSchema}
+	method="POST"
+	let:config
+	debug={true}
+	id="general-information"
+>
+	<Form.Field {config} name="name">
+		<TextInput label="Name" description="blah" />
+	</Form.Field>
+	<Form.Field {config} name="email">
+		<Form.Label>Email</Form.Label>
+		<Form.Input />
+		<Form.Description>Use your company email if you have one.</Form.Description>
+		<Form.Validation />
+	</Form.Field>
+	<button type="submit">Submit</button>
 </Form.Root>
-<SuperDebug data={$form} />
 
 <div class="space-y-32">
 	<Section
