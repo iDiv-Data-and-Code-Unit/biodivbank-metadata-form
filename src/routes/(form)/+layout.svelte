@@ -7,6 +7,7 @@
 
 	const steps = [
 		'/general-information',
+		'/general-information-new',
 		'/dataset-overview',
 		'/sampling-design-and-location',
 		'/review'

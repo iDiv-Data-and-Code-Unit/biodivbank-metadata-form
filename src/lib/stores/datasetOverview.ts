@@ -3,8 +3,8 @@ import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
 
 const initialStore: DatasetOverview = {
-	originalOrCompiledDataset: '',
-	currentOrLegacyDataset: '',
+	originalOrCompiledDataset: 'singleSource',
+	currentOrLegacyDataset: 'current',
 	dataSource: [],
 	temporalScopeStart: '',
 	temporalScopeEnd: '',

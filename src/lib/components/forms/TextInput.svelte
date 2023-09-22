@@ -12,10 +12,7 @@
 	export let label: string;
 	export let leading = '';
 
-	const { attrStore, hasValidation, value } = getFormField();
-
-	$: console.log($attrStore);
-	$: console.log($hasValidation);
+	const { attrStore } = getFormField();
 </script>
 
 <div class="flex flex-col">
@@ -43,5 +40,5 @@
 			{...$$restProps}
 		/>
 	</div>
-	<Form.Validation />
+	<Form.Validation class="text-error" />
 </div>
