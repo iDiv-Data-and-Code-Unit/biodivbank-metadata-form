@@ -33,7 +33,7 @@
 	/>
 	<div class="mt-1">
 		<label class="text-sm mr-1"
-			><span>No ROR ID availbale?</span>
+			><span>No ROR ID available?</span>
 			<input type="checkbox" class="ml-1 !w-4 !h-4" bind:checked={notAvailable} />
 		</label>
 	</div>

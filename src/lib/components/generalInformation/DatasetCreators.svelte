@@ -179,7 +179,7 @@
 {/if}
 <div class="bg-divider h-px col-span-2 my-4" />
 <form
-	class="flex flex-col col-span-2  gap-4"
+	class="flex flex-col col-span-2 gap-4"
 	on:submit|preventDefault={addAuthor}
 	bind:this={formEl}
 >
@@ -254,7 +254,7 @@
 			/>
 			<div class="mt-1">
 				<label class="text-sm mr-1"
-					><span>No ROR ID availbale?</span>
+					><span>No ROR ID available?</span>
 					<input type="checkbox" class="ml-1 !w-4 !h-4" bind:checked={notAvailable} />
 				</label>
 			</div>
