@@ -56,7 +56,7 @@
 		<input
 			bind:this={el}
 			class={clsx(
-				'bg-input px-4 py-3 border-none w-full placeholder:text-placeholder disabled:bg-input-disabled',
+				'bg-input px-4 py-3 border-none w-full placeholder:text-placeholder/50 disabled:bg-input-disabled',
 				leading ? 'rounded-r-md' : 'rounded-md'
 			)}
 			{placeholder}
