@@ -22,7 +22,10 @@
 		<span class="text-xs text-subtle-text">{helpText}</span>
 	{/if}
 	<select
-		class={clsx('bg-input rounded-md px-4 py-3 border-none w-full', !value && 'text-placeholder')}
+		class={clsx(
+			'bg-input rounded-md px-4 py-3 border-none w-full',
+			!value && 'text-placeholder/50'
+		)}
 		{required}
 		bind:value
 	>
