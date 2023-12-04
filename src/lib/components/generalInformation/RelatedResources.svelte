@@ -45,11 +45,28 @@
 	let isOpen = false;
 	let selectedResource: Resource | null = null;
 
-	function addResource() {
+	let error: string | null = null;
+
+	async function addResource() {
 		let resourceType = type;
 		if (type === 'Other') {
 			resourceType = otherType;
 		}
+
+		try {
+			const res = await fetch(`https://doi.org/api/handles/${DOI}`);
+			const json = await res.json();
+			console.log(json);
+			if (json.responseCode === 100) {
+				error = 'DOI not found';
+				return;
+			}
+		} catch (error) {
+			console.log(error);
+			error = 'Unexpected Error';
+			return;
+		}
+
 		resources = [...resources, { id: nanoid(), type: resourceType, DOI }];
 		formEl.reset();
 		nameEl.focus();
@@ -86,7 +103,11 @@
 					<span class="text-black-text">{resource.type}</span>
 				</div>
 				<span class="justify-self-center text-black-text"
-					><span class="text-subtle-text">doi:</span>{resource.DOI}</span
+					><span class="text-subtle-text">doi:</span><a
+						class="underline"
+						target="_blank"
+						href={`https://doi.org/${resource.DOI}`}>{resource.DOI}</a
+					></span
 				>
 				<div class="flex items-center gap-6 text-subtle-text justify-end">
 					<button type="button" on:click={() => openEdit(resource)}>
@@ -108,7 +129,7 @@
 {/if}
 <div class="bg-divider h-px col-span-2 my-4" />
 <form
-	class="flex flex-col col-span-2  gap-4"
+	class="flex flex-col col-span-2 gap-4"
 	on:submit|preventDefault={addResource}
 	bind:this={formEl}
 >
@@ -130,6 +151,9 @@
 		label="DOI"
 		leading="https://doi.org/"
 	/>
+	{#if error}
+		<p class="text-error text-sm">{error}</p>
+	{/if}
 
 	<button
 		type="submit"

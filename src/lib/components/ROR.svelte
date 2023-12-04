@@ -8,7 +8,7 @@
 
 	export let placeholder: string;
 	export let maxLength: number;
-	export let pattern: string;
+	export let pattern: string | undefined = undefined;
 	export let validatedMsg: string;
 	export let invalidatedErrorMsg: string;
 	export let invalidInputErrorMsg: string;
@@ -27,16 +27,16 @@
 		let e = event as InputEvent;
 		let el = event.currentTarget as HTMLInputElement;
 
-		let foo = el.value.split('-').join('');
+		// let foo = el.value.split('-').join('');
 
-		if (el.value.length === 19) {
+		if (el.value.length === 9) {
 			el.classList.add('intermediary-validation');
 			validityStatus = 'valid';
 
 			// validate against api
 			validityStatus = 'loading';
 
-			let orcIdUserUrl = 'https://pub.orcid.org/v3.0/' + el.value;
+			let orcIdUserUrl = 'https://api.ror.org/organizations/' + el.value;
 
 			const requestObj = new Request(orcIdUserUrl, {
 				method: 'GET',
@@ -49,8 +49,9 @@
 					validityStatus = 'validated';
 					const json = await res.json();
 					console.log(json);
-					$generalInformation.firstName = json.person.name['given-names'].value;
-					$generalInformation.familyName = json.person.name['family-name'].value;
+					$generalInformation.institutionName = json.name;
+					console.log(json.country.country_name);
+					$generalInformation.institutionCountry = json.country.country_name;
 					// console.log(
 					// 	json.person.name['given-names'].value + ' ' + json.person.name['family-name'].value
 					// );
@@ -71,9 +72,9 @@
 		if (e.data === '-') return;
 
 		//automatically adds a hyphon while user is typing
-		if (foo.length > 0) {
-			el.value = foo.match(new RegExp('.{1,4}', 'g'))?.join('-') as string;
-		}
+		// if (foo.length > 0) {
+		// 	el.value = foo.match(new RegExp('.{1,4}', 'g'))?.join('-') as string;
+		// }
 	};
 
 	const handleChange = (event: Event) => {
@@ -104,7 +105,7 @@
 	<section>
 		<label class="relative">
 			<span class="absolute inset-y-0 flex items-center pl-2">
-				<img inert={true} class="w-4 h-4" src="orcid_16x16.webp" alt="orcId Icon" />
+				<img inert={true} class="h-4" src="ROR.png" alt="orcId Icon" />
 			</span>
 			<span
 				class:hidden={!(validityStatus === 'loading')}
@@ -132,7 +133,7 @@
 				maxlength={maxLength}
 				{pattern}
 				disabled={notAvailable}
-				class="bg-input disabled:bg-input-disabled px-8 rounded-md py-3 border-none w-full placeholder:text-placeholder/50"
+				class="bg-input disabled:bg-input-disabled px-8 rounded-md py-3 pl-10 border-none w-full placeholder:text-placeholder/50"
 				on:change={handleChange}
 				on:input={handleInput}
 			/>
