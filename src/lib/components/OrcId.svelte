@@ -124,7 +124,7 @@
 				maxlength={maxLength}
 				{pattern}
 				disabled={notAvailable}
-				class="bg-input disabled:bg-input-disabled px-8 rounded-md py-3 border-none w-full"
+				class="bg-input disabled:bg-input-disabled px-8 rounded-md py-3 border-none w-full placeholder:text-placeholder/50"
 				on:change={handleChange}
 				on:input={handleInput}
 			/>

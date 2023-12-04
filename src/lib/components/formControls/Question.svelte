@@ -11,7 +11,7 @@
 	<h4 class="font-medium text-lg">{title}</h4>
 {/if}
 {#if question}
-	<h5 class="text-description col-span-2">
+	<h5 class="col-span-2">
 		{question}
 	</h5>
 {/if}
