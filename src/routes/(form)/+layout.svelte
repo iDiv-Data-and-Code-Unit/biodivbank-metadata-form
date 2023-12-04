@@ -52,7 +52,7 @@
 	<slot />
 </main>
 
-<div class="flex fixed bottom-10 justify-center inset-x-0 gap-5">
+<div class="flex fixed bottom-5 justify-end inset-x-5 gap-3">
 	<StepButton direction="prev" />
 	<StepButton direction="next" />
 </div>

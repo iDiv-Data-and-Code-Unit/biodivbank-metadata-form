@@ -9,7 +9,7 @@
 <button
 	on:click={direction === 'prev' ? step.prev : step.next}
 	disabled={direction === 'prev' ? $step === step.min : $step === step.max}
-	class="h-14 w-14 rounded-2xl shadow-md bg-secondary flex items-center justify-center text-white disabled:bg-gray-400"
+	class="h-10 w-10 rounded-2xl shadow-md bg-secondary flex items-center justify-center text-white disabled:bg-gray-400"
 	>{#if direction === 'prev'}
 		<ChevronLeft />
 	{:else}
