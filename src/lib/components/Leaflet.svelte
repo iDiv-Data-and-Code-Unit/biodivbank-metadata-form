@@ -57,7 +57,7 @@
 					opacity: 1,
 					weight: 1,
 					fillColor: '#35495d',
-					fillOpacity: 0.8
+					fillOpacity: 0.3
 				};
 			},
 			onEachFeature: function (feature, layer) {
