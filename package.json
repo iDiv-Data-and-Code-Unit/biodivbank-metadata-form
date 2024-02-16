@@ -42,6 +42,7 @@
 		"@fontsource/inter": "^4.5.15",
 		"@rgossiaux/svelte-headlessui": "^1.0.2",
 		"clsx": "^1.2.1",
+		"csv-parse": "^5.5.3",
 		"just-safe-set": "^4.2.1",
 		"leaflet": "^1.9.4",
 		"maplibre-gl": "^3.6.2",

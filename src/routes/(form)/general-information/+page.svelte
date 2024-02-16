@@ -11,10 +11,16 @@
 	import Handle from '$lib/icons/Handle.svelte';
 	import DatasetFunders from '$lib/components/generalInformation/DatasetFunders.svelte';
 	import RelatedResources from '$lib/components/generalInformation/RelatedResources.svelte';
+	import type { ActionData, PageData } from './$types';
+
+	export let data: PageData;
+	export let form: ActionData;
 
 	onMount(() => {
 		step.set(1);
 	});
+
+	$: console.log({ data, form });
 </script>
 
 <StepTitle title="General information" />
@@ -48,7 +54,7 @@
 			'Note that the creators of a dataset are <span class="font-medium text-black">not</span> necessarily the same as the authors of an article or report based on that dataset. This is an opportunity to give credit to those who generated the data.'
 		]}
 	>
-		<DatasetCreators />
+		<DatasetCreators importedAuthors={form?.authors} />
 	</Section>
 
 	<Section

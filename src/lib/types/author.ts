@@ -9,3 +9,10 @@ export interface ListAuthor extends Author {
 	orcId: string | null;
 	primaryContact: boolean;
 }
+
+export type ImportAuthor = {
+	firstName: string;
+	initials?: string;
+	familyName: string;
+	orcId?: string;
+};

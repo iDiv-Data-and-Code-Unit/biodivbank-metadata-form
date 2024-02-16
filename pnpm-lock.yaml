@@ -14,6 +14,9 @@ dependencies:
   clsx:
     specifier: ^1.2.1
     version: 1.2.1
+  csv-parse:
+    specifier: ^5.5.3
+    version: 5.5.3
   just-safe-set:
     specifier: ^4.2.1
     version: 4.2.1
@@ -1013,6 +1016,10 @@ packages:
     engines: {node: '>=4'}
     hasBin: true
     dev: true
+
+  /csv-parse@5.5.3:
+    resolution: {integrity: sha512-v0KW6C0qlZzoGjk6u5tLmVfyZxNgPGXZsWTXshpAgKVGmGXzaVWGdlCFxNx5iuzcXT/oJN1HHM9DZKwtAtYa+A==}
+    dev: false
 
   /debug@4.3.4:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}

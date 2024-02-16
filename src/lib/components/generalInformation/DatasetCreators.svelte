@@ -15,8 +15,11 @@
 	import StarOutline from '$lib/icons/StarOutline.svelte';
 	import Select from '../Select.svelte';
 	import countries from './countries.json';
+	import type { ImportAuthor } from '$lib/types/author';
+	import { enhance } from '$app/forms';
 
 	let authors = $generalInformation.authors;
+	export let importedAuthors: ImportAuthor[] | null;
 
 	$: generalInformation.update((gi) => {
 		gi.authors = authors;
@@ -46,6 +49,33 @@
 		formEl.reset();
 		initials = '';
 		firstNameEl.focus();
+	}
+
+	function addAuthors() {
+		if (!importedAuthors) return;
+		importedAuthors.forEach((author) => {
+			authors = [
+				...authors,
+				{
+					id: nanoid(),
+					firstName: author.firstName,
+					initials: author.initials ?? '',
+					familyName: author.familyName,
+					orcId: author.orcId ?? '',
+					primaryContact: false
+				}
+			];
+		});
+		generalInformation.update((gi) => {
+			gi.authors = authors;
+			return gi;
+		});
+	}
+
+	$: {
+		if (importedAuthors) {
+			addAuthors();
+		}
 	}
 
 	function removeAuthor(id: string) {
@@ -267,6 +297,16 @@
 		<Plus />
 		Add Author
 	</button>
+</form>
+<form method="POST" action="?/importAuthors" use:enhance class="col-span-2">
+	<p class="mb-4 text-min-contrast-gray text-sm">You can also import authors from a CSV file</p>
+	<div class="flex items-center ">
+		<input accept="text/csv" type="file" name="csv" id="csv" />
+		<button
+			class="text-sm shadow-md text-white bg-secondary p-2 px-4 rounded-md flex items-center gap-5 justify-center"
+			>Import Authors</button
+		>
+	</div>
 </form>
 
 {#if isOpen && selectedAuthor}

@@ -22,7 +22,7 @@
 				[90, 180]
 			],
 			minZoom: 3,
-			maxZoom: 4
+			maxZoom: 6
 		});
 
 		L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
@@ -30,8 +30,9 @@
 				'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 		}).addTo(map);
 
+		// @ts-ignore
 		L.TopoJSON = L.GeoJSON.extend({
-			addData: function (data) {
+			addData: function (data: any) {
 				var geojson, key;
 				if (data.type === 'Topology') {
 					for (key in data.objects) {
@@ -46,21 +47,25 @@
 				return this;
 			}
 		});
-		L.topoJson = function (data, options) {
+
+		// @ts-ignore
+		L.topoJson = function (data: any, options: any) {
+			// @ts-ignore
 			return new L.TopoJSON(data, options);
 		};
 
+		// @ts-ignore
 		var Geojson = L.topoJson(null, {
-			style: function (feature) {
+			style: function () {
 				return {
 					color: '#000',
 					opacity: 1,
 					weight: 1,
 					fillColor: '#35495d',
-					fillOpacity: 0.3
+					fillOpacity: 0
 				};
 			},
-			onEachFeature: function (feature, layer) {
+			onEachFeature: function (feature: any, layer: any) {
 				layer.bindPopup('<p>' + feature.properties['title_EN'] + '</p>');
 			}
 		}).addTo(map);

@@ -1,0 +1,193 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://example.com/product.schema.json",
+	"title": "Metadata",
+	"type": "object",
+	"properties": {
+		"firstName": { "type": "string" },
+		"initials": { "type": "string", "pattern": "^ *?[A-Z]\\.(\\s[A-Z]\\.)* *?$" },
+		"familyName": { "type": "string" },
+		"noOrcidId": { "type": "boolean" },
+		"email": { "type": "string" },
+		"institutionName": { "type": "string" },
+		"institutionCountry": { "type": "string" },
+		"noRor": { "type": "boolean" },
+		"datasetTitle": { "type": "string" },
+		"datasetAbstract": { "type": "string" },
+		"accessPolicy": {
+			"default": "Open - CC0 1.0",
+			"enum": [
+				"Open - CC0 1.0",
+				"Open - CC BY 4.0",
+				"Temporary embargo",
+				"Request from author",
+				"Restricted",
+				"Other"
+			]
+		},
+		"authors": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"firstName": { "type": "string" },
+					"initials": { "type": "string", "pattern": "^ *?[A-Z]\\.(\\s[A-Z]\\.)* *?$" },
+					"familyName": { "type": "string" },
+					"orcidId": { "type": "string", "pattern": "dddd[-]dddd[-]dddd[-]dddd" },
+					"noOrcidId": { "type": "boolean" },
+					"primaryContact": { "type": "boolean" }
+				},
+				"if": {
+					"properties": {
+						"noOrcidId": { "const": true }
+					}
+				},
+				"then": {
+					"required": ["noOrcidId"]
+				},
+				"else": {
+					"properties": {
+						"orcidId": { "type": "string", "pattern": "dddd[-]dddd[-]dddd[-]dddd" }
+					},
+					"required": ["orcidId"]
+				},
+				"required": ["firstName", "familyName"]
+			}
+		},
+		"funders": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"funderName": { "type": "string" },
+					"funderId": { "type": "string" },
+					"noFunderId": { "type": "boolean" },
+					"grantNumber": { "type": "string" }
+				},
+				"if": {
+					"properties": {
+						"noFunderId": { "const": true }
+					}
+				},
+				"then": {
+					"required": ["noFunderId"]
+				},
+				"else": {
+					"properties": {
+						"funderId": { "type": "string" }
+					},
+					"required": ["fundeerId"]
+				},
+				"required": ["funderName", "grantNumber"]
+			}
+		},
+		"resources": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"resourceType": {
+					"enum": [
+						"Journal article",
+						"Data paper",
+						"Preprint",
+						"Dataset",
+						"Code (statistical script, model, package, software)",
+						"Computational notebook",
+						"Workflow",
+						"Audio",
+						"Audiovisual",
+						"Book",
+						"Book chapter",
+						"Conference proceeding",
+						"Dissertation",
+						"Image",
+						"Physical sample",
+						"Other"
+					]
+				},
+				"doi": { "type": "string" },
+				"required": ["resourceType", "doi"],
+				"if": {
+					"properties": {
+						"resourceType": { "const": "Other" }
+					}
+				},
+				"then": {
+					"properties": {
+						"resourceTypeOther": { "type": "string" }
+					},
+					"required": ["resourceTypeOther"]
+				}
+			}
+		}
+	},
+	"allOf": [
+		{
+			"if": {
+				"properties": {
+					"accessPolicy": { "const": "Temporary embargo" }
+				}
+			},
+			"then": {
+				"properties": {
+					"embargoEndDate": { "type": "string" }
+				},
+				"required": ["embargoEndDate"]
+			}
+		},
+		{
+			"if": {
+				"properties": {
+					"accessPolicy": { "const": "Other" }
+				}
+			},
+			"then": {
+				"properties": {
+					"license": { "type": "string" }
+				},
+				"required": ["license"]
+			}
+		},
+		{
+			"if": {
+				"properties": {
+					"noOrcidId": { "const": true }
+				}
+			},
+			"then": {
+				"required": ["noOrcidId"]
+			},
+			"else": {
+				"properties": {
+					"orcidId": { "type": "string", "pattern": "dddd[-]dddd[-]dddd[-]dddd" }
+				},
+				"required": ["orcidId"]
+			}
+		},
+		{
+			"if": {
+				"properties": {
+					"noRor": { "const": true }
+				}
+			},
+			"then": {
+				"required": ["noRor"]
+			},
+			"else": {
+				"properties": {
+					"ror": { "type": "string" }
+				},
+				"required": ["ror"]
+			}
+		}
+	],
+	"required": [
+		"firstName",
+		"familyName",
+		"email",
+		"institutionName",
+		"institutionCountry",
+		"datasetTitle",
+		"accessPolicy"
+	]
+}
