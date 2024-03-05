@@ -54,8 +54,8 @@
 	function addAuthors() {
 		if (!importedAuthors) return;
 		importedAuthors.forEach((author) => {
-			authors = [
-				...authors,
+			$generalInformation.authors = [
+				...$generalInformation.authors,
 				{
 					id: nanoid(),
 					firstName: author.firstName,
@@ -66,10 +66,10 @@
 				}
 			];
 		});
-		generalInformation.update((gi) => {
-			gi.authors = authors;
-			return gi;
-		});
+		// generalInformation.update((gi) => {
+		// 	gi.authors = authors;
+		// 	return gi;
+		// });
 	}
 
 	$: {
@@ -147,9 +147,9 @@
 	}
 </script>
 
-{#if authors.length}
+{#if $generalInformation.authors.length}
 	<div class="col-span-2 space-y-1">
-		{#each authors as author, idx (author.id)}
+		{#each $generalInformation.authors as author, idx (author.id)}
 			<div
 				on:mousedown={(e) => {
 					target = e.target;
@@ -299,7 +299,16 @@
 	</button>
 </form>
 <form method="POST" action="?/importAuthors" use:enhance class="col-span-2">
-	<p class="mb-4 text-min-contrast-gray text-sm">You can also import authors from a CSV file</p>
+	<div class="text-min-contrast-gray text-sm mb-4">
+		<p>You can also import authors from a CSV file</p>
+		<p>
+			Download a template
+			<a class="underline" href="/download?ext=csv">CSV</a>
+			or
+			<a class="underline" href="/download?ext=xlsx">Excel</a>
+			file.
+		</p>
+	</div>
 	<div class="flex items-center ">
 		<input accept="text/csv" type="file" name="csv" id="csv" />
 		<button

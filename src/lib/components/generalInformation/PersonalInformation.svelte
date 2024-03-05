@@ -30,7 +30,7 @@
 	bind:value={$generalInformation.orcidId}
 	bind:notAvailable={$generalInformation.noOrcidId}
 	name="orcId-author-list"
-	label="ORCiD"
+	label="ORCiD *"
 	maxLength={19}
 	pattern="\d\d\d\d[-]\d\d\d\d[-]\d\d\d\d[-]\d\d\d\d"
 	placeholder="Eg: 0000-0000-0000-0000"

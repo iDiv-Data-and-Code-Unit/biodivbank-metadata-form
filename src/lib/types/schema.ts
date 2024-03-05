@@ -59,7 +59,8 @@ export type DatasetOverview = {
 	temporalScopeStart: string;
 	temporalScopeEnd: string;
 	spatialScope: string;
-	country: string;
+	countries: string[];
+	marineRegions: string[];
 	coordinateType: string;
 	longitude: string;
 	latitude: string;

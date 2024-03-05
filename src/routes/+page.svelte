@@ -8,6 +8,6 @@
 
 <div class="h-screen w-screen flex items-center justify-center">
 	<!-- <Map /> -->
-	<Leaflet view={initialView} zoom={4} />
-	<!-- <a href="/general-information">Start</a> -->
+	<!-- <Leaflet view={initialView} zoom={4} /> -->
+	<a href="/general-information">Start</a>
 </div>

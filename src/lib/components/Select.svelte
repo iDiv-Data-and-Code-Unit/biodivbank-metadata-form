@@ -1,5 +1,6 @@
 <script lang="ts">
 	import clsx from 'clsx';
+	import Page from '../../routes/+page.svelte';
 
 	export let placeholder: string;
 	export let label: string;
@@ -9,6 +10,7 @@
 	let classes: string = '';
 	export { classes as class };
 	export let helpText = '';
+	export let onSelect: () => void = () => {};
 </script>
 
 <label class={clsx('w-full flex flex-col', classes)}>
@@ -28,6 +30,7 @@
 		)}
 		{required}
 		bind:value
+		on:change={onSelect}
 	>
 		<option value="" disabled class="text-placeholder">{placeholder}</option>
 		{#each options as option}

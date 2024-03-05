@@ -4,6 +4,8 @@
 	import 'leaflet/dist/leaflet.css';
 	import geoJson from '$lib/geo.json';
 	import * as topojson from 'topojson-client';
+	import { geoStore } from '$lib/stores/geo';
+	import { datasetOverview } from '$lib/stores/datasetOverview';
 
 	let map: L.Map | undefined;
 	let mapElement: HTMLDivElement;
@@ -56,20 +58,89 @@
 
 		// @ts-ignore
 		var Geojson = L.topoJson(null, {
-			style: function () {
+			style: function (feature: any) {
 				return {
 					color: '#000',
 					opacity: 1,
 					weight: 1,
-					fillColor: '#35495d',
-					fillOpacity: 0
+					fillColor:
+						feature.properties['regiontype'] === 'ADM'
+							? $datasetOverview.countries.includes(feature.properties['title_EN'])
+								? '#0f9d38'
+								: '#B4F8C8'
+							: $datasetOverview.marineRegions.includes(feature.properties['title_EN'])
+							? '#289f9c'
+							: '#A0E7E5',
+					// fillColor: $datasetOverview.countries.includes(feature.properties['title_EN'])
+					// 	? feature.properties['regiontype'] === 'ADM'
+					// 		? '#0f9d38'
+					// 		: '#289f9c'
+					// 	: feature.properties['regiontype'] === 'ADM'
+					// 	? '#B4F8C8'
+					// 	: '#A0E7E5',
+					fillOpacity:
+						$datasetOverview.countries.includes(feature.properties['title_EN']) ||
+						$datasetOverview.marineRegions.includes(feature.properties['title_EN'])
+							? 0.5
+							: 0.2
 				};
 			},
 			onEachFeature: function (feature: any, layer: any) {
-				layer.bindPopup('<p>' + feature.properties['title_EN'] + '</p>');
+				if (feature.properties.regiontype === 'ADM') {
+					$geoStore.countries = [...$geoStore.countries, feature.properties['title_EN']];
+				} else {
+					$geoStore.marineRegions = [...$geoStore.marineRegions, feature.properties['title_EN']];
+				}
+				// layer.on({
+				// 	mouseover: (e) =>
+				// 		e.target.setStyle({
+				// 			color: '#00f'
+				// 		}),
+				// 	mouseout: (e) =>
+				// 		e.target.setStyle({
+				// 			color: '#000'
+				// 		})
+				// });
+				// layer.bindPopup('<p>' + feature.properties['title_EN'] + '</p>');
 			}
 		}).addTo(map);
-
+		Geojson.on('click', (e: any) => {
+			const region: string = e.layer.feature.properties['title_EN'];
+			const regionType: string = e.layer.feature.properties['regiontype'];
+			if (regionType === 'ADM') {
+				if ($datasetOverview.countries.includes(region)) {
+					$datasetOverview.countries = $datasetOverview.countries.filter(
+						(country: string) => country !== region
+					);
+					e.layer.setStyle({
+						fillColor: '#B4F8C8',
+						fillOpacity: 0.2
+					});
+				} else {
+					$datasetOverview.countries = [...$datasetOverview.countries, region];
+					e.layer.setStyle({
+						fillColor: '#0f9d38',
+						fillOpacity: 0.5
+					});
+				}
+			} else {
+				if ($datasetOverview.marineRegions.includes(region)) {
+					$datasetOverview.marineRegions = $datasetOverview.marineRegions.filter(
+						(country: string) => country !== region
+					);
+					e.layer.setStyle({
+						fillColor: '#A0E7E5',
+						fillOpacity: 0.2
+					});
+				} else {
+					$datasetOverview.marineRegions = [...$datasetOverview.marineRegions, region];
+					e.layer.setStyle({
+						fillColor: '#289f9c',
+						fillOpacity: 0.5
+					});
+				}
+			}
+		});
 		Geojson.addData(geoJson);
 	});
 

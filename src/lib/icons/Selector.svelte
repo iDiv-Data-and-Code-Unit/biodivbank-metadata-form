@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let classes: string = 'w-6 h-6';
+	export let classes: string = 'h-6 w-6';
 	export { classes as class };
 </script>
 
@@ -11,5 +11,9 @@
 	stroke="currentColor"
 	class={classes}
 >
-	<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+	<path
+		stroke-linecap="round"
+		stroke-linejoin="round"
+		d="M8.25 15 12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9"
+	/>
 </svg>
