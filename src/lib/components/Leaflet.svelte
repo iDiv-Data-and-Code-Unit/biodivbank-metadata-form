@@ -6,15 +6,42 @@
 	import * as topojson from 'topojson-client';
 	import { geoStore } from '$lib/stores/geo';
 	import { datasetOverview } from '$lib/stores/datasetOverview';
+	import { init } from 'svelte/internal';
 
 	let map: L.Map | undefined;
 	let mapElement: HTMLDivElement;
+
+	let geoJsonData: any;
 
 	export let bounds: L.LatLngBoundsExpression | undefined = undefined;
 	export let view: L.LatLngExpression | undefined = undefined;
 	export let zoom: number | undefined = undefined;
 
-	onMount(() => {
+	// @ts-ignore
+	L.TopoJSON = L.GeoJSON.extend({
+		addData: function (data: any) {
+			var geojson, key;
+			if (data.type === 'Topology') {
+				for (key in data.objects) {
+					if (data.objects.hasOwnProperty(key)) {
+						geojson = topojson.feature(data, data.objects[key]);
+						L.GeoJSON.prototype.addData.call(this, geojson);
+					}
+				}
+				return this;
+			}
+			L.GeoJSON.prototype.addData.call(this, data);
+			return this;
+		}
+	});
+
+	// @ts-ignore
+	L.topoJson = function (data: any, options: any) {
+		// @ts-ignore
+		return new L.TopoJSON(data, options);
+	};
+
+	function initializeMap() {
 		if (!bounds && (!view || !zoom)) {
 			throw new Error('Must set either bounds, or view and zoom');
 		}
@@ -33,31 +60,7 @@
 		}).addTo(map);
 
 		// @ts-ignore
-		L.TopoJSON = L.GeoJSON.extend({
-			addData: function (data: any) {
-				var geojson, key;
-				if (data.type === 'Topology') {
-					for (key in data.objects) {
-						if (data.objects.hasOwnProperty(key)) {
-							geojson = topojson.feature(data, data.objects[key]);
-							L.GeoJSON.prototype.addData.call(this, geojson);
-						}
-					}
-					return this;
-				}
-				L.GeoJSON.prototype.addData.call(this, data);
-				return this;
-			}
-		});
-
-		// @ts-ignore
-		L.topoJson = function (data: any, options: any) {
-			// @ts-ignore
-			return new L.TopoJSON(data, options);
-		};
-
-		// @ts-ignore
-		var Geojson = L.topoJson(null, {
+		geoJsonData = L.topoJson(null, {
 			style: function (feature: any) {
 				return {
 					color: '#000',
@@ -71,13 +74,6 @@
 							: $datasetOverview.marineRegions.includes(feature.properties['title_EN'])
 							? '#289f9c'
 							: '#A0E7E5',
-					// fillColor: $datasetOverview.countries.includes(feature.properties['title_EN'])
-					// 	? feature.properties['regiontype'] === 'ADM'
-					// 		? '#0f9d38'
-					// 		: '#289f9c'
-					// 	: feature.properties['regiontype'] === 'ADM'
-					// 	? '#B4F8C8'
-					// 	: '#A0E7E5',
 					fillOpacity:
 						$datasetOverview.countries.includes(feature.properties['title_EN']) ||
 						$datasetOverview.marineRegions.includes(feature.properties['title_EN'])
@@ -87,9 +83,13 @@
 			},
 			onEachFeature: function (feature: any, layer: any) {
 				if (feature.properties.regiontype === 'ADM') {
-					$geoStore.countries = [...$geoStore.countries, feature.properties['title_EN']];
+					$geoStore.countries = Array.from(
+						new Set([...$geoStore.countries, feature.properties['title_EN']])
+					).sort();
 				} else {
-					$geoStore.marineRegions = [...$geoStore.marineRegions, feature.properties['title_EN']];
+					$geoStore.marineRegions = Array.from(
+						new Set([...$geoStore.marineRegions, feature.properties['title_EN']])
+					).sort();
 				}
 				// layer.on({
 				// 	mouseover: (e) =>
@@ -104,7 +104,7 @@
 				// layer.bindPopup('<p>' + feature.properties['title_EN'] + '</p>');
 			}
 		}).addTo(map);
-		Geojson.on('click', (e: any) => {
+		geoJsonData.on('click', (e: any) => {
 			const region: string = e.layer.feature.properties['title_EN'];
 			const regionType: string = e.layer.feature.properties['regiontype'];
 			if (regionType === 'ADM') {
@@ -141,8 +141,10 @@
 				}
 			}
 		});
-		Geojson.addData(geoJson);
-	});
+		geoJsonData.addData(geoJson);
+	}
+
+	onMount(initializeMap);
 
 	$: if (map) {
 		if (bounds) {

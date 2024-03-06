@@ -56,7 +56,13 @@
 	<div class="grid grid-cols-2 gap-8">
 		<div class="col-span-2" />
 		<div class="flex flex-col gap-4">
-			<Select
+			<MultiCombobox
+				options={$geoStore.countries}
+				label="Country"
+				emptyMsg="No country selected"
+				resource="countries"
+			/>
+			<!-- <Select
 				label="Country"
 				class="col-start-1"
 				placeholder="Select a country..."
@@ -83,11 +89,16 @@
 						{country}<Cross class="h-4 w-4" />
 					</button>
 				{/each}
-			</div>
+			</div> -->
 		</div>
 		<div class="flex flex-col gap-4">
-			<MultiCombobox options={['asd', 'test']} />
-			<Select
+			<MultiCombobox
+				options={$geoStore.marineRegions}
+				label="Marine Region"
+				emptyMsg="No marine region selected"
+				resource="marineRegions"
+			/>
+			<!-- <Select
 				label="Marine Region"
 				placeholder="Select a marine region..."
 				options={$geoStore.marineRegions}
@@ -103,8 +114,8 @@
 					];
 					selectedMarineRegion = '';
 				}}
-			/>
-			<div class="flex gap-2 flex-wrap">
+			/> -->
+			<!-- <div class="flex gap-2 flex-wrap">
 				{#each $datasetOverview.marineRegions as region}
 					<button
 						class="bg-secondary text-white px-2 py-1 rounded-md flex gap-1 items-center"
@@ -116,7 +127,7 @@
 						{region}<Cross class="h-4 w-4" />
 					</button>
 				{/each}
-			</div>
+			</div> -->
 		</div>
 		<!-- <Select
 			label="Coordiantes"
@@ -153,9 +164,10 @@
 		bind:value={$datasetOverview.fieldStation}
 	/>
 	<div>
+		<!-- TODO: use validated ROR -->
 		<TextInput
 			bind:value={$datasetOverview.fieldStationROR}
-			label="ROR ID"
+			label={`ROR ID ${$datasetOverview.fieldStation ? ' *' : ''}`}
 			placeholder="xxxxxxxxx"
 			disabled={notAvailable}
 		/>

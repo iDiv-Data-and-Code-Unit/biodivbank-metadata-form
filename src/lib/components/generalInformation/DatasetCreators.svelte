@@ -1,3 +1,4 @@
+<!-- TODO: append new entry after important -->
 <script lang="ts">
 	import Pen from '$lib/icons/Pen.svelte';
 	import Trash from '$lib/icons/Trash.svelte';
@@ -171,6 +172,7 @@
 					<div id="handle">
 						<Handle />
 					</div>
+					<!-- TODO: make this interactive -->
 					<span>
 						{#if author.primaryContact}
 							<Star class="h-6 w-6 text-secondary" />
@@ -240,7 +242,7 @@
 			bind:value={orcId}
 			bind:notAvailable={orcIdNotAvailable}
 			name="orcId-author-list"
-			label="ORCiD"
+			label="ORCiD *"
 			maxLength={19}
 			pattern="\d\d\d\d[-]\d\d\d\d[-]\d\d\d\d[-]\d\d\d\d"
 			placeholder="Eg: 0000-0000-0000-0000"
@@ -298,6 +300,7 @@
 		Add Author
 	</button>
 </form>
+<div class="h-px bg-min-contrast-gray/40 col-span-2" />
 <form method="POST" action="?/importAuthors" use:enhance class="col-span-2">
 	<div class="text-min-contrast-gray text-sm mb-4">
 		<p>You can also import authors from a CSV file</p>

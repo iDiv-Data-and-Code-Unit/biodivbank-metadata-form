@@ -1,4 +1,5 @@
 <script lang="ts">
+	// TODO: validate crossref funder id
 	import Pen from '$lib/icons/Pen.svelte';
 	import Plus from '$lib/icons/Plus.svelte';
 	import Trash from '$lib/icons/Trash.svelte';
@@ -107,7 +108,7 @@
 		<TextInput
 			bind:value={funderId}
 			placeholder="E.g. 501100001659"
-			label="Crossref Funder ID"
+			label="Crossref Funder ID *"
 			pattern="[0-9]&lbrace;12&rbrace;"
 			disabled={noFunderId}
 			maxlength={12}
