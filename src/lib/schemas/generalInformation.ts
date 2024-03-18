@@ -1,24 +1,5 @@
 import { z } from 'zod';
 
-// firstName: '',
-// initials: '',
-// familyName: '',
-// orcidId: '',
-// noOrcidId: false,
-// email: '',
-// institutionName: '',
-// institutionCountry: '',
-// ror: '',
-// noRor: false,
-// datasetTitle: '',
-// datasetAbstract: '',
-// yearPublished: '',
-// accessPolicy: '',
-// embargoEndDate: '',
-// authors: [],
-// funders: [],
-// resources: []
-
 export const generalInformationSchema = z
 	.object({
 		firstName: z.string().min(1, { message: 'First name is required' }),
@@ -209,4 +190,4 @@ export const generalInformationSchema = z
 		}
 	});
 
-type GeneralInformation = z.infer<typeof generalInformationSchema>;
+export type GeneralInformation = z.infer<typeof generalInformationSchema>;
