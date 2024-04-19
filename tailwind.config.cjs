@@ -3,6 +3,7 @@ module.exports = {
 	content: ['./src/**/*.{hmtl,js,svelte,ts}'],
 	theme: {
 		colors: {
+			transparent: 'transparent',
 			input: {
 				DEFAULT: 'rgb(245,245,245)',
 				disabled: '#DDDDDD'
@@ -52,6 +53,11 @@ module.exports = {
 			white: '#fff'
 		},
 		extend: {
+			backgroundImage: {
+				data: "url('/data.png')",
+				contribute: "url('/contribute.png')",
+				bee: "url('/bee.jpg')"
+			},
 			fontFamily: {
 				sans: 'Inter'
 			},
