@@ -5,6 +5,9 @@
 	import Plus from '$lib/icons/Plus.svelte';
 	import CheckboxGroup from '../CheckboxGroup.svelte';
 	import { samplingDesign } from '../../stores/samplingDesign';
+	import CheckboxWithInput from './CheckboxWithInput.svelte';
+
+	$: console.log($samplingDesign.otherTargetedSelectedCategories);
 
 	const inputs = [
 		{ label: 'Sex', value: 'sex' },
@@ -24,7 +27,7 @@
 			excluded: 'E.g. larva, nestling, seedling'
 		},
 		reproductiveCondition: {
-			targeted: 'E.g. fruit-bearing',
+			targeted: 'E.g. frui-bearing',
 			excluded: 'E.g. non-reproductive'
 		},
 		growthForm: {
@@ -43,7 +46,12 @@
 	helpText="Multiple examples of a category can be entered in the textbox; separate the words or phrases using a comma."
 	direction="column"
 >
-	<CheckboxGroup
+	<CheckboxWithInput
+		name="Category"
+		bind:group={$samplingDesign.otherTargetedSelectedCategories}
+		{inputs}
+	/>
+	<!-- <CheckboxGroup
 		name="Category"
 		bind:group={$samplingDesign.otherTargetedSelectedCategories}
 		{inputs}
@@ -72,5 +80,5 @@
 			placeholder={placeholders[category].excluded}
 			class="col-span-2"
 		/>
-	{/each}
+	{/each} -->
 </Question>
