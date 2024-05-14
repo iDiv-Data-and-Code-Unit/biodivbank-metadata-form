@@ -148,68 +148,6 @@
 	}
 </script>
 
-{#if $generalInformation.authors.length}
-	<div class="col-span-2 space-y-1">
-		{#each $generalInformation.authors as author, idx (author.id)}
-			<div
-				on:mousedown={(e) => {
-					target = e.target;
-				}}
-				animate:flip
-				draggable={true}
-				on:dragstart={(e) => dragStart(e, idx, author)}
-				on:dragover|preventDefault
-				on:dragenter={(e) => {
-					hovering = idx;
-				}}
-				on:drop|preventDefault={(e) => drop(e, idx)}
-				class={clsx(
-					'bg-interactive-surface py-4 px-6 text-subtle-text border border-interactive-surface grid grid-cols-3 items-center',
-					hovering === idx && 'border-red-600'
-				)}
-			>
-				<div class="flex items-center gap-6">
-					<div id="handle">
-						<Handle />
-					</div>
-					<!-- TODO: make this interactive -->
-					<span>
-						{#if author.primaryContact}
-							<Star class="h-6 w-6 text-secondary" />
-						{:else}
-							<StarOutline class="h-6 w-6 text-secondary" />
-						{/if}
-					</span>
-					<span class="text-black-text"
-						>{author.firstName} {author.initials} {author.familyName}</span
-					>
-				</div>
-				<span class="justify-self-center"
-					>{!!author.orcId ? author.orcId : 'No ORCiD provided'}</span
-				>
-				<div class="flex items-center gap-6 text-subtle-text justify-end">
-					<button type="button" on:click={() => openEdit(author)}>
-						<Pen class="h-5 w-5" />
-					</button>
-					<button type="button" on:click={() => removeAuthor(author.id)}>
-						<Trash class="h-5 w-5" />
-					</button>
-				</div>
-			</div>
-		{/each}
-		<p class="text-subtle-text text-sm flex items-center">
-			The <img src="/star.svg" class="text-secondary h-4 w-4 inline mx-1" alt="Star icon" /> indicates
-			the primary contact status of a creator.
-		</p>
-	</div>
-{:else}
-	<div
-		class="flex items-center justify-center p-4 col-span-2 bg-secondary-white border border-dashed border-secondary-light text-secondary-light"
-	>
-		No creators added yet
-	</div>
-{/if}
-<div class="bg-divider h-px col-span-2 my-4" />
 <form
 	class="flex flex-col col-span-2 gap-4"
 	on:submit|preventDefault={addAuthor}
@@ -300,7 +238,69 @@
 		Add Author
 	</button>
 </form>
-<div class="h-px bg-min-contrast-gray/40 col-span-2" />
+<div class="bg-divider h-px col-span-2 my-4" />
+{#if $generalInformation.authors.length}
+	<div class="col-span-2 space-y-1">
+		{#each $generalInformation.authors as author, idx (author.id)}
+			<div
+				on:mousedown={(e) => {
+					target = e.target;
+				}}
+				animate:flip
+				draggable={true}
+				on:dragstart={(e) => dragStart(e, idx, author)}
+				on:dragover|preventDefault
+				on:dragenter={(e) => {
+					hovering = idx;
+				}}
+				on:drop|preventDefault={(e) => drop(e, idx)}
+				class={clsx(
+					'bg-interactive-surface py-4 px-6 text-subtle-text border border-interactive-surface grid grid-cols-3 items-center',
+					hovering === idx && 'border-red-600'
+				)}
+			>
+				<div class="flex items-center gap-6">
+					<div id="handle">
+						<Handle />
+					</div>
+					<!-- TODO: make this interactive -->
+					<span>
+						{#if author.primaryContact}
+							<Star class="h-6 w-6 text-secondary" />
+						{:else}
+							<StarOutline class="h-6 w-6 text-secondary" />
+						{/if}
+					</span>
+					<span class="text-black-text"
+						>{author.firstName} {author.initials} {author.familyName}</span
+					>
+				</div>
+				<span class="justify-self-center"
+					>{!!author.orcId ? author.orcId : 'No ORCiD provided'}</span
+				>
+				<div class="flex items-center gap-6 text-subtle-text justify-end">
+					<button type="button" on:click={() => openEdit(author)}>
+						<Pen class="h-5 w-5" />
+					</button>
+					<button type="button" on:click={() => removeAuthor(author.id)}>
+						<Trash class="h-5 w-5" />
+					</button>
+				</div>
+			</div>
+		{/each}
+		<p class="text-subtle-text text-sm flex items-center">
+			The <img src="/star.svg" class="text-secondary h-4 w-4 inline mx-1" alt="Star icon" /> indicates
+			the primary contact status of a creator.
+		</p>
+	</div>
+{:else}
+	<div
+		class="flex items-center justify-center p-4 col-span-2 bg-secondary-white border border-dashed border-secondary-light text-secondary-light"
+	>
+		No creators added yet
+	</div>
+{/if}
+<div class="h-px bg-divider col-span-2" />
 <form method="POST" action="?/importAuthors" use:enhance class="col-span-2">
 	<div class="text-min-contrast-gray text-sm mb-4">
 		<p>You can also import authors from a CSV file</p>
@@ -312,7 +312,7 @@
 			file.
 		</p>
 	</div>
-	<div class="flex items-center ">
+	<div class="flex items-center">
 		<input accept="text/csv" type="file" name="csv" id="csv" />
 		<button
 			class="text-sm shadow-md text-white bg-secondary p-2 px-4 rounded-md flex items-center gap-5 justify-center"

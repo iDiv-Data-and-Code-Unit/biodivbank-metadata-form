@@ -93,41 +93,6 @@
 	}
 </script>
 
-{#if resources.length}
-	<div class="col-span-2 space-y-1">
-		{#each resources as resource (resource.id)}
-			<div
-				class="bg-secondary-white py-4 px-6 text-subtle-text border border-interactive-surface grid grid-cols-3 items-center"
-			>
-				<div class="flex items-center gap-6 font-medium">
-					<span class="text-black-text">{resource.type}</span>
-				</div>
-				<span class="justify-self-center text-black-text"
-					><span class="text-subtle-text">doi:</span><a
-						class="underline"
-						target="_blank"
-						href={`https://doi.org/${resource.DOI}`}>{resource.DOI}</a
-					></span
-				>
-				<div class="flex items-center gap-6 text-subtle-text justify-end">
-					<button type="button" on:click={() => openEdit(resource)}>
-						<Pen class="h-5 w-5" />
-					</button>
-					<button type="button" on:click={() => removeResource(resource.id)}>
-						<Trash class="h-5 w-5" />
-					</button>
-				</div>
-			</div>
-		{/each}
-	</div>
-{:else}
-	<div
-		class="flex items-center justify-center p-4 col-span-2 bg-secondary-white border border-dashed border-secondary-light text-secondary-light"
-	>
-		No resource identifiers added yet
-	</div>
-{/if}
-<div class="bg-divider h-px col-span-2 my-4" />
 <form
 	class="flex flex-col col-span-2 gap-4"
 	on:submit|preventDefault={addResource}
@@ -163,7 +128,41 @@
 		Add Resource
 	</button>
 </form>
-
+<div class="bg-divider h-px col-span-2 my-4" />
+{#if resources.length}
+	<div class="col-span-2 space-y-1">
+		{#each resources as resource (resource.id)}
+			<div
+				class="bg-secondary-white py-4 px-6 text-subtle-text border border-interactive-surface grid grid-cols-3 items-center"
+			>
+				<div class="flex items-center gap-6 font-medium">
+					<span class="text-black-text">{resource.type}</span>
+				</div>
+				<span class="justify-self-center text-black-text"
+					><span class="text-subtle-text">doi:</span><a
+						class="underline"
+						target="_blank"
+						href={`https://doi.org/${resource.DOI}`}>{resource.DOI}</a
+					></span
+				>
+				<div class="flex items-center gap-6 text-subtle-text justify-end">
+					<button type="button" on:click={() => openEdit(resource)}>
+						<Pen class="h-5 w-5" />
+					</button>
+					<button type="button" on:click={() => removeResource(resource.id)}>
+						<Trash class="h-5 w-5" />
+					</button>
+				</div>
+			</div>
+		{/each}
+	</div>
+{:else}
+	<div
+		class="flex items-center justify-center p-4 col-span-2 bg-secondary-white border border-dashed border-secondary-light text-secondary-light"
+	>
+		No resource identifiers added yet
+	</div>
+{/if}
 <!-- {#if isOpen && selectedFunder}
 	<EditModal bind:isOpen author={selectedAuthor} {editAuthor} />
 {/if} -->

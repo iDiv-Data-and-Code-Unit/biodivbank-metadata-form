@@ -11,7 +11,7 @@
 	import Handle from '$lib/icons/Handle.svelte';
 	import DatasetFunders from '$lib/components/generalInformation/DatasetFunders.svelte';
 	import RelatedResources from '$lib/components/generalInformation/RelatedResources.svelte';
-	import type { ActionData, PageData } from './$types';
+	import type { ActionData, PageData } from '../../[id]/(form)/general-information/$types';
 
 	export let data: PageData;
 	export let form: ActionData;
@@ -34,6 +34,8 @@
 		]}
 	>
 		<PersonalInformation />
+		<div class="my-2 col-span-2" />
+		<!-- <div class=" my-4 col-span-3 h-px" /> -->
 		<Institution />
 	</Section>
 

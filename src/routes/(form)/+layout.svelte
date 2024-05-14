@@ -23,6 +23,12 @@
 
 <header class="px-16 py-10 flex items-center justify-between border-b border-b-divider">
 	<img class="h-12" src="/iDivLogo-short.jpg" alt="iDiv Logo" />
+	<button
+		class="bg-primary rounded-md p-2"
+		on:click={(event) => {
+			window.parent.postMessage('test', '*');
+		}}>Send event</button
+	>
 	<div class="flex gap-5">
 		{#each steps as s, idx}
 			<div class="flex items-center gap-5">

@@ -63,7 +63,7 @@
 				<p>Explore</p>
 			</div>
 		</a>
-		<a href="general-information" class="w-60 bg-contribute bg-center bg-cover flex-1">
+		<a href="/general-information" class="w-60 bg-contribute bg-center bg-cover flex-1">
 			<div
 				class="flex flex-col items-center relative text-white justify-center h-full w-full backdrop-brightness-50 py-6"
 			>

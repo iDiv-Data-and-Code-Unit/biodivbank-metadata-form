@@ -28,7 +28,7 @@
 		bind:value={$generalInformation.ror}
 		bind:notAvailable={$generalInformation.noRor}
 		name="ror-author-list"
-		label="ROR ID"
+		label="Institution ROR ID"
 		maxLength={9}
 		placeholder="XXXXXXXXX"
 		invalidInputErrorMsg="Only 4-digit numbers seperated by minus are permitted."

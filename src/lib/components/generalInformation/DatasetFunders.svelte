@@ -59,40 +59,8 @@
 	}
 </script>
 
-{#if funders.length}
-	<div class="col-span-2 space-y-1">
-		{#each funders as funder (funder.id)}
-			<div
-				class="bg-secondary-white py-4 px-6 text-subtle-text border border-interactive-surface grid grid-cols-4 items-center"
-			>
-				<div class="flex items-center gap-6">
-					<span class="text-black-text">{funder.name}</span>
-				</div>
-				<span class="justify-self-center"
-					>{funder.funderId ? funder.funderId : 'No funder ID provided'}</span
-				>
-				<span class="">{funder.grantNumber}</span>
-				<div class="flex items-center gap-6 text-subtle-text justify-end">
-					<button type="button" on:click={() => openEdit(funder)}>
-						<Pen class="h-5 w-5" />
-					</button>
-					<button type="button" on:click={() => removeFunder(funder.id)}>
-						<Trash class="h-5 w-5" />
-					</button>
-				</div>
-			</div>
-		{/each}
-	</div>
-{:else}
-	<div
-		class="flex items-center justify-center p-4 col-span-2 bg-secondary-white border border-dashed border-secondary-light text-secondary-light"
-	>
-		No funders added yet
-	</div>
-{/if}
-<div class="bg-divider h-px col-span-2 my-4" />
 <form
-	class="flex flex-col col-span-2  gap-4"
+	class="flex flex-col col-span-2 gap-4"
 	on:submit|preventDefault={addFunder}
 	bind:this={formEl}
 >
@@ -129,7 +97,38 @@
 		Add Funder
 	</button>
 </form>
-
+<div class="bg-divider h-px col-span-2 my-4" />
+{#if funders.length}
+	<div class="col-span-2 space-y-1">
+		{#each funders as funder (funder.id)}
+			<div
+				class="bg-secondary-white py-4 px-6 text-subtle-text border border-interactive-surface grid grid-cols-4 items-center"
+			>
+				<div class="flex items-center gap-6">
+					<span class="text-black-text">{funder.name}</span>
+				</div>
+				<span class="justify-self-center"
+					>{funder.funderId ? funder.funderId : 'No funder ID provided'}</span
+				>
+				<span class="">{funder.grantNumber}</span>
+				<div class="flex items-center gap-6 text-subtle-text justify-end">
+					<button type="button" on:click={() => openEdit(funder)}>
+						<Pen class="h-5 w-5" />
+					</button>
+					<button type="button" on:click={() => removeFunder(funder.id)}>
+						<Trash class="h-5 w-5" />
+					</button>
+				</div>
+			</div>
+		{/each}
+	</div>
+{:else}
+	<div
+		class="flex items-center justify-center p-4 col-span-2 bg-secondary-white border border-dashed border-secondary-light text-secondary-light"
+	>
+		No funders added yet
+	</div>
+{/if}
 <!-- {#if isOpen && selectedFunder}
 	<EditModal bind:isOpen author={selectedAuthor} {editAuthor} />
 {/if} -->
