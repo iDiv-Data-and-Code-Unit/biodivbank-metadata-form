@@ -31,7 +31,8 @@
 					label="What is the geographic extent of the dataset?"
 					value={$datasetOverview.spatialScope}
 				/>
-				<Point label="Country" value={$datasetOverview.country} />
+				<Point label="Countries" value={$datasetOverview.countries.join(', ')} />
+				<Point label="Marine Regions" value={$datasetOverview.marineRegions.join(', ')} />
 				<Point label="Field station" value={$datasetOverview.fieldStation} />
 				<Point label="Field station ROR" value={$datasetOverview.fieldStationROR} />
 			</div>

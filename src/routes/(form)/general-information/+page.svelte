@@ -11,7 +11,7 @@
 	import Handle from '$lib/icons/Handle.svelte';
 	import DatasetFunders from '$lib/components/generalInformation/DatasetFunders.svelte';
 	import RelatedResources from '$lib/components/generalInformation/RelatedResources.svelte';
-	import type { ActionData, PageData } from '../../[id]/(form)/general-information/$types';
+	import type { ActionData, PageData } from '../../(form)/general-information/$types';
 
 	export let data: PageData;
 	export let form: ActionData;
