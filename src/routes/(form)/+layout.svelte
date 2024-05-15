@@ -35,11 +35,18 @@
 				<a
 					href={stepMap[s]}
 					class={clsx(
-						'flex items-center justify-center rounded-full text-[10px] w-6 h-6 text-white ring-8 transition',
-						$step === s ? 'bg-tertiary-dark ring-tertiary' : 'bg-neutral ring-neutral-light'
+						'flex items-center justify-center rounded-full text-[10px]  text-white p-2  transition',
+						$step > s ? 'bg-tertiary' : 'bg-neutral-light',
+						$step === s && 'bg-secondary box-shadow-glow'
 					)}
 				>
-					<span>{s}</span>
+					<span
+						class={clsx(
+							'rounded-full w-7 h-7 flex items-center justify-center',
+							$step > s ? 'bg-tertiary-dark' : 'bg-neutral',
+							$step === s && 'bg-secondary-dark'
+						)}>{s}</span
+					>
 				</a>
 				{#if idx < steps.length - 1}
 					<div

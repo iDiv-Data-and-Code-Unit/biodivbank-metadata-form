@@ -1,6 +1,5 @@
 <script>
 	import { datasetOverview } from '$lib/stores/datasetOverview';
-	import Kingdoms from '../datasetOverview/Kingdoms.svelte';
 	import Point from './Point.svelte';
 </script>
 
