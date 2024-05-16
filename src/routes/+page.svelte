@@ -64,7 +64,7 @@
 		<div
 			class="flex flex-col gap-2 items-center relative text-black-text justify-center h-full py-2"
 		>
-			<p class="text-xl font-semibold">Date Repository</p>
+			<p class="text-xl font-semibold">Data Repository</p>
 			<a href="#" class="text-secondary underline text-lg">Explore</a>
 		</div>
 		<!-- </a> -->
