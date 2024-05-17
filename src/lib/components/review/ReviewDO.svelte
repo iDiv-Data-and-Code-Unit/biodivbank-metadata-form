@@ -15,7 +15,7 @@
 				/>
 				<Point
 					label="Is the data current, or from a legacy source?"
-					value={$datasetOverview.currentOrLegacyDataset}
+					value={$datasetOverview.currentOrLegacyDataset.join(', ')}
 				/>
 				<Point
 					label="What is the source of the data?"
