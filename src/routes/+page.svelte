@@ -81,15 +81,15 @@
 	<p class="text-lg text-black-text mb-28">
 		BiodivBank is a global repository for data on species abundances within ecological communities
 	</p>
-	<section class="w-full px-44 pb-28">
+	<section class="w-full px-20 pb-28">
 		<h2 class="text-2xl font-semibold mb-6">In the spotlight</h2>
-		<div class="grid grid-cols-4 gap-16">
+		<div class="grid grid-cols-4 gap-8">
 			{#each datasets as dataset}
 				<div class="rounded-xl overflow-hidden border text-black-text border-min-contrast-gray/20">
 					<img src={dataset.img} class="w-full h-56 object-cover" alt="" />
 					<div class="pt-6 px-8 pb-4">
 						<h3 class="font-semibold text-lg mb-5">{dataset.title}</h3>
-						<p class="mb-5 text-min-contrast-gray">{dataset.excerpt}</p>
+						<p class="mb-5 text-min-contrast-gray text-sm">{dataset.excerpt}</p>
 						<div class="flex justify-between">
 							<a href="#" class="underline text-xs">Authors</a>
 							<p class="text-xs">{dataset.date}</p>
