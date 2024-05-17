@@ -1,6 +1,11 @@
 <script lang="ts">
 	export let group: string[];
-	export let inputs: ({ label: string; addition?: string; value: string } | null)[];
+	export let inputs: ({
+		label: string;
+		addition?: string;
+		value: string;
+		otherPlaceholder?: string;
+	} | null)[];
 	export let name: string;
 
 	let otherValue: string = '';
@@ -24,7 +29,7 @@
 			{#if input.label === 'Other'}
 				<input
 					type="text"
-					placeholder="Tell us more..."
+					placeholder={input.otherPlaceholder || 'Tell us more...'}
 					bind:value={otherValue}
 					class="bg-input rounded-md text-sm px-3 py-2 border-none w-full placeholder:text-placeholder"
 				/>

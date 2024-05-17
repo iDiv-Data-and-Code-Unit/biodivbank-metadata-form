@@ -11,6 +11,7 @@
 	import Trash from '$lib/icons/Trash.svelte';
 	import Cross from '$lib/icons/Cross.svelte';
 	import MultiCombobox from '../formControls/MultiCombobox.svelte';
+	import { onMount } from 'svelte';
 	// import Radio from '$lib/components/Radio';
 
 	let notAvailable = false;
@@ -18,6 +19,11 @@
 
 	let selectedCountry = '';
 	let selectedMarineRegion = '';
+
+	// onMount(() => {
+	// 	$geoStore.layer._layers['27'].options.fillColor = 'red';
+	// 	console.log(Object.entries($geoStore.layer._layers).map((x) => x[1]));
+	// });
 </script>
 
 <Question direction="column" question="What is the geographic extent of the dataset?">

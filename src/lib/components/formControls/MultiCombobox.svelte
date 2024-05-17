@@ -14,12 +14,46 @@
 	export let label: string;
 	export let resource: 'countries' | 'marineRegions';
 
-	$: console.log($geoStore.countries.filter((c) => c === 'Russian Federation'));
+	// $: console.log($datasetOverview.countries);
+	// $: console.log($datasetOverview.marineRegions);
 
 	const combobox = createCombobox({ label: 'People', selected: $datasetOverview[resource] });
 
+	// TODO: doesnt respect items added by map click
 	function onSelect(e: Event) {
+		// console.log('event', e.detail.selected);
 		$datasetOverview[resource] = (e as CustomEvent).detail.selected;
+		const selectedThings = Object.entries($geoStore.layer._layers).map((x) => x[1]);
+		// .filter((x) => e.detail.selected.includes(x.feature.properties['title_EN']));
+		if (resource === 'countries') {
+			selectedThings.forEach((x) => {
+				// @ts-expect-error
+				if ($datasetOverview.countries.includes(x.feature.properties['title_EN'])) {
+					// @ts-expect-error
+					x.setStyle({ fillColor: '#0f9d38', fillOpacity: 0.5 });
+				} else {
+					// @ts-expect-error
+					if (x.feature.properties.regiontype === 'ADM') {
+						// @ts-expect-error
+						x.setStyle({ fillColor: '#B4F8C8', fillOpacity: 0.2 });
+					}
+				}
+			});
+		} else {
+			selectedThings.forEach((x) => {
+				// @ts-expect-error
+				if ($datasetOverview.marineRegions.includes(x.feature.properties['title_EN'])) {
+					// @ts-expect-error
+					x.setStyle({ fillColor: '#289f9c', fillOpacity: 0.5 });
+				} else {
+					// @ts-expect-error
+					if (x.feature.properties.regiontype === 'LME') {
+						// @ts-expect-error
+						x.setStyle({ fillColor: '#A0E7E5', fillOpacity: 0.2 });
+					}
+				}
+			});
+		}
 	}
 
 	$: filtered = options.filter((option) =>

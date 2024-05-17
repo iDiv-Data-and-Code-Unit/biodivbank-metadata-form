@@ -7,6 +7,7 @@
 	import { nanoid } from 'nanoid';
 	import Select from '../Select.svelte';
 	import TextInput from '../TextInput.svelte';
+	import { z } from 'zod';
 
 	let resourceTypes = [
 		'Journal article',
@@ -47,19 +48,26 @@
 
 	let error: string | null = null;
 
+	const urlSchema = z.string().url();
+
 	async function addResource() {
 		let resourceType = type;
 		if (type === 'Other') {
 			resourceType = otherType;
 		}
 
+		const { success } = urlSchema.safeParse(DOI);
+		console.log(success);
+
 		try {
 			const res = await fetch(`https://doi.org/api/handles/${DOI}`);
 			const json = await res.json();
 			console.log(json);
-			if (json.responseCode === 100) {
-				error = 'DOI not found';
-				return;
+			if (json.responseCode === 100 || !success) {
+				if (!success) {
+					error = 'Please enter a valid DOI or URL';
+					return;
+				}
 			}
 		} catch (error) {
 			console.log(error);
@@ -113,8 +121,7 @@
 		placeholder="E.g. 10.25829/x33q1z"
 		bind:el={nameEl}
 		required
-		label="DOI"
-		leading="https://doi.org/"
+		label="DOI (or URL)"
 	/>
 	{#if error}
 		<p class="text-error text-sm">{error}</p>

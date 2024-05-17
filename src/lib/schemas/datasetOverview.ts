@@ -3,8 +3,8 @@ import { z } from 'zod';
 export const datasetOverviewSchema = z
 	.object({
 		dataOrigin: z.object({
-			originalOrCompiledDataset: z.enum(['Single Source', 'Compilation']),
-			currentOrLegacyDataset: z.enum(['Current', 'Legacy', 'Unsure']),
+			originalOrCompiledDataset: z.enum(['Single Source', 'Compilation', 'Synthesis']),
+			currentOrLegacyDataset: z.array(z.string()),
 			dataSource: z.array(z.string())
 		}),
 		temporalScope: z

@@ -5,7 +5,7 @@
 </script>
 
 <div>
-	<h2 class="text-2xl font-medium mb-6">Sampling design & location</h2>
+	<h2 class="text-2xl font-medium mb-6">Sampling design</h2>
 	<div class="space-y-12">
 		<section>
 			<h3 class="text-xl font-medium mb-4">Study design</h3>

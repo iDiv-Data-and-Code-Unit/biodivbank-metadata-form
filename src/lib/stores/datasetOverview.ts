@@ -4,10 +4,18 @@ import { browser } from '$app/environment';
 
 const initialStore: DatasetOverview = {
 	originalOrCompiledDataset: '',
-	currentOrLegacyDataset: '',
+	currentOrLegacyDataset: [],
 	dataSource: [],
-	temporalScopeStart: '',
-	temporalScopeEnd: '',
+	temporalScopeStart: {
+		year: '',
+		month: '',
+		day: ''
+	},
+	temporalScopeEnd: {
+		year: '',
+		month: '',
+		day: ''
+	},
 	spatialScope: '',
 	countries: [],
 	marineRegions: [],

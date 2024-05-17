@@ -68,7 +68,7 @@
 
 	<Section
 		title="Related resources"
-		description="Provide the DOI for any resources (e.g. journal articles, code, published workflows) related to this dataset. Indicate all that apply."
+		description="Provide the DOI (or URL) for any resources (e.g. journal articles, code, published workflows) related to this dataset. Indicate all that apply."
 	>
 		<RelatedResources />
 	</Section>

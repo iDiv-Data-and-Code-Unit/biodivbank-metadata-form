@@ -54,10 +54,10 @@ export type DatasetAuthors = Pick<GeneralInformation, 'authors'>;
 
 export type DatasetOverview = {
 	originalOrCompiledDataset: string;
-	currentOrLegacyDataset: string;
+	currentOrLegacyDataset: Array<string>;
 	dataSource: Array<string>;
-	temporalScopeStart: string;
-	temporalScopeEnd: string;
+	temporalScopeStart: { year: string; month: string; day: string };
+	temporalScopeEnd: { year: string; month: string; day: string };
 	spatialScope: string;
 	countries: string[];
 	marineRegions: string[];

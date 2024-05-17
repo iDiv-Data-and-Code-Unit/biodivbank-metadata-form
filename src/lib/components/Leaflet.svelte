@@ -6,7 +6,6 @@
 	import * as topojson from 'topojson-client';
 	import { geoStore } from '$lib/stores/geo';
 	import { datasetOverview } from '$lib/stores/datasetOverview';
-	import { init } from 'svelte/internal';
 
 	let map: L.Map | undefined;
 	let mapElement: HTMLDivElement;
@@ -104,6 +103,9 @@
 				// layer.bindPopup('<p>' + feature.properties['title_EN'] + '</p>');
 			}
 		}).addTo(map);
+
+		$geoStore.layer = geoJsonData;
+
 		geoJsonData.on('click', (e: any) => {
 			const region: string = e.layer.feature.properties['title_EN'];
 			const regionType: string = e.layer.feature.properties['regiontype'];

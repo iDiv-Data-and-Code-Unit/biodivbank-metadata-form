@@ -2,6 +2,7 @@
 	import ArrowDown from '$lib/icons/ArrowDown.svelte';
 	import clsx from 'clsx';
 	import Question from '../formControls/Question.svelte';
+	import { datasetOverview } from '$lib/stores/datasetOverview';
 
 	let months = [
 		'January',
@@ -31,13 +32,14 @@
 				class="bg-input rounded-md px-4 py-3 border-none w-full placeholder:text-placeholder"
 				placeholder="Year"
 				type="text"
+				bind:value={$datasetOverview.temporalScopeStart.year}
 			/>
 			<select
 				class={clsx(
 					'bg-input rounded-md px-4 py-3 border-none w-full',
 					!startMonth && 'text-placeholder'
 				)}
-				bind:value={startMonth}
+				bind:value={$datasetOverview.temporalScopeStart.month}
 			>
 				<option value="" disabled class="text-placeholder">Month</option>
 				{#each months as month}
@@ -48,6 +50,7 @@
 				class="bg-input rounded-md px-4 py-3 border-none w-full placeholder:text-placeholder"
 				placeholder="Day"
 				type="text"
+				bind:value={$datasetOverview.temporalScopeStart.day}
 			/>
 		</div>
 	</div>
@@ -59,13 +62,14 @@
 				class="bg-input rounded-md px-4 py-3 border-none w-full placeholder:text-placeholder"
 				placeholder="Year"
 				type="text"
+				bind:value={$datasetOverview.temporalScopeEnd.year}
 			/>
 			<select
 				class={clsx(
 					'bg-input rounded-md px-4 py-3 border-none w-full',
 					!endMonth && 'text-placeholder'
 				)}
-				bind:value={endMonth}
+				bind:value={$datasetOverview.temporalScopeEnd.month}
 			>
 				<option value="" disabled class="text-placeholder">Month</option>
 				{#each months as month}
@@ -76,6 +80,7 @@
 				class="bg-input rounded-md px-4 py-3 border-none w-full placeholder:text-placeholder"
 				placeholder="Day"
 				type="text"
+				bind:value={$datasetOverview.temporalScopeEnd.day}
 			/>
 		</div>
 	</div>

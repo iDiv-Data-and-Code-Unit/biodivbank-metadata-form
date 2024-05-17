@@ -11,8 +11,9 @@
 		{ label: 'Restricted search', value: 'restrictedSearch' },
 		{ label: 'Open search', value: 'openSearch' },
 		{ label: 'Opportunistic search', value: 'opportunisticSearch' },
-		{ label: 'Trap or sample', value: 'trapOrSample' },
-		{ label: 'Adventitious', value: 'adventitious' }
+		{ label: 'Other', value: 'other', otherPlaceholder: 'Please specify' }
+		// { label: 'Trap or sample', value: 'trapOrSample' },
+		// { label: 'Adventitious', value: 'adventitious' }
 	];
 
 	let stage2Inputs = [

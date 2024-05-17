@@ -24,7 +24,7 @@
 	import UnderRepresented from '$lib/components/sampling-design/UnderRepresented.svelte';
 
 	let multipleEventsInputs = [
-		{ label: 'Multiple locations', value: 'multipleLocations' },
+		{ label: 'Multiple sites', value: 'multipleSites' },
 		{ label: 'Multiple time points', value: 'multipleTimePoints' },
 		{ label: 'No', value: 'no' }
 	];
@@ -40,7 +40,7 @@
 	// }
 </script>
 
-<StepTitle title="Sampling design & location" />
+<StepTitle title="Sampling design" />
 <div class="space-y-32">
 	<Section title="Study design">
 		<Question
