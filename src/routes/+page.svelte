@@ -83,7 +83,7 @@
 	</p>
 	<section class="w-full px-44 pb-28">
 		<h2 class="text-2xl font-semibold mb-6">In the spotlight</h2>
-		<div class="grid grid-cols-2 2xl:grid-cols-4 gap-16">
+		<div class="grid grid-cols-4 gap-16">
 			{#each datasets as dataset}
 				<div class="rounded-xl overflow-hidden border text-black-text border-min-contrast-gray/20">
 					<img src={dataset.img} class="w-full h-56 object-cover" alt="" />
