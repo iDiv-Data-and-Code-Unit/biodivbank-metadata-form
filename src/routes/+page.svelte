@@ -47,16 +47,22 @@
 			<h2 class="text-3xl font-semibold text-white mb-10">
 				Free and open access to biodiversity data
 			</h2>
-			<div
+			<form
+				target="_blank"
+				action="http://idiv-biodivbank.inf-bb.uni-jena.de/ddm/publicsearch"
+				method="post"
 				class="w-5/12 flex items-center border broder-transparent focus-within:ring-2 ring-secondary bg-input px-5 py-2 rounded-md border-min-contrast-gray"
 			>
+				<input type="hidden" name="FilterList" value="All" />
+				<input type="hidden" name="searchType" value="new" />
 				<input
 					type="text"
+					name="autoComplete"
 					class="w-full bg-transparent border-none rounded-lg outline-none focus:ring-0 placeholder:text-sm placeholder:text-placeholder"
 					placeholder="Search"
 				/>
 				<SearchIcon />
-			</div>
+			</form>
 		</div>
 	</section>
 	<div class="flex gap-20 max-w-screen-lg justify-center w-full mb-20">
@@ -65,7 +71,10 @@
 			class="flex flex-col gap-2 items-center relative text-black-text justify-center h-full py-2"
 		>
 			<p class="text-xl font-semibold">Data Repository</p>
-			<a href="#" class="text-secondary underline text-lg">Explore</a>
+			<a
+				href="http://idiv-biodivbank.inf-bb.uni-jena.de/ddm/PublicSearch"
+				class="text-secondary underline text-lg">Explore</a
+			>
 		</div>
 		<!-- </a> -->
 		<div class="h-full w-px bg-placeholder" />
@@ -74,7 +83,10 @@
 			class="flex flex-col gap-2 items-center relative justify-center text-black-text h-full py-2"
 		>
 			<p class="text-xl font-semibold">Submission Portal</p>
-			<a href="/general-information" class="text-primary underline text-lg">Contribute</a>
+			<a
+				href="http://idiv-biodivbank.inf-bb.uni-jena.de/Account/Login"
+				class="text-primary underline text-lg">Contribute</a
+			>
 		</div>
 		<!-- </a> -->
 	</div>
