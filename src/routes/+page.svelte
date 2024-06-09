@@ -61,7 +61,9 @@
 					class="w-full bg-transparent border-none rounded-lg outline-none focus:ring-0 placeholder:text-sm placeholder:text-placeholder"
 					placeholder="Search"
 				/>
-				<SearchIcon />
+				<button>
+					<SearchIcon />
+				</button>
 			</form>
 		</div>
 	</section>
