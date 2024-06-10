@@ -19,10 +19,6 @@
 	export { classes as class };
 	let errorInputEl: HTMLElement;
 
-	$: {
-		console.log(value);
-	}
-
 	function validatePattern(e: InputEvent) {
 		if (pattern) {
 			if (e.currentTarget.validity.patternMismatch) {

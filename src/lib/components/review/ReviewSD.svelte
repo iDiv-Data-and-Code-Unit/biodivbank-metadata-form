@@ -88,9 +88,5 @@
 				/>
 			</div>
 		</section>
-		<button
-			on:click={() => window.parent.postMessage('save', '*')}
-			class="bg-secondary py-3 px-6 text-xl font-medium text-white rounded-md">Submit</button
-		>
 	</div>
 </div>

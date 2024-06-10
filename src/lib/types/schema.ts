@@ -29,6 +29,7 @@ export type GeneralInformation = {
 	datasetAbstract: string;
 	yearPublished: string;
 	accessPolicy: string;
+	license: string;
 	embargoEndDate: string;
 	authors: Array<ListAuthor>;
 	funders: Array<Funder>;

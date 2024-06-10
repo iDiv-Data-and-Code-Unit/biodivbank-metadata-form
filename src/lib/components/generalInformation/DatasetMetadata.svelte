@@ -60,6 +60,6 @@
 		class="col-span-2"
 		label="Licence"
 		placeholder="Please state licence..."
-		bind:value={$generalInformation.embargoEndDate}
+		bind:value={$generalInformation.license}
 	/>
 {/if}

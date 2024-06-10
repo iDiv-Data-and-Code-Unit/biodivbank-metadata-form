@@ -1,6 +1,7 @@
 <script lang="ts">
 	export let title: string;
 	export let description: string | string[] = '';
+	export let lgSpacing: boolean = false;
 </script>
 
 <div class="grid grid-cols-3 gap-x-8">

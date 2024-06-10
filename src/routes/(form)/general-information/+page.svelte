@@ -12,6 +12,19 @@
 	import DatasetFunders from '$lib/components/generalInformation/DatasetFunders.svelte';
 	import RelatedResources from '$lib/components/generalInformation/RelatedResources.svelte';
 	import type { ActionData, PageData } from '../../(form)/general-information/$types';
+	import { page } from '$app/stores';
+	import { params } from '$lib/stores/paramsStore';
+
+	const url = $page.url;
+
+	params.update((current) => ({
+		...current,
+		id: url.searchParams.get('id') || '',
+		auth: url.searchParams.get('auth') || ''
+	}));
+
+	console.log(url.searchParams.get('id')); // John
+	console.log(url.searchParams.get('auth')); // 30
 
 	export let data: PageData;
 	export let form: ActionData;
