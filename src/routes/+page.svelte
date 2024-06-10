@@ -58,7 +58,7 @@
 				<input
 					type="text"
 					name="autoComplete"
-					class="w-full bg-transparent border-none rounded-lg outline-none focus:ring-0 placeholder:text-sm placeholder:text-placeholder"
+					class="w-full bg-transparent border-none rounded-lg outline-none focus:ring-0 placeholder:text-base placeholder:text-placeholder"
 					placeholder="Search"
 				/>
 				<button>
@@ -72,10 +72,10 @@
 		<div
 			class="flex flex-col gap-2 items-center relative text-black-text justify-center h-full py-2"
 		>
-			<p class="text-xl font-semibold">Data Repository</p>
+			<p class="text-2xl font-semibold">Data Repository</p>
 			<a
 				href="http://idiv-biodivbank.inf-bb.uni-jena.de/ddm/PublicSearch"
-				class="text-secondary underline text-lg">Explore</a
+				class="text-secondary underline text-xl">Explore</a
 			>
 		</div>
 		<!-- </a> -->
@@ -84,15 +84,15 @@
 		<div
 			class="flex flex-col gap-2 items-center relative justify-center text-black-text h-full py-2"
 		>
-			<p class="text-xl font-semibold">Submission Portal</p>
+			<p class="text-2xl font-semibold">Submission Portal</p>
 			<a
 				href="http://idiv-biodivbank.inf-bb.uni-jena.de/Account/Login"
-				class="text-primary underline text-lg">Contribute</a
+				class="text-primary underline text-xl">Contribute</a
 			>
 		</div>
 		<!-- </a> -->
 	</div>
-	<p class="text-lg text-black-text mb-28">
+	<p class="text-3xl w-3/4 text-center leading-normal font-bold text-black-text mb-28 mt-16">
 		BiodivBank is a global repository for data on species abundances within ecological communities
 	</p>
 	<section class="w-full px-20 pb-28">
