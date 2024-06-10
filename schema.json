@@ -1,0 +1,894 @@
+{
+	"@id": "3",
+	"generalInformation": {
+		"@ref": "",
+		"@partyid": "",
+		"dataProvider": {
+			"@ref": "",
+			"@partyid": "",
+			"firstName": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": "Dan"
+			},
+			"initial": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": ""
+			},
+			"familyName": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": ""
+			},
+			"orcId": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": ""
+			},
+			"noOrcId": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": "false"
+			},
+			"email": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": ""
+			},
+			"institutionName": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": ""
+			},
+			"institutionCountry": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": ""
+			},
+			"rorId": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": ""
+			}
+		},
+		"dataset": {
+			"@ref": "",
+			"@partyid": "",
+			"title": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": ""
+			},
+			"abstract": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": ""
+			},
+			"accessPoliy": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": ""
+			},
+			"license": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": ""
+			},
+			"embargoEndDate": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": ""
+			}
+		},
+		"authors": [
+			{
+				"@ref": "",
+				"@partyid": "",
+				"firstName": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				},
+				"initial": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				},
+				"familyName": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				},
+				"orcId": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				},
+				"noOrcId": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": "false"
+				},
+				"isPrimaryContact": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": "false"
+				},
+				"email": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				},
+				"institutionName": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				},
+				"institutionCountry": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				},
+				"rorId": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				}
+			}
+		],
+		"funders": [
+			{
+				"@ref": "",
+				"@partyid": "",
+				"name": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				},
+				"id": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				},
+				"noFunderId": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": "false"
+				},
+				"grantNumber": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				}
+			}
+		],
+		"resources": [
+			{
+				"@ref": "",
+				"@partyid": "",
+				"type": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				},
+				"otherType": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				},
+				"doi": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				}
+			}
+		]
+	},
+	"datasetOverview": {
+		"@ref": "",
+		"@partyid": "",
+		"dataOrigin": {
+			"@ref": "",
+			"@partyid": "",
+			"originalOrCompiledDataset": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": ""
+			},
+			"currentOrLegacyDataset": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": ""
+			},
+			"dataSource": [
+				{
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				}
+			]
+		},
+		"temoralScope": {
+			"@ref": "",
+			"@partyid": "",
+			"start": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": ""
+			},
+			"end": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": ""
+			}
+		},
+		"geographicScope": {
+			"@ref": "",
+			"@partyid": "",
+			"extent": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": ""
+			},
+			"countries": [
+				{
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				}
+			],
+			"marineRegions": [
+				{
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				}
+			],
+			"fieldStation": {
+				"@ref": "",
+				"@partyid": "",
+				"name": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				},
+				"rorId": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				},
+				"noRorId": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": "false"
+				}
+			}
+		},
+		"realm": {
+			"@ref": "",
+			"@partyid": "",
+			"core": [
+				{
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				}
+			],
+			"transitional": [
+				{
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				}
+			]
+		},
+		"biome": {
+			"@ref": "",
+			"@partyid": "",
+			"core": [
+				{
+					"@ref": "",
+					"@partyid": "",
+					"freshWater": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					],
+					"terrestrial": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					],
+					"marine": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					],
+					"subterranean": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					]
+				}
+			],
+			"transitional": [
+				{
+					"@ref": "",
+					"@partyid": "",
+					"freshWaterMarine": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					],
+					"terrestrialFreshWater": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					],
+					"marineTerrestrial": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					],
+					"marineFreshWaterTerrestrial": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					],
+					"subterraneanFreshWater": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					],
+					"subterraneanMarine": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					]
+				}
+			]
+		},
+		"taxonScope": {
+			"@ref": "",
+			"@partyid": "",
+			"kingdom": [
+				{
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				}
+			],
+			"subdivision": {
+				"@ref": "",
+				"@partyid": "",
+				"animalia": [
+					{
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					}
+				],
+				"fungi": [
+					{
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					}
+				],
+				"plantae": [
+					{
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					}
+				],
+				"chromista": [
+					{
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					}
+				],
+				"protozoa": [
+					{
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					}
+				],
+				"archaea": [
+					{
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					}
+				],
+				"bacteria": [
+					{
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					}
+				]
+			}
+		}
+	},
+	"samplingDesignAndLocation": {
+		"@ref": "",
+		"@partyid": "",
+		"studyDesign": {
+			"@ref": "",
+			"@partyid": "",
+			"multipleEvents": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": ""
+			}
+		},
+		"methods": {
+			"@ref": "",
+			"@partyid": "",
+			"inventoryProcess": {
+				"@ref": "",
+				"@partyid": "",
+				"stageOne": [
+					{
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					}
+				],
+				"stageTwo": {
+					"@ref": "",
+					"@partyid": "",
+					"restrictedSearch": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					],
+					"openSearch": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					},
+					"opportunisticSearch": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					},
+					"trapOrSample": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					},
+					"adventitious": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					}
+				},
+				"stageThree": {
+					"@ref": "",
+					"@partyid": "",
+					"plot": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					],
+					"transect": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					],
+					"quadrat": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					],
+					"plotlessTechniques": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					]
+				}
+			},
+			"methodType": {
+				"@ref": "",
+				"@partyid": "",
+				"stageOne": [
+					{
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					}
+				],
+				"stageTwo": {
+					"@ref": "",
+					"@partyid": "",
+					"humanDirectObservation": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					],
+					"machineObservation": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					],
+					"capture": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					],
+					"environmentalSample": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					],
+					"physicalEvidence": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					]
+				},
+				"stageThree": {
+					"@ref": "",
+					"@partyid": "",
+					"net": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					],
+					"trap": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					],
+					"trawl": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					],
+					"chemicalIntent": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					],
+					"chemicalKnockdown": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					],
+					"markRecapture": [
+						{
+							"@ref": "",
+							"@partyid": "",
+							"#text": ""
+						}
+					],
+					"corer": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					},
+					"grab": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					},
+					"tullgrenFunnel": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					},
+					"eDNA": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					}
+				}
+			}
+		},
+		"samplingScope": {
+			"@ref": "",
+			"@partyid": "",
+			"targetedTaxa": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": ""
+			},
+			"excludedTaxa": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": ""
+			},
+			"specificCategory": {
+				"@ref": "",
+				"@partyid": "",
+				"sex": {
+					"@ref": "",
+					"@partyid": "",
+					"selected": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": "false"
+					},
+					"targeted": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					},
+					"excluded": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					}
+				},
+				"lifeStageAgeClass": {
+					"@ref": "",
+					"@partyid": "",
+					"selected": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": "false"
+					},
+					"targeted": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					},
+					"excluded": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					}
+				},
+				"reproductiveCondition": {
+					"@ref": "",
+					"@partyid": "",
+					"selected": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": "false"
+					},
+					"targeted": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					},
+					"excluded": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					}
+				},
+				"growthForm": {
+					"@ref": "",
+					"@partyid": "",
+					"selected": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": "false"
+					},
+					"targeted": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					},
+					"excluded": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					}
+				},
+				"other": {
+					"@ref": "",
+					"@partyid": "",
+					"selected": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": "false"
+					},
+					"category": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					},
+					"targeted": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					},
+					"excluded": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					}
+				}
+			},
+			"underRepresentedTaxa": [
+				{
+					"@ref": "",
+					"@partyid": "",
+					"group": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					},
+					"reason": {
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					}
+				}
+			]
+		},
+		"samplingEffort": {
+			"@ref": "",
+			"@partyid": "",
+			"intensity": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": ""
+			},
+			"effortIdentical": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": ""
+			},
+			"description": {
+				"@ref": "",
+				"@partyid": "",
+				"#text": ""
+			}
+		},
+		"samplingLocation": {
+			"@ref": "",
+			"@partyid": "",
+			"riverZone": {
+				"@ref": "",
+				"@partyid": "",
+				"zone": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				},
+				"other": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				}
+			},
+			"streamOrder": {
+				"@ref": "",
+				"@partyid": "",
+				"classificationSystem": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				},
+				"value": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				},
+				"other": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				}
+			},
+			"riverCrossSection": {
+				"@ref": "",
+				"@partyid": "",
+				"type": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				},
+				"bank": [
+					{
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					}
+				],
+				"surface": [
+					{
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					}
+				],
+				"bed": [
+					{
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					}
+				],
+				"other": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				}
+			},
+			"vegetationLayer": {
+				"@ref": "",
+				"@partyid": "",
+				"layer": [
+					{
+						"@ref": "",
+						"@partyid": "",
+						"#text": ""
+					}
+				],
+				"other": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				}
+			},
+			"furtherInformation": {
+				"@ref": "",
+				"@partyid": "",
+				"details": {
+					"@ref": "",
+					"@partyid": "",
+					"#text": ""
+				}
+			}
+		}
+	}
+}

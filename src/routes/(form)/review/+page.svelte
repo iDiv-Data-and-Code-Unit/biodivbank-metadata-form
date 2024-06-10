@@ -8,13 +8,14 @@
 	import ReviewSd from '$lib/components/review/ReviewSD.svelte';
 	import { params } from '$lib/stores/paramsStore';
 	import { datasetOverview } from '$lib/stores/datasetOverview';
+	import axios from 'axios';
 
 	let disabled = false;
 	let promise = Promise.resolve();
 
 	async function submitForm() {
 		const body = {
-			'@id': $params.id,
+			'@id': 3,
 			generalInformation: {
 				'@ref': '',
 				'@partyId': '',
@@ -143,28 +144,24 @@
 				}
 			}
 		};
-		console.log(JSON.stringify(body, null, 2));
-		const response = await self.fetch(
-			`http://idiv-biodivbank.inf-bb.uni-jena.de/api/metadata/${$params.id}`,
-			{
-				method: 'PUT',
-				headers: {
-					Authorization: 'Bearer ' + $params.auth
-				},
-				body: JSON.stringify(body)
-			}
-		);
-		if (response.ok) {
-			window.parent.postMessage('save', '*');
-		} else {
-			throw new Error('Unexpected Error');
-		}
-	}
+		// console.log(JSON.stringify(body, null, 2));
+		// const result = await axios.put(`https://rc.bexis2.uni-jena.de/api/Metadata/${$params.id}`, {
+		// 	headers: {
+		// 		Authorization: 'Bearer ' + $params.auth,
+		// 		'Access-Control-Allow-Origin': '*'
+		// 	},
+		// 	body
+		// });
+		// console.log(result);
 
-	function handleClick() {
-		// Now set it to the real fetch promise
-		promise = submitForm();
-		disabled = true;
+		// return self.fetch(`https://rc.bexis2.uni-jena.de//api/metadata/${$params.id}`, {
+		// 	method: 'PUT',
+		// 	headers: {
+		// 		Authorization: 'Bearer ' + $params.auth
+		// 	},
+		// 	body: JSON.stringify(body)
+		// });
+		window.parent.postMessage('save', '*');
 	}
 
 	function formatData<T>(value: T) {
@@ -187,16 +184,10 @@
 	<ReviewSd />
 	<div>
 		<button
-			on:click={handleClick}
-			{disabled}
+			on:click={submitForm}
 			class="bg-secondary inline-block py-3 mb-2 px-6 text-xl font-medium text-white rounded-md"
 			>Submit</button
 		>
-		{#await promise}
-			<p>...Submitting form</p>
-		{:catch error}
-			<p class="text-sm text-error">{error}</p>
-		{/await}
 	</div>
 </div>
 

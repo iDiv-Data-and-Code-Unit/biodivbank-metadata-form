@@ -14,6 +14,7 @@
 	import type { ActionData, PageData } from '../../(form)/general-information/$types';
 	import { page } from '$app/stores';
 	import { params } from '$lib/stores/paramsStore';
+	import axios from 'axios';
 
 	const url = $page.url;
 
@@ -23,17 +24,27 @@
 		auth: url.searchParams.get('auth') || ''
 	}));
 
-	console.log(url.searchParams.get('id')); // John
-	console.log(url.searchParams.get('auth')); // 30
+	console.log(url.searchParams.get('id'));
+	console.log(url.searchParams.get('auth'));
 
-	export let data: PageData;
+	// export let dat: PageData;
 	export let form: ActionData;
 
-	onMount(() => {
+	onMount(async () => {
 		step.set(1);
-	});
+		// console.log('Mount: ', $params.id, $params.auth);
 
-	$: console.log({ data, form });
+		// const response = await axios.get(
+		// 	`https://rc.bexis2.uni-jena.de/api/metadata/${$params.id}?simplifiedJson=1`,
+		// 	{
+		// 		headers: {
+		// 			Accept: 'application/json',
+		// 			Authorization: 'Bearer ' + $params.auth
+		// 		}
+		// 	}
+		// );
+		// console.log(JSON.stringify(response.data, null, 2));
+	});
 </script>
 
 <StepTitle title="General information" />
