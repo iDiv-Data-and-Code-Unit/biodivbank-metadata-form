@@ -35,6 +35,7 @@
 
 {#key author}
 	<Dialog
+		id="editAuthor"
 		open={isOpen}
 		on:close={() => (isOpen = false)}
 		class="fixed inset-0 flex justify-center items-center z-50"
@@ -44,7 +45,7 @@
 		<div class="relative bg-white p-5 rounded-md">
 			<DialogTitle class="text-lg mb-3">Edit Author</DialogTitle>
 			<DialogDescription>
-				<form class="flex flex-col col-span-4  gap-4" on:submit|preventDefault={onSubmit}>
+				<form class="flex flex-col col-span-4 gap-4" on:submit|preventDefault={onSubmit}>
 					<div class="inline-flex flex-col xl:flex-row gap-4 mt-1">
 						<TextInput
 							label="First name"
