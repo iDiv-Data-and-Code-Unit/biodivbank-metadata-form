@@ -16,8 +16,11 @@
 	import MethodType from '$lib/components/sampling-design/MethodType.svelte';
 	import TargetedAndExcludedTaxa from '$lib/components/sampling-design/TargetedAndExcludedTaxa.svelte';
 	import OtherTargetedCategories from '$lib/components/sampling-design/OtherTargetedCategories.svelte';
+	import OtherTargetedCategories2 from '$lib/components/sampling-design/OtherTargetedCategories2.svelte';
 	import UnderRepresented from '$lib/components/sampling-design/UnderRepresented.svelte';
+	import UnderRepresented2 from '$lib/components/sampling-design/UnderRepresented2.svelte';
 	import { params } from '$lib/stores/paramsStore';
+	import InventoryProcess2 from '$lib/components/sampling-design/InventoryProcess2.svelte';
 
 	$: console.log($params);
 
@@ -88,7 +91,8 @@
 	</Section>
 
 	<Section title="Methods">
-		<InventoryProcess />
+		<!-- <InventoryProcess /> -->
+		<InventoryProcess2 />
 		<MethodType />
 	</Section>
 
@@ -96,9 +100,14 @@
 		title="Sampling scope"
 		description="If a specific list of target taxa was used in the survey, please upload it [here]."
 	>
-		<TargetedAndExcludedTaxa />
-		<OtherTargetedCategories />
-		<UnderRepresented />
+		<div class="grid gap-20 col-span-2">
+			<div class="col-span-2 gap-8 grid"><TargetedAndExcludedTaxa /></div>
+
+			<!-- <OtherTargetedCategories /> -->
+			<!-- <UnderRepresented /> -->
+			<div class="col-span-2 gap-8 grid"><OtherTargetedCategories2 /></div>
+			<div class="col-span-2 gap-8 grid"><UnderRepresented2 /></div>
+		</div>
 	</Section>
 
 	<Section title="Sampling effort">
