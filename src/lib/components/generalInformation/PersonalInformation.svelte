@@ -4,12 +4,13 @@
 	import OrcId from '../OrcId.svelte';
 </script>
 
-<div class="col-span-2 flex justify-between gap-3">
+<div class="col-span-2 grid grid-cols-6 justify-between gap-3">
 	<TextInput
 		label="First name"
 		required
 		placeholder="E.g. Sara"
 		bind:value={$generalInformation.firstName}
+		class="col-span-2"
 	/>
 	<TextInput
 		label="Middle initial(s)"
@@ -17,13 +18,14 @@
 		pattern={'^ *?[A-Z]\\.(\\s[A-Z]\\.)* *?$'}
 		errorMsg="Please enter initials in capitals separated by a dot and a space. Eg: E. G."
 		bind:value={$generalInformation.initials}
-		class="w-2/5"
+		class=""
 	/>
 	<TextInput
 		label="Family name(s)"
 		required
 		placeholder="de Melo"
 		bind:value={$generalInformation.familyName}
+		class="col-span-3"
 	/>
 </div>
 <OrcId
