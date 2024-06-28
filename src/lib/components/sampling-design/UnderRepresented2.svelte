@@ -68,7 +68,7 @@
 				});
 				group = '';
 				reason = '';
-			}}><Plus />Add group</button
+			}}><Plus />Add</button
 		></div></Collapsible
 	>
 </Question>
