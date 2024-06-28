@@ -43,7 +43,7 @@
 		{/if}
 	</div>
 	<div class="h-px col-span-2 my-4" />
-	<Collapsible title="Add a group">
+	<Collapsible title="Add a group" open={true}>
     <div class="space-y-8">
 		<TextInput
 			label="Under-represented group"
