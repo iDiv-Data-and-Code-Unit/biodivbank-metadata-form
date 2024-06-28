@@ -181,9 +181,6 @@
 					inputs={physicalEvidenceInputs}
 				/>
 			{/if}
-			{#if !$samplingDesign.methodTypes.stage1.length}
-				<p>No possible input</p>
-			{/if}
 		</div>
 
 		<div class="grid gap-8" slot="step-3">
