@@ -50,9 +50,9 @@
 <div class="col-span-2">
 	<Multistep
 		question="Was a particular sex, age class or life stage, growth form, etc, specifically targeted for sampling? Were any groups intentionally excluded from sampling?"
-		steps="2"
+		steps={2}
 	>
-		<div class="grid 8">
+		<div class="grid gap-8">
 			<CheckboxGroup
 				name="Category"
 				bind:group={$samplingDesign.otherTargetedSelectedCategories}

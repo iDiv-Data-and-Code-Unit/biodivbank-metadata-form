@@ -91,20 +91,18 @@
 	</Section>
 
 	<Section title="Methods">
-		<!-- <InventoryProcess /> -->
-		<InventoryProcess2 />
-		<MethodType />
+		<div class="grid gap-40 col-span-2">
+			<InventoryProcess2 />
+			<div><MethodType /></div>
+		</div>
 	</Section>
 
 	<Section
 		title="Sampling scope"
-		description="If a specific list of target taxa was used in the survey, please upload it [here]."
+		description="If a specific checklist of target taxa was used in the survey, please upload it [here]."
 	>
 		<div class="grid gap-20 col-span-2">
 			<div class="col-span-2 gap-8 grid"><TargetedAndExcludedTaxa /></div>
-
-			<!-- <OtherTargetedCategories /> -->
-			<!-- <UnderRepresented /> -->
 			<div class="col-span-2 gap-8 grid"><OtherTargetedCategories2 /></div>
 			<div class="col-span-2 gap-8 grid"><UnderRepresented2 /></div>
 		</div>
