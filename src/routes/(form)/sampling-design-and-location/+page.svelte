@@ -21,6 +21,7 @@
 	import UnderRepresented2 from '$lib/components/sampling-design/UnderRepresented2.svelte';
 	import { params } from '$lib/stores/paramsStore';
 	import InventoryProcess2 from '$lib/components/sampling-design/InventoryProcess2.svelte';
+	import MethodType2 from '$lib/components/sampling-design/MethodType2.svelte';
 
 	$: console.log($params);
 
@@ -93,7 +94,7 @@
 	<Section title="Methods">
 		<div class="grid gap-40 col-span-2">
 			<InventoryProcess2 />
-			<div><MethodType /></div>
+			<MethodType2 />
 		</div>
 	</Section>
 
