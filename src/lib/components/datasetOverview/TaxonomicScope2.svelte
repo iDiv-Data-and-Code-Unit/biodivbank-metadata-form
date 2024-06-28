@@ -4,7 +4,7 @@
 	import Phylum from './Phylum.svelte';
 </script>
 
-<Multistep question="Which kingdoms are involved?" steps=2>
+<Multistep question="Which kingdoms are involved?" steps={2} step2Title="Sub-kingdom">
 	<Kingdoms />
 	<div slot="step-2" class="grid gap-8">
 		<Phylum />
