@@ -184,53 +184,55 @@
 		</div>
 
 		<div class="grid gap-8" slot="step-3">
-			{#if $samplingDesign.methodTypes.stage2.includes('net')}
-				<h3 class="col-span-2 text-sm text-min-contrast-gray">Net</h3>
-				<CheckboxGroup
-					bind:group={$samplingDesign.methodTypes.stage3}
-					name="stage-3-plot"
-					inputs={netInputs}
-				/>
-			{/if}
-			{#if $samplingDesign.methodTypes.stage2.includes('trap')}
-				<h3 class="col-span-2 text-sm text-min-contrast-gray">Trap</h3>
-				<CheckboxGroup
-					bind:group={$samplingDesign.methodTypes.stage3}
-					name="stage-3-plot"
-					inputs={trapInputs}
-				/>
-			{/if}
-			{#if $samplingDesign.methodTypes.stage2.includes('trawl')}
-				<h3 class="col-span-2 text-sm text-min-contrast-gray">Trawl</h3>
-				<CheckboxGroup
-					bind:group={$samplingDesign.methodTypes.stage3}
-					name="stage-3-plot"
-					inputs={trawlInputs}
-				/>
-			{/if}
-			{#if $samplingDesign.methodTypes.stage2.includes('chemicalIrritant')}
-				<h3 class="col-span-2 text-sm text-min-contrast-gray">Chemical irritant</h3>
-				<CheckboxGroup
-					bind:group={$samplingDesign.methodTypes.stage3}
-					name="stage-3-plot"
-					inputs={chemicalIrritantInputs}
-				/>
-			{/if}
-			{#if $samplingDesign.methodTypes.stage2.includes('chemicalKnockdown')}
-				<h3 class="col-span-2 text-sm text-min-contrast-gray">Chemical knockdown</h3>
-				<CheckboxGroup
-					bind:group={$samplingDesign.methodTypes.stage3}
-					name="stage-3-plot"
-					inputs={chemicalKnockdownInputs}
-				/>
-			{/if}
-			{#if $samplingDesign.methodTypes.stage2.includes('markRecapture')}
-				<h3 class="col-span-2 text-sm text-min-contrast-gray">Mark-recapture</h3>
-				<CheckboxGroup
-					bind:group={$samplingDesign.methodTypes.stage3}
-					name="stage-3-plot"
-					inputs={markRecaptureInputs}
-				/>
+			{#if $samplingDesign.methodTypes.stage2.length && $samplingDesign.methodTypes.stage1.length}
+				{#if $samplingDesign.methodTypes.stage2.includes('net')}
+					<h3 class="col-span-2 text-sm text-min-contrast-gray">Net</h3>
+					<CheckboxGroup
+						bind:group={$samplingDesign.methodTypes.stage3}
+						name="stage-3-plot"
+						inputs={netInputs}
+					/>
+				{/if}
+				{#if $samplingDesign.methodTypes.stage2.includes('trap')}
+					<h3 class="col-span-2 text-sm text-min-contrast-gray">Trap</h3>
+					<CheckboxGroup
+						bind:group={$samplingDesign.methodTypes.stage3}
+						name="stage-3-plot"
+						inputs={trapInputs}
+					/>
+				{/if}
+				{#if $samplingDesign.methodTypes.stage2.includes('trawl')}
+					<h3 class="col-span-2 text-sm text-min-contrast-gray">Trawl</h3>
+					<CheckboxGroup
+						bind:group={$samplingDesign.methodTypes.stage3}
+						name="stage-3-plot"
+						inputs={trawlInputs}
+					/>
+				{/if}
+				{#if $samplingDesign.methodTypes.stage2.includes('chemicalIrritant')}
+					<h3 class="col-span-2 text-sm text-min-contrast-gray">Chemical irritant</h3>
+					<CheckboxGroup
+						bind:group={$samplingDesign.methodTypes.stage3}
+						name="stage-3-plot"
+						inputs={chemicalIrritantInputs}
+					/>
+				{/if}
+				{#if $samplingDesign.methodTypes.stage2.includes('chemicalKnockdown')}
+					<h3 class="col-span-2 text-sm text-min-contrast-gray">Chemical knockdown</h3>
+					<CheckboxGroup
+						bind:group={$samplingDesign.methodTypes.stage3}
+						name="stage-3-plot"
+						inputs={chemicalKnockdownInputs}
+					/>
+				{/if}
+				{#if $samplingDesign.methodTypes.stage2.includes('markRecapture')}
+					<h3 class="col-span-2 text-sm text-min-contrast-gray">Mark-recapture</h3>
+					<CheckboxGroup
+						bind:group={$samplingDesign.methodTypes.stage3}
+						name="stage-3-plot"
+						inputs={markRecaptureInputs}
+					/>
+				{/if}
 			{/if}
 		</div>
 	</Multistep>
