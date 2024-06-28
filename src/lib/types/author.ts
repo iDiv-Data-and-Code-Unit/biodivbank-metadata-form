@@ -9,7 +9,8 @@ export type PrimaryContact = {
 	email: string;
 	institutionName: string;
 	institutionCountry: string;
-	rorId: string;
+	ror: string;
+	noRor: boolean;
 };
 
 export interface ListAuthor extends Author {
