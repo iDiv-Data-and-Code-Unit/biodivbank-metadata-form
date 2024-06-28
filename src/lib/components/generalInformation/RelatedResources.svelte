@@ -108,12 +108,12 @@
 	<div class="col-span-2 space-y-1">
 		{#each resources as resource (resource.id)}
 			<div
-				class="bg-secondary-white py-4 px-6 text-subtle-text border border-interactive-surface grid grid-cols-10 gap-4 items-center"
+				class="bg-secondary-white py-4 px-6 text-subtle-text border border-interactive-surface grid grid-cols-12 gap-4 items-center"
 			>
-				<div class="flex items-center gap-6 font-medium col-span-5">
+				<div class="flex items-center gap-6 font-medium col-span-6">
 					<span class="text-black-text">{resource.type}</span>
 				</div>
-				<span class="text-black-text col-span-4"
+				<span class="text-black-text col-span-5"
 					><span class="text-subtle-text">doi:</span><a
 						class="underline"
 						target="_blank"
