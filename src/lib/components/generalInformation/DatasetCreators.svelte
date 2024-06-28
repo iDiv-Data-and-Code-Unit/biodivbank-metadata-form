@@ -41,7 +41,8 @@
 		email: '',
 		institutionName: '',
 		institutionCountry: '',
-		rorId: ''
+		noRor: false,
+		ror: ''
 	};
 	let orcIdNotAvailable: boolean = false;
 
@@ -67,7 +68,8 @@
 			email: '',
 			institutionName: '',
 			institutionCountry: '',
-			rorId: ''
+			noRor: false,
+			ror: ''
 		};
 	}
 
@@ -343,11 +345,12 @@
 						pattern="'^0[a-z|0-9]{6}[0-9]{2}$"
 						errorMsg="Please enter a valid ROR ID."
 						disabled={notAvailable}
+						bind:value={primaryContact.ror}
 					/>
 					<div class="mt-1">
 						<label class="text-sm mr-1"
 							><span>No ROR ID available?</span>
-							<input type="checkbox" class="ml-1 !w-4 !h-4" bind:checked={notAvailable} />
+							<input type="checkbox" class="ml-1 !w-4 !h-4" bind:checked={primaryContact.noRor} />
 						</label>
 					</div>
 				</div>
@@ -366,7 +369,7 @@
 <div class="col-span-2">
 	<Collapsible title="Import authors"
 		><form method="POST" action="?/importAuthors" use:enhance class="col-span-2">
-			<div class="flex flex-col justify-start w-max gap-2">
+			<div class="flex flex-col justify-start w-max gap-8">
 				<input accept="text/csv" type="file" name="csv" id="csv" />
 				<button class="text-sm shadow-md text-white bg-secondary p-2 px-4 rounded-md w-max gap-5"
 					>Import</button
