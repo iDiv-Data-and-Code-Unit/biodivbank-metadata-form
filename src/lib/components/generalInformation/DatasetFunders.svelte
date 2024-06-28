@@ -135,7 +135,7 @@
 				class="text-sm shadow-md text-white bg-secondary p-2 mt-3 pr-4 self-start col-span-1 rounded-md flex items-center gap-5"
 			>
 				<Plus />
-				Add Funder
+				Add
 			</button>
 		</form></Collapsible
 	>
