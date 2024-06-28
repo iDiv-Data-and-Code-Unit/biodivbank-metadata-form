@@ -1,33 +1,33 @@
 <script lang="ts">
-	import Collapsible from './Collapsible.svelte';
-
 	export let question = 'Question';
+	export let step2Title = 'Step 2';
+	export let step3Title = 'Step 3';
 	export let steps = 1;
 
-	let isStep2Empty = true;
-	let isStep3Empty = true;
+	let step2Height: number;
+	let step3Height: number;
 </script>
 
 <div class="grid gap-8 w-full">
 	<div class="grid gap-2">
 		<h3 class="text-base">{question}</h3>
-		<div class="bg-divider h-px mt-1 mb-3" />
-		<div class="pl-4"><slot /></div>
+		<div class="h-px mt-1 mb-3" />
+		<div class=""><slot /></div>
 	</div>
 
 	{#if steps > 1}
 		<div class="grid gap-2">
-			<h3 class="text-base" class:text-input-disabled={!isStep2Empty}>Step 2</h3>
+			<h3 class="text-base" class:text-input-disabled={!step2Height}>{step2Title}</h3>
 			<div class="bg-divider h-px mt-1 mb-3" />
-			<div bind:clientHeight={isStep2Empty} class="pl-4"><slot name="step-2" /></div>
+			<div bind:clientHeight={step2Height} class=""><slot name="step-2" /></div>
 		</div>
 	{/if}
 
 	{#if steps > 2}
 		<div class="grid gap-2">
-			<h3 class="text-base" class:text-input-disabled={!isStep3Empty}>Step 3</h3>
+			<h3 class="text-base" class:text-input-disabled={!step3Height}>{step3Title}</h3>
 			<div class="bg-divider h-px mt-1 mb-3" />
-			<div bind:clientHeight={isStep3Empty} class="pl-4"><slot name="step-3" /></div>
+			<div bind:clientHeight={step3Height} class=""><slot name="step-3" /></div>
 		</div>
 	{/if}
 </div>
