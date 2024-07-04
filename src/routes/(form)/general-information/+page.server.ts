@@ -16,6 +16,8 @@ export const actions: Actions = {
 
 		const fileContent = fs.readFileSync(csvFilePath, { encoding: 'utf-8' });
 
+		console.log('content', fileContent);
+
 		const authors = parse(
 			buffer,
 			{
@@ -29,6 +31,8 @@ export const actions: Actions = {
 			// 	console.log('Result', result);
 			// }
 		);
+		console.log(authors);
+
 		return { authors };
 	}
 };

@@ -80,6 +80,9 @@
 	}
 
 	function removeAuthor(id: string) {
+		console.log(id);
+		console.log(authors);
+
 		authors = authors.filter((author) => author.id !== id);
 	}
 

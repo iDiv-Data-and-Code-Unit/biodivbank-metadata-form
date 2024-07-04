@@ -461,9 +461,9 @@ export const samplingDesignAndLocationSchema = z.object({
 						])
 					)
 					.min(1, { message: 'At least one type is required' }),
-				bank: z.array(z.enum(['On Bank', 'In substrate'])),
-				surface: z.array(z.enum(['On surface', 'Below surface'])),
-				bed: z.array(z.enum(['Benthic water layer', 'On subtrate', 'In substrate'])),
+				bank: z.enum(['On Bank', 'In substrate']),
+				surface: z.enum(['On surface', 'Below surface']),
+				bed: z.enum(['Benthic water layer', 'On subtrate', 'In substrate']),
 				other: z.string().optional()
 			})
 			.superRefine(({ type, bank, surface, bed, other }, riverCrossSectionCtx) => {
