@@ -15,6 +15,8 @@
 	import { page } from '$app/stores';
 	import { params } from '$lib/stores/paramsStore';
 	import axios from 'axios';
+	import toast from 'svelte-french-toast';
+	import CustomToast from '$lib/components/CustomToast.svelte';
 
 	const url = $page.url;
 
@@ -30,8 +32,79 @@
 	// export let dat: PageData;
 	export let form: ActionData;
 
-	onMount(async () => {
+	onMount(() => {
 		step.set(1);
+
+		return () => {
+			const {
+				firstName,
+				familyName,
+				orcidId,
+				noOrcidId,
+				email,
+				institutionName,
+				institutionCountry,
+				ror,
+				noRor,
+				datasetTitle,
+				datasetAbstract,
+				accessPolicy
+			} = $generalInformation;
+			const requiredFields = [
+				'firstName',
+				'familyName',
+				// orcidId,
+				// noOrcidId,
+				'email',
+				'institutionName',
+				'institutionCountry',
+				// ror,
+				// noRor,
+				'datasetTitle',
+				'datasetAbstract',
+				'accessPolicy'
+			] as const;
+			const fieldMap: Record<(typeof requiredFields)[number], string> = {
+				firstName: 'First name',
+				familyName: 'Last name',
+				// orcidId,
+				// noOrcidId,
+				email: 'Email address',
+				institutionName: 'Institution name',
+				institutionCountry: 'Institution country',
+				// ror,
+				// noRor,
+				datasetTitle: 'Dataset title',
+				datasetAbstract: 'Dataset abstract',
+				accessPolicy: 'Access policy'
+			};
+			const missingFields = requiredFields.filter((field) => !Boolean($generalInformation[field]));
+
+			if (
+				!missingFields.length
+				// firstName &&
+				// familyName &&
+				// email &&
+				// (orcidId || noOrcidId) &&
+				// institutionName &&
+				// institutionCountry &&
+				// (ror || noRor) &&
+				// datasetTitle &&
+				// datasetAbstract &&
+				// accessPolicy
+			) {
+				return;
+			}
+			toast(CustomToast, {
+				// @ts-ignore
+				step: 'General information',
+				// @ts-ignore
+				incompleteFields: missingFields.map((field) => fieldMap[field]),
+				position: 'bottom-right',
+				duration: 10000,
+				className: 'mr-40'
+			});
+		};
 		// console.log('Mount: ', $params.id, $params.auth);
 
 		// const response = await axios.get(

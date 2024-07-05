@@ -7,14 +7,17 @@ export const actions: Actions = {
 	importAuthors: async ({ request }) => {
 		const data = await request.formData();
 		const file = data.get('csv') as File;
+		// console.log(file);
+
 		const arrayBuffer = await file.arrayBuffer();
 		const buffer = Buffer.from(arrayBuffer);
+		// console.log(buffer);
 
-		const csvFilePath = path.resolve('test.csv');
+		// const csvFilePath = path.resolve('test.csv');
 
-		const headers = ['firstName', 'initials', 'familyName', 'orcId'];
+		// const headers = ['firstName', 'initials', 'familyName', 'orcId'];
 
-		const fileContent = fs.readFileSync(csvFilePath, { encoding: 'utf-8' });
+		// const fileContent = fs.readFileSync(csvFilePath, { encoding: 'utf-8' });
 
 		const authors = parse(
 			buffer,
