@@ -8,6 +8,7 @@
 	import Select from '../Select.svelte';
 	import TextInput from '../TextInput.svelte';
 	import { z } from 'zod';
+	import Collapsible from '../Collapsible.svelte';
 
 	let resourceTypes = [
 		'Journal article',
@@ -76,6 +77,7 @@
 		}
 
 		resources = [...resources, { id: nanoid(), type: resourceType, DOI }];
+		type = '';
 		formEl.reset();
 		nameEl.focus();
 	}
@@ -101,51 +103,17 @@
 	}
 </script>
 
-<form
-	class="flex flex-col col-span-2 gap-4"
-	on:submit|preventDefault={addResource}
-	bind:this={formEl}
->
-	<Select
-		label="Resource type"
-		placeholder="Select a resource type"
-		required
-		bind:value={type}
-		options={resourceTypes}
-	/>
-	{#if type === 'Other'}
-		<TextInput label="" placeholder="Please specify resource type" bind:value={otherType} />
-	{/if}
-	<TextInput
-		bind:value={DOI}
-		placeholder="E.g. 10.25829/x33q1z"
-		bind:el={nameEl}
-		required
-		label="DOI (or URL)"
-	/>
-	{#if error}
-		<p class="text-error text-sm">{error}</p>
-	{/if}
-
-	<button
-		type="submit"
-		class="text-sm shadow-md text-white bg-secondary p-2 mt-3 pr-4 self-start col-span-1 rounded-md flex items-center gap-5"
-	>
-		<Plus />
-		Add Resource
-	</button>
-</form>
-<div class="bg-divider h-px col-span-2 my-4" />
+<!-- <div class="bg-divider h-px col-span-2 my-4" /> -->
 {#if resources.length}
 	<div class="col-span-2 space-y-1">
 		{#each resources as resource (resource.id)}
 			<div
-				class="bg-secondary-white py-4 px-6 text-subtle-text border border-interactive-surface grid grid-cols-3 items-center"
+				class="bg-secondary-white py-4 px-6 text-subtle-text border border-interactive-surface grid grid-cols-12 gap-4 items-center"
 			>
-				<div class="flex items-center gap-6 font-medium">
+				<div class="flex items-center gap-6 font-medium col-span-6">
 					<span class="text-black-text">{resource.type}</span>
 				</div>
-				<span class="justify-self-center text-black-text"
+				<span class="text-black-text col-span-5"
 					><span class="text-subtle-text">doi:</span><a
 						class="underline"
 						target="_blank"
@@ -170,6 +138,44 @@
 		No resource identifiers added yet
 	</div>
 {/if}
+<div class="col-span-2">
+	<Collapsible open={true} title="Add a resource"
+		><form
+			class="flex flex-col col-span-2 gap-4"
+			on:submit|preventDefault={addResource}
+			bind:this={formEl}
+		>
+			<Select
+				label="Resource type"
+				placeholder="Select a resource type"
+				required
+				bind:value={type}
+				options={resourceTypes}
+			/>
+			{#if type === 'Other'}
+				<TextInput label="" placeholder="Please specify resource type" bind:value={otherType} />
+			{/if}
+			<TextInput
+				bind:value={DOI}
+				placeholder="E.g. 10.25829/x33q1z"
+				bind:el={nameEl}
+				required
+				label="DOI (or URL)"
+			/>
+			{#if error}
+				<p class="text-error text-sm">{error}</p>
+			{/if}
+
+			<button
+				type="submit"
+				class="text-sm shadow-md text-white bg-secondary p-2 mt-3 pr-4 self-start col-span-1 rounded-md flex items-center gap-5"
+			>
+				<Plus />
+				Add
+			</button>
+		</form></Collapsible
+	>
+</div>
 <!-- {#if isOpen && selectedFunder}
 	<EditModal bind:isOpen author={selectedAuthor} {editAuthor} />
 {/if} -->

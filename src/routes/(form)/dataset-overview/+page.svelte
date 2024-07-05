@@ -4,6 +4,7 @@
 	import GeographicScope from '$lib/components/datasetOverview/GeographicScope.svelte';
 	import Realm from '$lib/components/datasetOverview/Realm.svelte';
 	import TaxonomicScope from '$lib/components/datasetOverview/TaxonomicScope.svelte';
+	import TaxonomicScope2 from '$lib/components/datasetOverview/TaxonomicScope2.svelte';
 	import TemporalScope from '$lib/components/datasetOverview/TemporalScope.svelte';
 	import Question from '$lib/components/formControls/Question.svelte';
 	import Section from '$lib/components/formControls/Section.svelte';
@@ -65,8 +66,9 @@
 		title="Taxonomic scope"
 		description="Which taxonomic groups are represented in the dataset? (Select all that apply)"
 	>
-		<Question question="Which kingdoms are involved?">
+		<!-- <Question question="Which kingdoms are involved?">
 			<TaxonomicScope />
-		</Question>
+		</Question> -->
+		<div class="col-span-2"><TaxonomicScope2 /></div>
 	</Section>
 </div>

@@ -7,6 +7,7 @@
 	import type { Funder } from '$lib/types/schema';
 	import { nanoid } from 'nanoid';
 	import TextInput from '../TextInput.svelte';
+	import Collapsible from '../Collapsible.svelte';
 
 	let funders = $generalInformation.funders;
 
@@ -30,6 +31,7 @@
 		funders = [...funders, { id: nanoid(), name, funderId, noFunderId, grantNumber }];
 		formEl.reset();
 		nameEl.focus();
+		noFunderId = false;
 	}
 
 	function removeFunder(id: string) {
@@ -59,58 +61,20 @@
 	}
 </script>
 
-<form
-	class="flex flex-col col-span-2 gap-4"
-	on:submit|preventDefault={addFunder}
-	bind:this={formEl}
->
-	<TextInput
-		bind:value={name}
-		required
-		placeholder="E.g. Deutsche Forschungsgemeinschaft"
-		maxlength={100}
-		bind:el={nameEl}
-		label="Funder name"
-	/>
-	<div>
-		<TextInput
-			bind:value={funderId}
-			placeholder="E.g. 501100001659"
-			label="Crossref Funder ID *"
-			pattern="[0-9]&lbrace;12&rbrace;"
-			disabled={noFunderId}
-			maxlength={12}
-			errorMsg="Please enter a valid Crossref Funder ID (12 digits)"
-		/>
-		<label class="flex items-center gap-3">
-			<span class="text-sm shrink-0">No Crossref Funder ID available?</span>
-			<input type="checkbox" class="!h-4 !w-4" bind:checked={noFunderId} />
-		</label>
-	</div>
-	<TextInput bind:value={grantNumber} required placeholder="E.g. FZT 118" label="Grant number" />
-
-	<button
-		type="submit"
-		class="text-sm shadow-md text-white bg-secondary p-2 mt-3 pr-4 self-start col-span-1 rounded-md flex items-center gap-5"
-	>
-		<Plus />
-		Add Funder
-	</button>
-</form>
-<div class="bg-divider h-px col-span-2 my-4" />
+<!-- <div class="bg-divider h-px col-span-2 my-4" /> -->
 {#if funders.length}
 	<div class="col-span-2 space-y-1">
 		{#each funders as funder (funder.id)}
 			<div
-				class="bg-secondary-white py-4 px-6 text-subtle-text border border-interactive-surface grid grid-cols-4 items-center"
+				class="bg-secondary-white py-4 px-6 text-subtle-text border border-interactive-surface grid grid-cols-11 items-center"
 			>
-				<div class="flex items-center gap-6">
+				<div class="flex items-center gap-6 col-span-5">
 					<span class="text-black-text">{funder.name}</span>
 				</div>
-				<span class="justify-self-center"
+				<span class="col-span-3"
 					>{funder.funderId ? funder.funderId : 'No funder ID provided'}</span
 				>
-				<span class="">{funder.grantNumber}</span>
+				<span class="col-span-2">{funder.grantNumber}</span>
 				<div class="flex items-center gap-6 text-subtle-text justify-end">
 					<button type="button" on:click={() => openEdit(funder)}>
 						<Pen class="h-5 w-5" />
@@ -129,6 +93,53 @@
 		No funders added yet
 	</div>
 {/if}
+<div class="col-span-2">
+	<Collapsible open={true} title="Add a funder"
+		><form
+			class="flex flex-col col-span-2 gap-4"
+			on:submit|preventDefault={addFunder}
+			bind:this={formEl}
+		>
+			<TextInput
+				bind:value={name}
+				required
+				placeholder="E.g. Deutsche Forschungsgemeinschaft"
+				maxlength={100}
+				bind:el={nameEl}
+				label="Funder name"
+			/>
+			<div>
+				<TextInput
+					bind:value={funderId}
+					placeholder="E.g. 501100001659"
+					label="Crossref Funder ID *"
+					pattern="[0-9]&lbrace;12&rbrace;"
+					disabled={noFunderId}
+					maxlength={12}
+					errorMsg="Please enter a valid Crossref Funder ID (12 digits)"
+				/>
+				<label class="flex items-center gap-3">
+					<span class="text-sm shrink-0">No Crossref Funder ID available?</span>
+					<input type="checkbox" class="!h-4 !w-4" bind:checked={noFunderId} />
+				</label>
+			</div>
+			<TextInput
+				bind:value={grantNumber}
+				required
+				placeholder="E.g. FZT 118"
+				label="Grant number"
+			/>
+
+			<button
+				type="submit"
+				class="text-sm shadow-md text-white bg-secondary p-2 mt-3 pr-4 self-start col-span-1 rounded-md flex items-center gap-5"
+			>
+				<Plus />
+				Add
+			</button>
+		</form></Collapsible
+	>
+</div>
 <!-- {#if isOpen && selectedFunder}
 	<EditModal bind:isOpen author={selectedAuthor} {editAuthor} />
 {/if} -->

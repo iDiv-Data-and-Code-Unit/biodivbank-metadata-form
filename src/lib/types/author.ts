@@ -5,9 +5,18 @@ export type Author = {
 	familyName: string;
 };
 
+export type PrimaryContact = {
+	email: string;
+	institutionName: string;
+	institutionCountry: string;
+	ror: string;
+	noRor: boolean;
+};
+
 export interface ListAuthor extends Author {
 	orcId: string | null;
-	primaryContact: boolean;
+	isPrimaryContact: boolean;
+	primaryContact: PrimaryContact | null;
 }
 
 export type ImportAuthor = {

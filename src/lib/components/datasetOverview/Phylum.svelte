@@ -140,7 +140,32 @@
 		{/if}
 		{#if $datasetOverview.kingdoms.includes('fungi')}
 			<h5 class="text-description">Fungi</h5>
-			{#each fungi as { label, value }}
+			<div class="grid grid-cols-2 gap-8">
+				{#each fungi as { label, value }}
+					<label class="flex items-center gap-3">
+						<input
+							type="checkbox"
+							{value}
+							bind:group={$datasetOverview.subDivisions}
+							name="subDivisions"
+						/>
+						<span class="text-sm shrink-0">
+							{label}&nbsp;
+						</span>
+					</label>
+				{/each}
+			</div>
+		{/if}
+	</div>
+{/if}
+{#if ($datasetOverview.kingdoms.includes('animalia') || $datasetOverview.kingdoms.includes('fungi')) && $datasetOverview.kingdoms.includes('plantae')}
+	<div class="bg-divider h-px w-1/2" />
+{/if}
+{#if $datasetOverview.kingdoms.includes('plantae')}
+	<div class="flex flex-col gap-8 text-sm">
+		<h5 class="text-description">Land Plants</h5>
+		<div class="grid grid-cols-2 gap-8">
+			{#each landPlants as { label, value }}
 				<label class="flex items-center gap-3">
 					<input
 						type="checkbox"
@@ -153,26 +178,8 @@
 					</span>
 				</label>
 			{/each}
-		{/if}
-	</div>
-{/if}
-{#if $datasetOverview.kingdoms.includes('plantae')}
-	<div class="flex flex-col gap-8 text-sm">
-		<h5 class="text-description">Land Plants</h5>
-		{#each landPlants as { label, value }}
-			<label class="flex items-center gap-3">
-				<input
-					type="checkbox"
-					{value}
-					bind:group={$datasetOverview.subDivisions}
-					name="subDivisions"
-				/>
-				<span class="text-sm shrink-0">
-					{label}&nbsp;
-				</span>
-			</label>
-		{/each}
-		<div class="bg-divider h-px w-1/2" />
+		</div>
+		<!-- <div class="bg-divider h-px w-1/2" /> -->
 		<h5 class="text-description">Green algae</h5>
 		{#each greenAlgae as { label, value }}
 			<label class="flex items-center gap-3">
@@ -187,7 +194,7 @@
 				</span>
 			</label>
 		{/each}
-		<div class="bg-divider h-px w-1/2" />
+		<!-- <div class="bg-divider h-px w-1/2" /> -->
 		<h5 class="text-description">Other algae</h5>
 		{#each otherAlgae as { label, value }}
 			<label class="flex items-center gap-3">
