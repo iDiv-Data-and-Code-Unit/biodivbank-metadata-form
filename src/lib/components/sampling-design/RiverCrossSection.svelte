@@ -13,7 +13,7 @@
 	question="Indicate where sampling took place in the river or stream"
 	direction="grid"
 >
-	<div class="relative h-80 col-span-2">
+	<div class="relative h-80 col-span-2 mt-8">
 		<img src="/crosssection.svg" alt="" class="absolute w-3/4" />
 		<label
 			class={clsx(
