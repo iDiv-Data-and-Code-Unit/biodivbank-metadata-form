@@ -51,6 +51,7 @@
 		"nanoid": "^4.0.1",
 		"pmtiles": "^2.11.0",
 		"protomaps-themes-base": "2.0.0-alpha.4",
+		"svelte-french-toast": "^1.2.0",
 		"svelte-headlessui": "^0.0.33",
 		"svelte-multiselect": "^8.6.0",
 		"svelte-transition": "^0.0.10",
