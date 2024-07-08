@@ -97,13 +97,13 @@
 	</p>
 	<section class="px-20 pb-28">
 		<h2 class="text-2xl font-semibold mb-6">In the spotlight</h2>
-		<div class="grid grid-cols-4 gap-8">
+		<div class="grid grid-cols-4 gap-8 max-w-[1600px]">
 			{#each datasets as dataset}
 				<div class="rounded-xl overflow-hidden border text-black-text border-min-contrast-gray/20">
 					<img src={dataset.img} class="w-full aspect-video object-cover" alt="" />
-					<div class="pt-6 px-8 pb-4">
-						<h3 class="font-semibold text-lg mb-5">{dataset.title}</h3>
-						<p class="mb-5 text-min-contrast-gray text-sm">{dataset.excerpt}</p>
+					<div class="pt-6 px-8 pb-4 grid gap-8">
+						<h3 class="font-semibold text-xl">{dataset.title}</h3>
+						<p class=" text-min-contrast-gray text-sm -mt-5">{dataset.excerpt}</p>
 						<div class="flex justify-between">
 							<a href="#" class="underline text-xs">Authors</a>
 							<p class="text-xs">{dataset.date}</p>
