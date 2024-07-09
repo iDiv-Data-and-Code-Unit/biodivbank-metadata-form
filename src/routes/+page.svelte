@@ -75,7 +75,7 @@
 			<p class="text-2xl font-semibold">Data Repository</p>
 			<a
 				href="http://idiv-biodivbank.inf-bb.uni-jena.de/ddm/PublicSearch"
-				class="text-secondary underline text-xl">Explore</a
+				class="text-secondary underline text-2xl font-medium">Explore</a
 			>
 		</div>
 		<!-- </a> -->
@@ -87,7 +87,7 @@
 			<p class="text-2xl font-semibold">Submission Portal</p>
 			<a
 				href="http://idiv-biodivbank.inf-bb.uni-jena.de/Account/Login"
-				class="text-primary underline text-xl">Contribute</a
+				class="text-primary underline text-2xl font-medium">Contribute</a
 			>
 		</div>
 		<!-- </a> -->
