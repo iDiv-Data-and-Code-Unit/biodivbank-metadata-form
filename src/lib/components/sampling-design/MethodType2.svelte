@@ -10,7 +10,7 @@
 	let stage1Inputs = [
 		{ label: 'Human / direct observation', value: 'human' },
 		{ label: 'Machine observation', value: 'machineObservation' },
-		{ label: 'Capture', value: 'capture' },
+		{ label: 'Trap or capture', value: 'capture' },
 		{ label: 'Environmental sample', value: 'environmentalSample' },
 		{ label: 'Physical evidence', value: 'physicalEvidence' }
 	];
