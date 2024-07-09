@@ -13,7 +13,7 @@
 	question="Indicate where sampling took place in the river or stream"
 	direction="grid"
 >
-	<div class="relative h-80 col-span-2">
+	<div class="relative h-80 col-span-2 mt-8">
 		<img src="/crosssection.svg" alt="" class="absolute w-3/4" />
 		<label
 			class={clsx(
@@ -73,7 +73,7 @@
 			</select>
 		</label>
 	</div>
-	<div class="relative grid grid-cols-4 gap-8 col-span-2 mt-8">
+	<div class="relative grid grid-cols-4 gap-8 col-span-2 -mt-16">
 		<div class="col-span-2 grid grid-cols-2 gap-8">
 			<label class="flex items-center gap-3">
 				<input type="checkbox" bind:checked={$samplingDesign.riverCrossSection.water} />

@@ -20,6 +20,7 @@
 	import { enhance } from '$app/forms';
 	import Collapsible from '../Collapsible.svelte';
 	import PrimaryContactModal from './PrimaryContactModal.svelte';
+	import Ror from '../ROR.svelte';
 
 	let authors = $generalInformation.authors;
 	export let importedAuthors: ImportAuthor[] | null;
@@ -307,10 +308,10 @@
 					maxLength={19}
 					pattern="\d\d\d\d[-]\d\d\d\d[-]\d\d\d\d[-]\d\d\d\d"
 					placeholder="Eg: 0000-0000-0000-0000"
-					invalidInputErrorMsg="Only 4-digit numbers seperated by minus are permitted."
-					invalidatedErrorMsg="ORCid does not exist, please check that you have typed it in correctly."
+					invalidInputErrorMsg="An ORCiD must contain four 4-digit numbers, separated by hyphens."
+					invalidatedErrorMsg="ORCiD does not exist, please check that you have typed it in correctly."
 					confirmCheckboxMsg="No ORCiD available?"
-					validatedMsg="ORCi found."
+					validatedMsg="ORCiD found."
 				/>
 				<label class="flex items-center gap-3"
 					><span class="text-sm shrink-0">Primary contact?</span>
@@ -342,7 +343,7 @@
 					/>
 				</div>
 				<div>
-					<TextInput
+					<!-- <TextInput
 						label="ROR ID"
 						placeholder="xxxxxxxxx"
 						pattern="'^0[a-z|0-9]{6}[0-9]{2}$"
@@ -355,7 +356,20 @@
 							><span>No ROR ID available?</span>
 							<input type="checkbox" class="ml-1 !w-4 !h-4" bind:checked={primaryContact.noRor} />
 						</label>
-					</div>
+					</div> -->
+
+					<Ror
+							bind:value={primaryContact.ror}
+							bind:notAvailable={primaryContact.noRor}
+							name="ror-author-list"
+							label="Institution ROR ID"
+							maxLength={9}
+							placeholder="XXXXXXXXX"
+							invalidInputErrorMsg="A ROR ID must contain 9 alphanumeric characters."
+							invalidatedErrorMsg="ROR ID does not exist, please check that you have typed it in correctly."
+							confirmCheckboxMsg="No ROR ID available?"
+							validatedMsg="ROR ID found."
+						/>
 				</div>
 			{/if}
 			<button

@@ -74,10 +74,10 @@
 						maxLength={19}
 						pattern="\d\d\d\d[-]\d\d\d\d[-]\d\d\d\d[-]\d\d\d\d"
 						placeholder="Eg: 0000-0000-0000-0000"
-						invalidInputErrorMsg="Only 4-digit numbers seperated by minus are permitted."
-						invalidatedErrorMsg="OrcId does not exist, please check that you have typed it in correctly."
+						invalidInputErrorMsg="An ORCiD must contain four 4-digit numbers, separated by hyphens."
+						invalidatedErrorMsg="ORCiD does not exist, please check that you have typed it in correctly."
 						confirmCheckboxMsg="No ORCiD available?"
-						validatedMsg="OrcId found."
+						validatedMsg="ORCiD found."
 					/>
 					<!-- TODO: add primary contact fields -->
 					<div class="flex gap-4">

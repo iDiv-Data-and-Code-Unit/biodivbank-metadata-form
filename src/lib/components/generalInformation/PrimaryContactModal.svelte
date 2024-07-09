@@ -9,6 +9,7 @@
 	import TextInput from '../TextInput.svelte';
 	import countries from './countries.json';
 	import Select from '../Select.svelte';
+	import Ror from '../ROR.svelte';
 
 	export let isOpen: boolean;
 	export let author: ListAuthor;
@@ -19,7 +20,6 @@
 	) => void;
 	export let cancelEditPrimaryContactModal: () => void;
 
-	let notAvailable = false;
 	let primaryContactDetails: PrimaryContact = author?.primaryContact ?? {
 		email: '',
 		institutionName: '',
@@ -72,24 +72,18 @@
 						/>
 					</div>
 					<div>
-						<TextInput
-							label="ROR ID"
-							placeholder="xxxxxxxxx"
-							pattern="'^0[a-z|0-9]{6}[0-9]{2}$"
-							errorMsg="Please enter a valid ROR ID."
-							disabled={notAvailable}
+						<Ror
 							bind:value={primaryContactDetails.ror}
+							bind:notAvailable={primaryContactDetails.noRor}
+							name="ror-author-list"
+							label="Institution ROR ID"
+							maxLength={9}
+							placeholder="XXXXXXXXX"
+							invalidInputErrorMsg="A ROR ID must contain 9 alphanumeric characters."
+							invalidatedErrorMsg="ROR ID does not exist, please check that you have typed it in correctly."
+							confirmCheckboxMsg="No ROR ID available?"
+							validatedMsg="ROR ID found."
 						/>
-						<div class="mt-1">
-							<label class="text-sm mr-1"
-								><span>No ROR ID available?</span>
-								<input
-									type="checkbox"
-									class="ml-1 !w-4 !h-4"
-									bind:checked={primaryContactDetails.noRor}
-								/>
-							</label>
-						</div>
 					</div>
 					<div class="flex gap-4 pt-4">
 						<button

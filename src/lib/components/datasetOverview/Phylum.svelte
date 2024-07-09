@@ -180,7 +180,8 @@
 			{/each}
 		</div>
 		<!-- <div class="bg-divider h-px w-1/2" /> -->
-		<h5 class="text-description">Green algae</h5>
+		<div class="grid grid-cols-2 gap-8 col-span-2">
+			<div class="grid gap-8"><h5 class="text-description">Green algae</h5>
 		{#each greenAlgae as { label, value }}
 			<label class="flex items-center gap-3">
 				<input
@@ -194,8 +195,9 @@
 				</span>
 			</label>
 		{/each}
-		<!-- <div class="bg-divider h-px w-1/2" /> -->
-		<h5 class="text-description">Other algae</h5>
+		</div>
+	
+	<div class="grid gap-8"><h5 class="text-description">Other algae</h5>
 		{#each otherAlgae as { label, value }}
 			<label class="flex items-center gap-3">
 				<input
@@ -208,6 +210,10 @@
 					{label}&nbsp;
 				</span>
 			</label>
-		{/each}
+		{/each}</div>
+	</div>
+		
+		<!-- <div class="bg-divider h-px w-1/2" /> -->
+		
 	</div>
 {/if}

@@ -162,16 +162,23 @@ E.g. A single baited camera trap station with motion sensor trigger, deployed fo
 					.toLowerCase()
 					.includes('terrestrial') ) || $samplingDesign.riverCrossSection.riparianZone}
 		<Section title="Sampling location">
-			{#if $datasetOverview.coreRealmBiomes.includes('riversAndStreams')}
-				<RiverZone />
-				<StreamOrder />
-				<RiverCrossSection />
-			{/if}
-			{#if $datasetOverview.coreRealms.includes('terrestrial') || $datasetOverview.transitionalRealms.some( (realm) => realm
-							.toLowerCase()
-							.includes('terrestrial') ) || $samplingDesign.riverCrossSection.riparianZone}
-				<VegetationLayer />
-			{/if}
+			<div class="grid gap-32 col-span-2">
+				<div class="grid gap-24">
+					{#if $datasetOverview.coreRealmBiomes.includes('riversAndStreams')}
+						<div><RiverZone /></div>
+						<div><StreamOrder /></div>
+						<div><RiverCrossSection /></div>
+					{/if}
+				</div>
+
+				<div>
+					{#if $datasetOverview.coreRealms.includes('terrestrial') || $datasetOverview.transitionalRealms.some( (realm) => realm
+									.toLowerCase()
+									.includes('terrestrial') ) || $samplingDesign.riverCrossSection.riparianZone}
+						<VegetationLayer />
+					{/if}
+				</div>
+			</div>
 		</Section>
 	{/if}
 

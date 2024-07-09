@@ -67,7 +67,7 @@
 			</form>
 		</div>
 	</section>
-	<div class="flex gap-20 max-w-screen-lg justify-center w-full mb-20">
+	<div class="flex gap-20 max-w-screen-lg justify-center w-full mb-20 ">
 		<!-- <a href="#" class="w-60 flex-1"> -->
 		<div
 			class="flex flex-col gap-2 items-center relative text-black-text justify-center h-full py-2"
@@ -75,7 +75,7 @@
 			<p class="text-2xl font-semibold">Data Repository</p>
 			<a
 				href="http://idiv-biodivbank.inf-bb.uni-jena.de/ddm/PublicSearch"
-				class="text-secondary underline text-xl">Explore</a
+				class="text-secondary underline text-2xl font-medium">Explore</a
 			>
 		</div>
 		<!-- </a> -->
@@ -87,7 +87,7 @@
 			<p class="text-2xl font-semibold">Submission Portal</p>
 			<a
 				href="http://idiv-biodivbank.inf-bb.uni-jena.de/Account/Login"
-				class="text-primary underline text-xl">Contribute</a
+				class="text-primary underline text-2xl font-medium">Contribute</a
 			>
 		</div>
 		<!-- </a> -->
@@ -95,15 +95,15 @@
 	<p class="text-3xl w-3/4 text-center leading-normal font-bold text-black-text mb-28 mt-16">
 		BiodivBank is a global repository for data on species abundances within ecological communities
 	</p>
-	<section class="w-full px-20 pb-28">
+	<section class="px-20 pb-28">
 		<h2 class="text-2xl font-semibold mb-6">In the spotlight</h2>
-		<div class="grid grid-cols-4 gap-8">
+		<div class="grid grid-cols-4 gap-8 max-w-[1600px]">
 			{#each datasets as dataset}
 				<div class="rounded-xl overflow-hidden border text-black-text border-min-contrast-gray/20">
-					<img src={dataset.img} class="w-full h-56 object-cover" alt="" />
-					<div class="pt-6 px-8 pb-4">
-						<h3 class="font-semibold text-lg mb-5">{dataset.title}</h3>
-						<p class="mb-5 text-min-contrast-gray text-sm">{dataset.excerpt}</p>
+					<img src={dataset.img} class="w-full aspect-video object-cover" alt="" />
+					<div class="pt-6 px-8 pb-4 grid gap-8">
+						<h3 class="font-semibold text-xl">{dataset.title}</h3>
+						<p class=" text-min-contrast-gray text-sm -mt-5">{dataset.excerpt}</p>
 						<div class="flex justify-between">
 							<a href="#" class="underline text-xs">Authors</a>
 							<p class="text-xs">{dataset.date}</p>
