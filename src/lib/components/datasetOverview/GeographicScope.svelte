@@ -12,6 +12,7 @@
 	import Cross from '$lib/icons/Cross.svelte';
 	import MultiCombobox from '../formControls/MultiCombobox.svelte';
 	import { onMount } from 'svelte';
+	import Ror from '../ROR.svelte';
 	// import Radio from '$lib/components/Radio';
 
 	let notAvailable = false;
@@ -170,18 +171,16 @@
 		bind:value={$datasetOverview.fieldStation}
 	/>
 	<div>
-		<!-- TODO: use validated ROR -->
-		<TextInput
-			bind:value={$datasetOverview.fieldStationROR}
-			label={`ROR ID ${$datasetOverview.fieldStation ? ' *' : ''}`}
-			placeholder="xxxxxxxxx"
-			disabled={notAvailable}
-		/>
-		<div class="mt-1">
-			<label class="text-sm mr-1"
-				><span>No ROR ID available?</span>
-				<input type="checkbox" class="ml-1 !w-4 !h-4" bind:checked={notAvailable} />
-			</label>
-		</div>
-	</div>
+	<Ror
+		bind:value={$datasetOverview.fieldStationROR}
+		bind:notAvailable={notAvailable}
+		name="ror-author-list"
+		label={`Institution ROR ID ${$datasetOverview.fieldStation ? ' *' : ''}`}
+		maxLength={9}
+		placeholder="XXXXXXXXX"
+		invalidInputErrorMsg="A ROR ID must contain 9 alphanumeric characters."
+		invalidatedErrorMsg="ROR ID does not exist, please check that you have typed it in correctly."
+		confirmCheckboxMsg="No ROR ID available?"
+		validatedMsg="ROR ID found."
+	/>
 </Question>
