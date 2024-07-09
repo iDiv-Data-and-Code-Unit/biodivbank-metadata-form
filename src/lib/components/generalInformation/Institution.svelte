@@ -31,7 +31,7 @@
 		label="Institution ROR ID"
 		maxLength={9}
 		placeholder="XXXXXXXXX"
-		invalidInputErrorMsg="Only 4-digit numbers seperated by minus are permitted."
+		invalidInputErrorMsg="A ROR ID must contain 9 alphanumeric characters."
 		invalidatedErrorMsg="ROR ID does not exist, please check that you have typed it in correctly."
 		confirmCheckboxMsg="No ROR ID available?"
 		validatedMsg="ROR ID found."
