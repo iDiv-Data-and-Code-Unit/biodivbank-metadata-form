@@ -30,7 +30,7 @@
 		<span class="sr-only">Toggle</span>
 	</div>
 	<div class="bg-divider h-px" />
-	<Collapsible.Content class="space-y-2 font-mono text-[15px] tracking-[0.01em]" transition={slide}>
+	<Collapsible.Content class="space-y-2 text-[15px] tracking-[0.01em]" transition={slide}>
 		<slot />
 	</Collapsible.Content>
 </Collapsible.Root>

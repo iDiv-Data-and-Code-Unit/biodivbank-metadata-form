@@ -12,9 +12,38 @@
 	import { datasetOverview } from '$lib/stores/datasetOverview';
 	import { step } from '$lib/stores/steps';
 	import { onMount } from 'svelte';
+	import toast from 'svelte-french-toast';
+	import CustomToast from '$lib/components/CustomToast.svelte';
 
 	onMount(() => {
 		step.set(2);
+
+		return () => {
+			const {
+				originalOrCompiledDataset,
+				temporalScopeStart,
+				temporalScopeEnd,
+				spatialScope,
+				coreRealms
+			} = $datasetOverview;
+			if (
+				!originalOrCompiledDataset ||
+				!temporalScopeStart ||
+				!temporalScopeEnd ||
+				!spatialScope ||
+				!coreRealms.length
+			) {
+			}
+			toast(CustomToast, {
+				// @ts-ignore
+				step: 'Dataset overview',
+				// @ts-ignore
+				incompleteFields: [],
+				position: 'bottom-right',
+				duration: 10000,
+				className: 'mr-40'
+			});
+		};
 	});
 </script>
 

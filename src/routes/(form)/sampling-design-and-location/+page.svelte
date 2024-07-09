@@ -1,27 +1,25 @@
 <script lang="ts">
+	import CustomToast from '$lib/components/CustomToast.svelte';
 	import Question from '$lib/components/formControls/Question.svelte';
 	import Section from '$lib/components/formControls/Section.svelte';
 	import StepTitle from '$lib/components/formControls/StepTitle.svelte';
+	import Radio from '$lib/components/Radio.svelte';
+	import InventoryProcess2 from '$lib/components/sampling-design/InventoryProcess2.svelte';
+	import MethodType2 from '$lib/components/sampling-design/MethodType2.svelte';
+	import OtherTargetedCategories2 from '$lib/components/sampling-design/OtherTargetedCategories2.svelte';
 	import RiverCrossSection from '$lib/components/sampling-design/RiverCrossSection.svelte';
 	import RiverZone from '$lib/components/sampling-design/RiverZone.svelte';
 	import StreamOrder from '$lib/components/sampling-design/StreamOrder.svelte';
+	import TargetedAndExcludedTaxa from '$lib/components/sampling-design/TargetedAndExcludedTaxa.svelte';
+	import UnderRepresented2 from '$lib/components/sampling-design/UnderRepresented2.svelte';
 	import VegetationLayer from '$lib/components/sampling-design/VegetationLayer.svelte';
 	import Textarea from '$lib/components/Textarea.svelte';
 	import { datasetOverview } from '$lib/stores/datasetOverview';
+	import { params } from '$lib/stores/paramsStore';
 	import { samplingDesign } from '$lib/stores/samplingDesign';
 	import { step } from '$lib/stores/steps';
 	import { onMount } from 'svelte';
-	import Radio from '$lib/components/Radio.svelte';
-	import InventoryProcess from '$lib/components/sampling-design/InventoryProcess.svelte';
-	import MethodType from '$lib/components/sampling-design/MethodType.svelte';
-	import TargetedAndExcludedTaxa from '$lib/components/sampling-design/TargetedAndExcludedTaxa.svelte';
-	import OtherTargetedCategories from '$lib/components/sampling-design/OtherTargetedCategories.svelte';
-	import OtherTargetedCategories2 from '$lib/components/sampling-design/OtherTargetedCategories2.svelte';
-	import UnderRepresented from '$lib/components/sampling-design/UnderRepresented.svelte';
-	import UnderRepresented2 from '$lib/components/sampling-design/UnderRepresented2.svelte';
-	import { params } from '$lib/stores/paramsStore';
-	import InventoryProcess2 from '$lib/components/sampling-design/InventoryProcess2.svelte';
-	import MethodType2 from '$lib/components/sampling-design/MethodType2.svelte';
+	import toast from 'svelte-french-toast';
 
 	$: console.log($params);
 
@@ -33,6 +31,21 @@
 
 	onMount(() => {
 		step.set(3);
+
+		return () => {
+			const { effortIdentical, effortIntensity } = $samplingDesign;
+			if (!effortIdentical || !effortIntensity) {
+			}
+			toast(CustomToast, {
+				// @ts-ignore
+				step: 'Sampling design and location',
+				// @ts-ignore
+				incompleteFields: [],
+				position: 'bottom-right',
+				duration: 10000,
+				className: 'mr-40'
+			});
+		};
 	});
 
 	// $: {
