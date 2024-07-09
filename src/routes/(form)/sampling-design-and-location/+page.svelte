@@ -163,7 +163,7 @@ E.g. A single baited camera trap station with motion sensor trigger, deployed fo
 					.includes('terrestrial') ) || $samplingDesign.riverCrossSection.riparianZone}
 		<Section title="Sampling location">
 			<div class="grid gap-32 col-span-2">
-				<div class="grid gap-8">
+				<div class="grid gap-24">
 					{#if $datasetOverview.coreRealmBiomes.includes('riversAndStreams')}
 						<div><RiverZone /></div>
 						<div><StreamOrder /></div>
