@@ -8,7 +8,7 @@ export const generalInformationSchema = z.object({
 			familyName: z.string().min(1, { message: 'Family name is required' }),
 			orcId: z.string().regex(new RegExp('^d{4}-d{4}-d{4}-d{4}$')).optional(),
 			noOrcId: z.boolean().default(false),
-			email: z.string().email(),
+			email: z.string().email().min(1, { message: 'Email is required' }),
 			institutionName: z.string().min(1, { message: 'Institution name is required' }),
 			institutionCountry: z.string().min(1, { message: 'Institution country is required' }),
 			rorId: z.string().regex(new RegExp('^0[a-z|0-9]{6}[0-9]{2}$')).optional(),

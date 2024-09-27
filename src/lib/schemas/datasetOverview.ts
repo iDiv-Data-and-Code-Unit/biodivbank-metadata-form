@@ -4,8 +4,10 @@ export const datasetOverviewSchema = z
 	.object({
 		dataOrigin: z.object({
 			originalOrCompiledDataset: z.enum(['Single Source', 'Compilation', 'Synthesis']),
-			currentOrLegacyDataset: z.array(z.string()),
-			dataSource: z.array(z.string())
+			currentOrLegacyDataset: z
+				.array(z.string())
+				.min(1, { message: 'Current or legacy dataset is required' }),
+			dataSource: z.array(z.string()).min(1, { message: 'Data source is required' })
 		}),
 		temporalScope: z
 			.object({
