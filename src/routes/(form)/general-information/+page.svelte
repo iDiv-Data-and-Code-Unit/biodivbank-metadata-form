@@ -33,27 +33,32 @@
 		auth: url.searchParams.get('auth') || ''
 	}));
 
-	console.log(url.searchParams.get('id'));
-	console.log(url.searchParams.get('auth'));
+	//console.log(url.searchParams.get('id'));
+	//console.log(url.searchParams.get('auth'));
 		
 	let loaded:boolen = false;
-		// export let dat: PageData;
+	// export let dat: PageData;
 	export let form: ActionData;
 
- generalInformation.subscribe((value) => {
-		//console.log("🚀 ~ file: +page.svelte ~ line 64 ~ $generalInformation.subscribe ~ value", value)
-	});
+ // generalInformation.subscribe((value) => {
+	// 	//console.log("🚀 ~ file: +page.svelte ~ line 64 ~ $generalInformation.subscribe ~ value", value)
+	// });
 
 
 	onMount(() => {
 		async function x() {
-			console.log("🚀 ~ LOAD Metadata:", $generalInformation);
-			const id = 12;//JSON.parse($params.id);
-			console.log("🚀 ~ x ~ id:", id)
+			//console.log("🚀 ~ LOAD Metadata:", $generalInformation);
+			
+			let id = 12;
+			if($params?.id)
+			{
+				id = JSON.parse($params.id);
+			}
+
 			datasetIdStore.set(id);
 
 
-			console.log("🚀 ~ x ~ $generalInformation:", $generalInformation)
+			//console.log("🚀 ~ x ~ $generalInformation:", $generalInformation)
 			if($generalInformation === undefined)
 			{
 
@@ -85,7 +90,7 @@
 		return () => {
 	
 	const result = generalInformationSchema.safeParse($generalInformation);
-	console.log("🚀 ~ return ~ result:", result)
+	//console.log("🚀 ~ return ~ result:", result)
 
 		if (!result.success) {
 

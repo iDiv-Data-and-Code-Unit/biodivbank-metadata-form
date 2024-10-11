@@ -30,22 +30,22 @@
 	// authors for the form and authors for the generalInformation store
 	authors	= $generalInformation.authors.map((author) => {
 		return convertToListAuthor(author);
-	});
+	}).filter(a => a.firstName !== '' && a.familyName !== '');
 
 
-	$:authors,update(authors)
+	$:authors,update()
 	
 	function update(a)
 	{
-		console.log("🚀 ~ update ~ a:", a)
-	}
-	
-	generalInformation.update((gi) => {
+		generalInformation.update((gi) => {
 		//update the generalInformation store with the new authors
 		gi.authors = authors.map((author) => {
 			return convertToDataAuthor(author);})
 			console.log("🚀 ~ gi.authors=authors.map ~ gi.authors:", gi.authors)
 			return gi;});
+	}
+	
+
 		
 
 	export let importedAuthors: ImportAuthor[] | null;
@@ -95,7 +95,7 @@
 		};
 		
 		
-		//console.log("🚀 ~ addAuthor ~ authors:", authors)
+		////console.log("🚀 ~ addAuthor ~ authors:", authors)
 
 		
 	}
@@ -126,8 +126,8 @@
 	}
 
 	function removeAuthor(id: string) {
-		console.log(id);
-		console.log(authors);
+		//console.log(id);
+		//console.log(authors);
 
 		authors = authors.filter((author) => author.id !== id);
 
@@ -146,14 +146,20 @@
 		orcId: string,
 		noOrcId: boolean
 	) {
+		console.log(noOrcId);
+		
 		authors = authors.map((author) => {
 			if (author.id === id) {
+				console.log(id, firstName, initials, familyName, orcId, noOrcId);
 				return { ...author, firstName, initials, familyName, orcId,noOrcId, primaryContact };
 			}
 			return author;
 		});
 		
 		console.log("🚀 ~ authors=authors.map ~ authors:", authors)
+		
+
+		//console.log("🚀 ~ authors=authors.map ~ authors:", authors)
 		isEditModalOpen = false;
 		selectedAuthor = null;
 	}
@@ -171,7 +177,7 @@
 			if (author.id === id) {
 				return { ...author, isPrimaryContact, primaryContact };
 			}
-			console.log("🚀 ~ authors=authors.map ~ author:", author)
+			//console.log("🚀 ~ authors=authors.map ~ author:", author)
 			return author;
 		});
 		isPrimaryContactModalOpen = false;

@@ -107,8 +107,8 @@
 		formEl.reset();
 		nameEl.focus();
 
-		console.log(resources);
-		console.log($generalInformation.resources);
+		// console.log(resources);
+		// console.log($generalInformation.resources);
 		
 	}
 

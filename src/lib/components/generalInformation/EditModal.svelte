@@ -16,7 +16,7 @@
 	let initials = author?.initials ?? '';
 	let familyName = author?.familyName ?? '';
 	let orcId = author?.orcId ?? '';
-	let orcIdNotAvailable: boolean = author?.noOrcId;
+	let orcIdNotAvailable: boolean = author?.noOrcId??false;
 
 	export let editAuthor: (
 		id: string,
