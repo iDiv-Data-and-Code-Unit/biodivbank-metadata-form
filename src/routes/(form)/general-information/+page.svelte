@@ -48,11 +48,13 @@
 	onMount(() => {
 		async function x() {
 			console.log("🚀 ~ LOAD Metadata:", $generalInformation);
-			const id = 11;
+			const id = 12;//JSON.parse($params.id);
+			console.log("🚀 ~ x ~ id:", id)
 			datasetIdStore.set(id);
 
 
-			if($generalInformation == undefined)
+			console.log("🚀 ~ x ~ $generalInformation:", $generalInformation)
+			if($generalInformation === undefined)
 			{
 
 				const res = await getMetadata(id);

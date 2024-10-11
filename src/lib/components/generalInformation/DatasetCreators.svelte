@@ -33,7 +33,14 @@
 	});
 
 
-	$:authors, generalInformation.update((gi) => {
+	$:authors,update(authors)
+	
+	function update(a)
+	{
+		console.log("🚀 ~ update ~ a:", a)
+	}
+	
+	generalInformation.update((gi) => {
 		//update the generalInformation store with the new authors
 		gi.authors = authors.map((author) => {
 			return convertToDataAuthor(author);})

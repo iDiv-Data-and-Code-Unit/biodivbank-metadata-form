@@ -12,37 +12,38 @@
 	import Collapsible from '../Collapsible.svelte';
 
 
+
 //10.13140/RG.2.2.25398.78400
 
  interface localResourceType extends resourceType {
 			internalId: string;
 	}
-
+ // get list of options from enum
 	let resourceTypes:string[] = ResourceTypeEnum.options;
 
-	let resources:localResourceType[] = $generalInformation.resources.map((r) => {
+	// init set resources from store
+	let resources:localResourceType[] = 	$generalInformation.resources.map((r) => {
 		// add internalId to object
 		return { ...r, internalId: nanoid() };
 	}).filter(e=>	e.doi !== '' && e.doi !== undefined);
-	$:resources,generalInformation.update((gi) => {
-		gi.resources = resources.map((s) => {
-				const d:resourceType = {...s};
-				delete	d.internalId;
-				return d;
-			}).filter(e=> e.doi !== '');
 
-			return gi;
-	});
+	// every change	in resources will update generalInformation
+	$:resources, updateResources()
+	
+	function updateResources(){
+		generalInformation.update((gi) => {
+				gi.resources = resources.map((s) => {
+						const d:resourceType = {...s};
+						delete	d.internalId;
+						return d;
+					}).filter(e=> e.doi !== '');
+					console.log("store:", gi.resources);
+					
+					return gi;
+			});
+	}
 
-	// $: generalInformation.update((gi) => {
-	// 	gi.resources = resources.map((s) => {
-	// 			const d:resourceType = {...s};
-	// 			delete	d.internalId;
-	// 			return d;
-	// 		}).filter(e=> e.doi !== '');
 
-	// 		return gi;
-	// });
 
 	let formEl: HTMLFormElement;
 	let nameEl: HTMLInputElement;
@@ -60,27 +61,40 @@
 
 	async function addResource() {
 
-		let resourceType = ResourceTypeEnum.parse(type);
-		// console.log("🚀 ~ addResource ~ resourceType:", resourceType)
-		// console.log("🚀 ~ addResource ~ doi:", doi)
+		//https://doi.pangaea.de/10.1594/PANGAEA.972890
 
-		const { success } = urlSchema.safeParse(doi);
+  //check with urlSchema.safeParse if doi a	url or not
+		const isUrl = urlSchema.safeParse(doi).success;
+		if(isUrl) // it is a address
+		{
+				const urlParts = doi.split("/");
+				if(urlParts.length	< 2)
+				{
+					error = 'Please enter a valid DOI or URL';
+					return;
+				}
+				else
+				{
+					doi = urlParts[urlParts.length - 1]+"/"+urlParts[urlParts.length - 2];
+				}
+		}
+
+		const url = `https://doi.org/api/handles/${doi}`
+
+  // get enum of resourceType
+		let resourceType = ResourceTypeEnum.parse(type);
+
 
 		try {
-			const res = await fetch(`https://doi.org/api/handles/${doi}`);
-			const json = await res.json();
+				const res = await fetch(url);
+				const json = await res.json();
 
-			if(json.responseCode !== 1 || !success) {
-				
-				error = 'Please enter a valid DOI or URL';
-				if (json.responseCode === 100 || !success) {
-					if (!success) {
-						error = 'Please enter a valid DOI or URL';
-						return;
-					}
+				if(res.status	!== 200 || json.responseCode !== 1)
+				{
+					error = 'Please enter a valid DOI or URL';
+					return;
 				}
-			}
-
+			
 		} catch (error) {
 			console.log(error);
 			error = 'Unexpected Error';
@@ -88,6 +102,7 @@
 		}
 
 		resources = [...resources, { internalId: nanoid(), type: resourceType, otherType, doi }];
+		updateResources();
 		type = '';
 		formEl.reset();
 		nameEl.focus();
