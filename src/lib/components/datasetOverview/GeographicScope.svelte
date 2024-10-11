@@ -21,6 +21,8 @@
 	let selectedCountry = '';
 	let selectedMarineRegion = '';
 
+	$datasetOverview.geographicScope.countries = $datasetOverview.geographicScope.countries.filter((c) => c !== '');
+	$datasetOverview.geographicScope.marineRegions = $datasetOverview.geographicScope.marineRegions.filter((c) => c !== '');
 	
 </script>
 
@@ -143,7 +145,7 @@
 	<TextInput
 		label="Field station"
 		placeholder="E.g. Smithsonian Tropical Research Institute, Barro Colorado Island"
-		bind:value={$datasetOverview.geographicScope.fieldStation.name}
+		bind:value={$datasetOverview.geographicScope.fieldStation?.name}
 	/> 
 	<div>
 	<Ror

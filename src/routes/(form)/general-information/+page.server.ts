@@ -1,8 +1,6 @@
-import * as fs from 'fs';
-import * as path from 'path';
 import { parse } from 'csv-parse/sync';
 import type { Actions } from '@sveltejs/kit';
-import { getMetadata, saveMetadata } from '../services';
+
 
 export const actions: Actions = {
 	importAuthors: async ({ request }) => {

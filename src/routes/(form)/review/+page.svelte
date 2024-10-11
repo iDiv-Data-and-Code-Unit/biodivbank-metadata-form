@@ -39,6 +39,13 @@
 
 		console.log("🚀 ~ submitForm :",id,metadataStructureId,metadata, body)
 		const res = await saveMetadata($datasetIdStore,body);
+		console.log("🚀 ~ submitForm ~ res:", res)
+
+  if(res){
+			localStorage.removeItem("generalInformation");
+			localStorage.removeItem("datasetOverview");
+			localStorage.removeItem("samplingDesign");
+		}
 
 		window.parent.postMessage('save', '*');
 	}

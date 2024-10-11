@@ -2,8 +2,7 @@
 import { type ListAuthor } from "./types/author";
 import { nanoid } from "nanoid";
 import type { authorType } from "./schemas/generalInformation";
-import { boolean, object } from "zod";
-import { json } from "@sveltejs/kit";
+
 
 
 export function convertToModel(metadata: any) {
@@ -92,7 +91,7 @@ function transformJSONToApi(data) {
 								transformJSONToApi(item)
 							);
 					} else if (typeof value === "object") {
-							console.log("OBJECT ~ transformJSONToApi ~ key:", key, value, data);
+							//console.log("OBJECT ~ transformJSONToApi ~ key:", key, value, data);
 							result[key] = {		
 								'@ref': '',
 								'@partyId': '',
@@ -100,7 +99,7 @@ function transformJSONToApi(data) {
 							}
 							
 					} else {
-						 console.log("SIMPLE ~ transformJSONToApi ~ key:", key, value);
+						 //console.log("SIMPLE ~ transformJSONToApi ~ key:", key, value);
 								result[key] = formatData(value);
 					}
 			}

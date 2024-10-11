@@ -1,5 +1,9 @@
 import { z } from 'zod';
 
+const orcIdRegEx	= new RegExp('^\\d{4}-\\d{4}-\\d{4}-\\d{4}$');
+const rorIdRegEx	= new RegExp('^0[a-z|0-9]{6}[0-9]{2}$');
+const initialsRegEx	= new RegExp('^[A-Z].( [A-Z].)*$');
+
 // Define and export enums
 export const AccessPolicyEnum = z.enum([
 	'Open - CC0 1.0',
@@ -31,15 +35,15 @@ export const ResourceTypeEnum = z.enum([
 
 export const zAuthorTypeSchema = z.object({
 	firstName: z.string().min(1, { message: 'First name is required' }),
-	initials: z.string().regex(new RegExp('^[A-Z].( [A-Z].)*$')).optional().or(z.literal('')),
+	initials: z.string().regex(initialsRegEx).optional().or(z.literal('')),
 	familyName: z.string().min(1, { message: 'Family name is required' }),
-	orcId: z.string().regex(new RegExp('^d{4}-d{4}-d{4}-d{4}$')).optional().or(z.literal('')),
+	orcId: z.string().regex(orcIdRegEx).optional().or(z.literal('')),
 	noOrcId: z.boolean().default(false),
 	isPrimaryContact: z.boolean().default(false),
 	email: z.string().email().optional().or(z.literal('')),
 	institutionName: z.string().optional().or(z.literal('')),
 	institutionCountry: z.string().optional().or(z.literal('')),
-	rorId: z.string().regex(new RegExp('^0[a-z|0-9]{6}[0-9]{2}$')).optional().or(z.literal('')),
+	rorId: z.string().regex(rorIdRegEx).optional().or(z.literal('')),
 	noRorId: z.boolean().default(false)
 }).superRefine(
 	(
@@ -112,14 +116,14 @@ const zFunderTypeSchema = z.object({
 
 const zDataProviderSchema = z.object({
 	firstName: z.string().min(1, { message: 'First name is required' }),
-	initials: z.string().optional().or(z.literal('')),
+	initials: z.string().regex(initialsRegEx).optional().or(z.literal('')),
 	familyName: z.string().min(1, { message: 'Family name is required' }),
-	orcId: z.string().regex(new RegExp('^d{4}-d{4}-d{4}-d{4}$')).optional().or(z.literal('')),
+	orcId: z.string().regex(orcIdRegEx).optional().or(z.literal('')),
 	noOrcId: z.boolean().default(false),
 	email: z.string().email().min(1, { message: 'Email is required' }),
 	institutionName: z.string().min(1, { message: 'Institution name is required' }),
 	institutionCountry: z.string().min(1, { message: 'Institution country is required' }),
-	rorId: z.string().regex(new RegExp('^0[a-z|0-9]{6}[0-9]{2}$')).optional().or(z.literal('')),
+	rorId: z.string().regex(rorIdRegEx).optional().or(z.literal('')),
 	noRorId: z.boolean().default(false)
 }).superRefine(({ orcId, noOrcId, rorId, noRorId }, providerCtx) => {
 	if (!noOrcId && !orcId) {

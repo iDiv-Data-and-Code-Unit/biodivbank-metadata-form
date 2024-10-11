@@ -2,7 +2,6 @@
 	import TextInput from '../TextInput.svelte';
 	import { generalInformation } from '$lib/stores/generalInformation';
 	import OrcId from '../OrcId.svelte';
-	import { boolean } from 'zod';
 
 </script>
 

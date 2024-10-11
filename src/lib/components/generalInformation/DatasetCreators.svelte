@@ -35,13 +35,13 @@
 
 	$:authors,update()
 	
-	function update(a)
+	function update()
 	{
+	
 		generalInformation.update((gi) => {
 		//update the generalInformation store with the new authors
 		gi.authors = authors.map((author) => {
 			return convertToDataAuthor(author);})
-			console.log("🚀 ~ gi.authors=authors.map ~ gi.authors:", gi.authors)
 			return gi;});
 	}
 	
@@ -92,12 +92,7 @@
 			institutionCountry: '',
 			noRor: false,
 			ror: ''
-		};
-		
-		
-		////console.log("🚀 ~ addAuthor ~ authors:", authors)
-
-		
+		};		
 	}
 
 	function addAuthors() {
@@ -126,11 +121,7 @@
 	}
 
 	function removeAuthor(id: string) {
-		//console.log(id);
-		//console.log(authors);
-
 		authors = authors.filter((author) => author.id !== id);
-
 	}
 
 	function openEdit(author: ListAuthor) {
@@ -146,20 +137,17 @@
 		orcId: string,
 		noOrcId: boolean
 	) {
-		console.log(noOrcId);
+
 		
 		authors = authors.map((author) => {
 			if (author.id === id) {
-				console.log(id, firstName, initials, familyName, orcId, noOrcId);
+				
 				return { ...author, firstName, initials, familyName, orcId,noOrcId, primaryContact };
 			}
 			return author;
 		});
-		
-		console.log("🚀 ~ authors=authors.map ~ authors:", authors)
-		
 
-		//console.log("🚀 ~ authors=authors.map ~ authors:", authors)
+
 		isEditModalOpen = false;
 		selectedAuthor = null;
 	}

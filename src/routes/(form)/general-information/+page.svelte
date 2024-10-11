@@ -37,19 +37,15 @@
 	//console.log(url.searchParams.get('auth'));
 		
 	let loaded:boolen = false;
-	// export let dat: PageData;
 	export let form: ActionData;
 
- // generalInformation.subscribe((value) => {
-	// 	//console.log("🚀 ~ file: +page.svelte ~ line 64 ~ $generalInformation.subscribe ~ value", value)
-	// });
 
 
 	onMount(() => {
 		async function x() {
 			//console.log("🚀 ~ LOAD Metadata:", $generalInformation);
 			
-			let id = 12;
+			let id = 13;
 			if($params?.id)
 			{
 				id = JSON.parse($params.id);
@@ -63,26 +59,30 @@
 			{
 
 				const res = await getMetadata(id);
+				console.log("🚀 ~ x ~ res:", res)
 				const data = convertToModel(res);
 
 				metadataStructureIdStore.set(res['@id']);
 				generalInformation.set(data.generalInformation);
 				datasetOverview.set(data.datasetOverview);
 				samplingDesign.set(data.samplingDesignAndLocation);
-			
+		
+			}
 
-				console.log("🚀 ~ LOAD:", 
+			console.log("🚀 ~ LOAD:", 
 					$datasetIdStore,
 					$metadataStructureIdStore,
 					$generalInformation,
 					$datasetOverview,
 					$samplingDesign
 				)
-			}
+
 			loaded	= true;
 	}
 		
 		x();
+		
+		
 	
 		
 		step.set(1);
@@ -90,7 +90,7 @@
 		return () => {
 	
 	const result = generalInformationSchema.safeParse($generalInformation);
-	//console.log("🚀 ~ return ~ result:", result)
+	 console.log("🚀 ~ return ~ result:", result)
 
 		if (!result.success) {
 
