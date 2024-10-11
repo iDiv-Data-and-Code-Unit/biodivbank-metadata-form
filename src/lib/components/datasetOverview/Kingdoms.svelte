@@ -40,7 +40,7 @@
 <div class="flex flex-col gap-8 text-sm">
 	{#each kingdoms as { label, value, disabled }}
 		<label class="flex items-center gap-3">
-			<input type="checkbox" {value} bind:group={$datasetOverview.kingdoms} {disabled} name="kingdoms" />
+			<input type="checkbox" {value} bind:group={$datasetOverview.taxonomicScope.kingdom} {disabled} name="kingdoms" />
 			<span class="text-sm shrink-0">
 				{label}&nbsp;
 			</span>

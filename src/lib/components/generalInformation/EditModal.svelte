@@ -16,19 +16,22 @@
 	let initials = author?.initials ?? '';
 	let familyName = author?.familyName ?? '';
 	let orcId = author?.orcId ?? '';
-	let orcIdNotAvailable: boolean = false;
+	let orcIdNotAvailable: boolean = author?.noOrcId;
 
 	export let editAuthor: (
 		id: string,
 		firstName: string,
 		initials: string,
 		familyName: string,
-		orcId: string
+		orcId: string,
+		noOrcId:boolean
 	) => void;
 
 	function onSubmit() {
 		if (author) {
-			editAuthor(author.id, firstName, initials, familyName, orcId);
+			
+			console.log("🚀 ~ onSubmit ~ orcIdNotAvailable:", orcIdNotAvailable)
+			editAuthor(author.id, firstName, initials, familyName, orcId, orcIdNotAvailable);
 		}
 	}
 </script>
@@ -56,7 +59,7 @@
 						<TextInput
 							bind:value={initials}
 							placeholder="L."
-							label="Initial(s)"
+							label="initials(s)"
 							pattern={'^ *?[A-Z]\\.(\\s[A-Z]\\.)* *?$'}
 						/>
 						<TextInput

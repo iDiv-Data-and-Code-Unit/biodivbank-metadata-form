@@ -49,9 +49,9 @@
 					validityStatus = 'validated';
 					const json = await res.json();
 					console.log(json);
-					$generalInformation.institutionName = json.name;
+					$generalInformation.dataProvider.institutionName = json.name;
 					console.log(json.country.country_name);
-					$generalInformation.institutionCountry = json.country.country_name;
+					$generalInformation.dataProvider.institutionCountry = json.country.country_name;
 					// console.log(
 					// 	json.person.name['given-names'].value + ' ' + json.person.name['family-name'].value
 					// );

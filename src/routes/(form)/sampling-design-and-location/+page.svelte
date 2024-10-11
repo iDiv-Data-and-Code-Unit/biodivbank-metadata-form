@@ -21,7 +21,10 @@
 	import { onMount } from 'svelte';
 	import toast from 'svelte-french-toast';
 
-	$: console.log($params);
+	// $: console.log($params);
+	console.log("********** SAMPLEDESIGN *************************************");
+	console.log($samplingDesign);
+	console.log("************************************************************");
 
 	let multipleEventsInputs = [
 		{ label: 'Multiple sites', value: 'multipleSites' },
@@ -30,22 +33,23 @@
 	];
 
 	onMount(() => {
+
 		step.set(3);
 
-		return () => {
-			const { effortIdentical, effortIntensity } = $samplingDesign;
-			if (!effortIdentical || !effortIntensity) {
-			}
-			toast(CustomToast, {
-				// @ts-ignore
-				step: 'Sampling design and location',
-				// @ts-ignore
-				incompleteFields: [],
-				position: 'bottom-right',
-				duration: 10000,
-				className: 'mr-40'
-			});
-		};
+		// return () => {
+		// 	const { effortIdentical, effortIntensity } = $samplingDesign;
+		// 	if (!effortIdentical || !effortIntensity) {
+		// 	}
+		// 	toast(CustomToast, {
+		// 		// @ts-ignore
+		// 		step: 'Sampling design and location',
+		// 		// @ts-ignore
+		// 		incompleteFields: [],
+		// 		position: 'bottom-right',
+		// 		duration: 10000,
+		// 		className: 'mr-40'
+		// 	});
+		// };
 	});
 
 	// $: {
@@ -67,9 +71,9 @@
 					<input
 						type="checkbox"
 						{value}
-						bind:group={$samplingDesign.multipleEvents}
+						bind:group={$samplingDesign.studyDesign.multipleEvents}
 						name="multipleEvents"
-						disabled={value !== 'no' && $samplingDesign.multipleEvents.includes('no')}
+						disabled={value !== 'no' && $samplingDesign.studyDesign.multipleEvents.includes('no')}
 					/>
 					<span class="text-sm shrink-0">
 						{label}&nbsp;
@@ -77,12 +81,12 @@
 				</label>
 			{/each}
 		</Question>
-		{#if $samplingDesign.multipleEvents.length && !$samplingDesign.multipleEvents.includes('no')}
+ {#if $samplingDesign.studyDesign.multipleEvents.length && !$samplingDesign.studyDesign.multipleEvents.includes('no')}
 			<Question
 				question="Did environmental characteristics (e.g. habitat types, disturbance types) or methods (e.g. devices or effort) vary across sampling events?"
 				direction="column"
-			>
-				<Radio
+			><b>not existing in zod schema</b>
+				<!-- <Radio
 					label="Identical"
 					value="identical"
 					bind:group={$samplingDesign.envCharacteristics}
@@ -99,7 +103,7 @@
 					value="variable"
 					bind:group={$samplingDesign.envCharacteristics}
 					name="envCharacteristics"
-				/>
+				/> -->
 			</Question>
 		{/if}
 	</Section>
@@ -111,18 +115,18 @@
 		</div>
 	</Section>
 
-	<Section
+<Section
 		title="Sampling scope"
 		description="If a specific checklist of target taxa was used in the survey, please upload it [here]."
 	>
 		<div class="grid gap-20 col-span-2">
-			<div class="col-span-2 gap-8 grid"><TargetedAndExcludedTaxa /></div>
+			<!-- <div class="col-span-2 gap-8 grid"><TargetedAndExcludedTaxa /></div>
 			<div class="col-span-2 gap-8 grid"><OtherTargetedCategories2 /></div>
-			<div class="col-span-2 gap-8 grid"><UnderRepresented2 /></div>
+			<div class="col-span-2 gap-8 grid"><UnderRepresented2 /></div> -->
 		</div>
 	</Section>
 
-	<Section title="Sampling effort">
+	<!-- <Section title="Sampling effort">
 		<Question question="Describe the intensity of sampling (i.e. effort)">
 			<Textarea
 				bind:value={$samplingDesign.effortIntensity}
@@ -171,7 +175,7 @@ E.g. A single baited camera trap station with motion sensor trigger, deployed fo
 		</Question>
 	</Section>
 
-	{#if $datasetOverview.coreRealmBiomes.includes('riversAndStreams') || $datasetOverview.coreRealms.includes('terrestrial') || $datasetOverview.transitionalRealms.some( (realm) => realm
+	{#if $datasetOverview.biome.core.includes('riversAndStreams') || $datasetOverview.biome.core.includes('terrestrial') || $datasetOverview.transitionalRealms.some( (realm) => realm
 					.toLowerCase()
 					.includes('terrestrial') ) || $samplingDesign.riverCrossSection.riparianZone}
 		<Section title="Sampling location">
@@ -212,5 +216,5 @@ E.g. A single baited camera trap station with motion sensor trigger, deployed fo
 				rows={10}
 			/>
 		</Question>
-	</Section>
+	</Section>-->
 </div>

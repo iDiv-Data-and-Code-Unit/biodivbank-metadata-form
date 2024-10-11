@@ -11,15 +11,15 @@
 			<div class="divide-y divide-placeholder divide-opacity-40 space-y-2">
 				<Point
 					label="Is the dataset based on one or multiple studies?"
-					value={$datasetOverview.originalOrCompiledDataset}
+					value={$datasetOverview.dataOrigin.originalOrCompiledDataset}
 				/>
 				<Point
 					label="Is the data current, or from a legacy source?"
-					value={$datasetOverview.currentOrLegacyDataset.join(', ')}
+					value={$datasetOverview.dataOrigin.currentOrLegacyDataset.join(', ')}
 				/>
 				<Point
 					label="What is the source of the data?"
-					value={$datasetOverview.dataSource.join(', ')}
+					value={$datasetOverview.dataOrigin.dataSource.join(', ')}
 				/>
 			</div>
 		</section>
@@ -28,26 +28,29 @@
 			<div class="divide-y divide-placeholder divide-opacity-40 space-y-2">
 				<Point
 					label="What is the geographic extent of the dataset?"
-					value={$datasetOverview.spatialScope}
+					value={$datasetOverview.geographicScope.extent}
 				/>
-				<Point label="Countries" value={$datasetOverview.countries.join(', ')} />
-				<Point label="Marine Regions" value={$datasetOverview.marineRegions.join(', ')} />
-				<Point label="Field station" value={$datasetOverview.fieldStation} />
-				<Point label="Field station ROR" value={$datasetOverview.fieldStationROR} />
+				<Point label="Countries" value={$datasetOverview.geographicScope.countries.join(', ')} />
+				<Point label="Marine Regions" value={$datasetOverview.geographicScope.marineRegions.join(', ')} />
+				<Point label="Field station" value={""+$datasetOverview.geographicScope.fieldStation} />
+				<Point label="Field station ROR" value={""+$datasetOverview.geographicScope.fieldStation?.rorId} />
 			</div>
 		</section>
 		<section>
 			<h3 class="text-xl font-medium mb-4">Realm</h3>
 			<div class="divide-y divide-placeholder divide-opacity-40 space-y-2">
-				<Point label="Core realms" value={$datasetOverview.coreRealms.join(', ')} />
-				<Point label="Transitional realms" value={$datasetOverview.transitionalRealms.join(', ')} />
-				{#if $datasetOverview.coreRealms.length}
-					<Point label="Core realm biomes" value={$datasetOverview.coreRealmBiomes.join(', ')} />
+				<Point label="Core realms" value={$datasetOverview.realm.core.join(', ')} />
+				<Point label="Transitional realms" value={$datasetOverview.realm.transitional.join(', ')} />
+				{#if $datasetOverview.realm.core.length}
+				<b>not implemented</b>
+
+					<!-- <Point label="Core realm biomes" value={$datasetOverview.biome.core.join(', ')} /> -->
+					<!-- <Point label="Core realm biomes" value={$datasetOverview.biome.core. .join(', ')} /> -->
 				{/if}
-				{#if $datasetOverview.transitionalRealms.length}
+				{#if $datasetOverview.realm.transitional.length}
 					<Point
 						label="Transitional realm biomes"
-						value={$datasetOverview.transitionalRealmBiomes.join(', ')}
+						value={$datasetOverview.biome.transitional.join(', ')}
 					/>
 				{/if}
 			</div>
@@ -55,9 +58,10 @@
 		<section>
 			<h3 class="text-xl font-medium mb-4">Taxonomic scope</h3>
 			<div class="divide-y divide-placeholder divide-opacity-40 space-y-2">
-				<Point label="Kingdoms" value={$datasetOverview.kingdoms.join(', ')} />
-				{#if $datasetOverview.kingdoms.length}
-					<Point label="Subdivision" value={$datasetOverview.subDivisions.join(', ')} />
+				<Point label="Kingdoms" value={$datasetOverview.taxonomicScope.kingdom.join(', ')} />
+				{#if $datasetOverview.taxonomicScope.kingdom.length}
+				<b>not implemented</b>
+					<!-- <Point label="Subdivision" value={$datasetOverview.taxonomicScope.subdivision.join(', ')} /> -->
 				{/if}
 			</div>
 		</section>

@@ -21,41 +21,38 @@
 	let selectedCountry = '';
 	let selectedMarineRegion = '';
 
-	// onMount(() => {
-	// 	$geoStore.layer._layers['27'].options.fillColor = 'red';
-	// 	console.log(Object.entries($geoStore.layer._layers).map((x) => x[1]));
-	// });
+	
 </script>
 
 <Question direction="column" question="What is the geographic extent of the dataset?">
-	<Radio
-		bind:group={$datasetOverview.spatialScope}
+	 <Radio
+		bind:group={$datasetOverview.geographicScope.extent}
 		label="Local"
 		name="spatialScope"
 		value="Local"
 		addition="subnational"
 	/>
 	<Radio
-		bind:group={$datasetOverview.spatialScope}
+		bind:group={$datasetOverview.geographicScope.extent}
 		label="National"
 		name="spatialScope"
 		value="National"
 	/>
 	<Radio
-		bind:group={$datasetOverview.spatialScope}
+		bind:group={$datasetOverview.geographicScope.extent}
 		label="Regional"
 		name="spatialScope"
 		value="Regional"
 		addition="multinational"
 	/>
 	<Radio
-		bind:group={$datasetOverview.spatialScope}
+		bind:group={$datasetOverview.geographicScope.extent}
 		label="Continental"
 		name="spatialScope"
 		value="Continental"
 	/>
-	<Radio
-		bind:group={$datasetOverview.spatialScope}
+<Radio
+		bind:group={$datasetOverview.geographicScope.extent}
 		label="Global"
 		name="spatialScope"
 		value="Global"
@@ -63,98 +60,76 @@
 	<div class="grid grid-cols-2 gap-8">
 		<div class="col-span-2" />
 		<div class="flex flex-col gap-4">
-			<MultiCombobox
-				options={$geoStore.countries}
-				label="Country"
-				emptyMsg="No country selected"
-				resource="countries"
-			/>
-			<!-- <Select
+		 <Select
 				label="Country"
 				class="col-start-1"
 				placeholder="Select a country..."
 				bind:value={selectedCountry}
 				options={$geoStore.countries}
 				onSelect={() => {
-					if ($datasetOverview.countries.includes(selectedCountry)) {
+					if ($datasetOverview.geographicScope.countries.includes(selectedCountry)) {
 						selectedCountry = '';
 						return;
 					}
-					$datasetOverview.countries = [...$datasetOverview.countries, selectedCountry];
+					$datasetOverview.geographicScope.countries = [...$datasetOverview.geographicScope.countries, selectedCountry];
 					selectedCountry = '';
 				}}
 			/>
 			<div class="flex gap-2 flex-wrap">
-				{#each $datasetOverview.countries as country}
+				{#each $datasetOverview.geographicScope.countries as country}
 					<button
 						class="bg-primary text-white px-2 py-1 rounded-md flex gap-1 items-center"
 						on:click={() =>
-							($datasetOverview.countries = $datasetOverview.countries.filter(
+							($datasetOverview.geographicScope.countries = $datasetOverview.geographicScope.countries.filter(
 								(c) => c !== country
 							))}
 					>
 						{country}<Cross class="h-4 w-4" />
 					</button>
 				{/each}
-			</div> -->
+				</div>
 		</div>
 		<div class="flex flex-col gap-4">
-			<MultiCombobox
-				options={$geoStore.marineRegions}
-				label="Marine Region"
-				emptyMsg="No marine region selected"
-				resource="marineRegions"
-			/>
-			<!-- <Select
+
+			<Select
 				label="Marine Region"
 				placeholder="Select a marine region..."
 				options={$geoStore.marineRegions}
 				bind:value={selectedMarineRegion}
 				onSelect={() => {
-					if ($datasetOverview.marineRegions.includes(selectedMarineRegion)) {
+					if ($datasetOverview.geographicScope.marineRegions.includes(selectedMarineRegion)) {
 						selectedMarineRegion = '';
 						return;
 					}
-					$datasetOverview.marineRegions = [
-						...$datasetOverview.marineRegions,
+					$datasetOverview.geographicScope.marineRegions = [
+						...$datasetOverview.geographicScope.marineRegions,
 						selectedMarineRegion
 					];
 					selectedMarineRegion = '';
 				}}
-			/> -->
-			<!-- <div class="flex gap-2 flex-wrap">
-				{#each $datasetOverview.marineRegions as region}
+			/>
+			<div class="flex gap-2 flex-wrap">
+				{#each $datasetOverview.geographicScope.marineRegions as marine}
 					<button
 						class="bg-secondary text-white px-2 py-1 rounded-md flex gap-1 items-center"
 						on:click={() =>
-							($datasetOverview.marineRegions = $datasetOverview.marineRegions.filter(
-								(c) => c !== region
+							($datasetOverview.geographicScope.marineRegions = $datasetOverview.geographicScope.marineRegions.filter(
+								(c) => c !== marine
 							))}
 					>
-						{region}<Cross class="h-4 w-4" />
+						{marine}<Cross class="h-4 w-4" />
 					</button>
 				{/each}
-			</div> -->
+				</div>
 		</div>
-		<!-- <Select
+		<Select
 			label="Coordiantes"
 			class="col-start-1"
 			placeholder="Select a coordiante input format..."
-			bind:value={$datasetOverview.coordinateType}
+			bind:value={$geoStore.georef.coordinateType}
 			options={['Custom shape', 'Bounding box', 'Point']}
 		/>
-		<div class="flex gap-8">
-			<TextInput
-				label="Longitude"
-				placeholder="Longitude..."
-				bind:value={$datasetOverview.longitude}
-			/>
-			<TextInput
-				label="Latitude"
-				placeholder="Latitude..."
-				bind:value={$datasetOverview.latitude}
-			/>
-		</div> -->
+
 		<div class="col-span-2 aspect-video">
 			<Leaflet view={initialView} zoom={4} />
 		</div>
@@ -168,14 +143,14 @@
 	<TextInput
 		label="Field station"
 		placeholder="E.g. Smithsonian Tropical Research Institute, Barro Colorado Island"
-		bind:value={$datasetOverview.fieldStation}
-	/>
+		bind:value={$datasetOverview.geographicScope.fieldStation.name}
+	/> 
 	<div>
 	<Ror
-		bind:value={$datasetOverview.fieldStationROR}
+		bind:value={$datasetOverview.geographicScope.fieldStation.rorId}
 		bind:notAvailable={notAvailable}
 		name="ror-author-list"
-		label={`Institution ROR ID ${$datasetOverview.fieldStation ? ' *' : ''}`}
+		label={`Institution ROR ID ${$datasetOverview.geographicScope.fieldStation.name ? ' *' : ''}`}
 		maxLength={9}
 		placeholder="XXXXXXXXX"
 		invalidInputErrorMsg="A ROR ID must contain 9 alphanumeric characters."

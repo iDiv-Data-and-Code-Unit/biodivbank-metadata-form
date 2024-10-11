@@ -2,43 +2,15 @@ import type { DatasetOverview } from '$lib/types/schema';
 import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
 
-const initialStore: DatasetOverview = {
-	originalOrCompiledDataset: '',
-	currentOrLegacyDataset: [],
-	dataSource: [],
-	temporalScopeStart: {
-		year: '',
-		month: '',
-		day: ''
-	},
-	temporalScopeEnd: {
-		year: '',
-		month: '',
-		day: ''
-	},
-	spatialScope: '',
-	countries: [],
-	marineRegions: [],
-	coordinateType: '',
-	longitude: '',
-	latitude: '',
-	fieldStation: '',
-	fieldStationROR: '',
-	fieldStationNoROR: false,
-	coreRealms: [],
-	transitionalRealms: [],
-	coreRealmBiomes: [],
-	transitionalRealmBiomes: [],
-	kingdoms: [],
-	subDivisions: []
-};
 
-let storedValue: DatasetOverview;
+// const initialStore: DatasetOverview = undefined;
+
+let storedValue: DatasetOverview |	undefined;
 if (browser) {
 	storedValue = (JSON.parse(localStorage.getItem('datasetOverview') as string) ||
-		initialStore) as DatasetOverview;
+		undefined) as DatasetOverview;
 } else {
-	storedValue = initialStore;
+	storedValue = undefined;
 }
 
 export const datasetOverview = writable<DatasetOverview>(storedValue);

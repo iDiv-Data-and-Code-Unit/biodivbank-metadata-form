@@ -44,7 +44,7 @@
 	<div class="grid grid-cols-2 gap-x-8 gap-y-10 w-full">
 		{#each realms as { label, value }}
 			<label class="flex items-center gap-3">
-				<input type="checkbox" {value} bind:group={$datasetOverview.coreRealms} name="coreRealm" />
+				<input type="checkbox" {value} bind:group={$datasetOverview.realm.core} name="coreRealm" />
 				<img class="h-12 w-12" src={`/${value}.svg`} alt="" />
 				<span class="text-sm shrink-0">
 					{label}&nbsp;
@@ -61,7 +61,7 @@
 				<input
 					type="checkbox"
 					{value}
-					bind:group={$datasetOverview.transitionalRealms}
+					bind:group={$datasetOverview.realm.transitional}
 					name="coreRealm"
 				/>
 				<div class="flex items-center">

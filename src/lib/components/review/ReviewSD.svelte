@@ -12,13 +12,13 @@
 			<div class="divide-y divide-placeholder divide-opacity-40 space-y-2">
 				<Point
 					label="Did the study involve more than one sampling event?"
-					value={$samplingDesign.multipleEvents.join(', ')}
+					value={$samplingDesign.studyDesign.multipleEvents.join(', ')}
 				/>
-				{#if $samplingDesign.multipleEvents.length && !$samplingDesign.multipleEvents.includes('no')}
-					<Point
+				{#if $samplingDesign.studyDesign.multipleEvents.length && !$samplingDesign.studyDesign.multipleEvents.includes('no')}
+					<!-- <Point
 						label="Did environmental characteristics (e.g. habitat types, disturbance types) or methods (e.g. devices or effort) vary across sampling events?"
-						value={$samplingDesign.envCharacteristics}
-					/>
+						value={$samplingDesign.studyDesign.envCharacteristics}
+					/> -->
 				{/if}
 			</div>
 		</section>
@@ -27,9 +27,9 @@
 			<div class="divide-y divide-placeholder divide-opacity-40 space-y-2">
 				<Point
 					label="What type of inventory process was involved?"
-					value={$samplingDesign.inventory}
+					value={$samplingDesign.methods.inventoryProcess.stageOne.join(', ')}
 				/>
-				<Point label="How were the data obtained?" value={$samplingDesign.methodTypes} />
+				<Point label="How were the data obtained?" value={""+$samplingDesign.methods.methodType} />
 			</div>
 		</section>
 		<section>
@@ -37,7 +37,7 @@
 			<div class="divide-y divide-placeholder divide-opacity-40 space-y-2">
 				<Point
 					label="Which taxa were the intended targets of the sample? Were any taxa intentionally excluded from sampling?"
-					value={$samplingDesign.targetedAndExludedTaxa}
+					value={$samplingDesign.samplingScope.targetedTaxa}
 				/>
 				<div class="flex gap-72 [&:not(:first-child)]:pt-2">
 					<h4 class="text-description w-52 shrink-0">
@@ -45,25 +45,26 @@
 						for sampling? Were any groups intentionally excluded from sampling?
 					</h4>
 					<ul class="space-y-1">
-						{#each Object.entries($samplingDesign.otherTargetedCategories) as [k, v]}
-							{#if $samplingDesign.otherTargetedSelectedCategories.includes(k)}
+						<b>not implemented</b>
+						{#each Object.entries($samplingDesign.samplingScope.specificCategory.other) as [k, v]}
+							<!-- {#if $samplingDesign.samplingScope.specificCategory.other.includes(k)}
 								<li>
 									<p class="font-medium">{k}:</p>
 									{#each Object.entries(v) as [l, s]}
 										<p>{`${l} -> ${s}`}</p>
 									{/each}
 								</li>
-							{/if}
+							{/if} -->
 						{/each}
 					</ul>
 				</div>
 			</div>
-			<Point
+			<!-- <Point
 				label="Are there taxa or other groups which may have been under-represented in the dataset, for example due to the timing or seasonality of sampling, or the precise methods used?"
-				value={$samplingDesign.underRepresented}
-			/>
+				value={$samplingDesign.underRepresentedTaxa}
+			/> -->
 		</section>
-		<section>
+		<!-- <section>
 			<h3 class="text-xl font-medium mb-4">Sampling effort</h3>
 			<div class="divide-y divide-placeholder divide-opacity-40 space-y-2">
 				<Point label="Describe the intensity of sampling" value={$samplingDesign.effortIntensity} />
@@ -87,6 +88,6 @@
 					value={$samplingDesign.furtherInformation}
 				/>
 			</div>
-		</section>
+		</section> -->
 	</div>
 </div>

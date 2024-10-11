@@ -2,6 +2,8 @@
 	import TextInput from '../TextInput.svelte';
 	import { generalInformation } from '$lib/stores/generalInformation';
 	import OrcId from '../OrcId.svelte';
+	import { boolean } from 'zod';
+
 </script>
 
 <div class="col-span-2 grid grid-cols-6 justify-between gap-3">
@@ -9,28 +11,28 @@
 		label="First name"
 		required
 		placeholder="E.g. Sara"
-		bind:value={$generalInformation.firstName}
+		bind:value={$generalInformation.dataProvider.firstName}
 		class="col-span-2"
 	/>
 	<TextInput
-		label="Middle initial(s)"
+		label="Middle initials(s)"
 		placeholder="M. L."
 		pattern={'^ *?[A-Z]\\.(\\s[A-Z]\\.)* *?$'}
 		errorMsg="Please enter initials in capitals separated by a dot and a space. Eg: E. G."
-		bind:value={$generalInformation.initials}
+		bind:value={$generalInformation.dataProvider.initials}
 		class=""
 	/>
 	<TextInput
 		label="Family name(s)"
 		required
 		placeholder="de Melo"
-		bind:value={$generalInformation.familyName}
+		bind:value={$generalInformation.dataProvider.familyName}
 		class="col-span-3"
 	/>
 </div>
 <OrcId
-	bind:value={$generalInformation.orcidId}
-	bind:notAvailable={$generalInformation.noOrcidId}
+	bind:value={$generalInformation.dataProvider.orcId}
+	bind:notAvailable={$generalInformation.dataProvider.noOrcId}
 	name="orcId-author-list"
 	label="ORCiD *"
 	maxLength={19}
@@ -46,5 +48,5 @@
 	label="Email address"
 	required
 	placeholder="E.g. name@organization.domain"
-	bind:value={$generalInformation.email}
+	bind:value={$generalInformation.dataProvider.email}
 />

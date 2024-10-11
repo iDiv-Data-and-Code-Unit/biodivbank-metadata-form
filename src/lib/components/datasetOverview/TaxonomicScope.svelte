@@ -5,7 +5,12 @@
 
 	const maxStep: number = 3;
 	let step: number = 1;
+
+	console.log('TaxonomicScope',	$datasetOverview.taxonomicScope);
+	
+
 </script>
+{#if $datasetOverview.taxonomicScope}
 
 <div class="w-full grid grid-cols-2 gap-8">
 	<!-- {#if step === 2}
@@ -37,3 +42,4 @@
 		>
 	{/if} -->
 </div>
+{/if}

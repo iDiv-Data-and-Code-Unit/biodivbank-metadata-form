@@ -67,15 +67,15 @@
 					weight: 1,
 					fillColor:
 						feature.properties['regiontype'] === 'ADM'
-							? $datasetOverview.countries.includes(feature.properties['title_EN'])
+							? $datasetOverview.geographicScope.countries.includes(feature.properties['title_EN'])
 								? '#0f9d38'
 								: '#B4F8C8'
-							: $datasetOverview.marineRegions.includes(feature.properties['title_EN'])
+							: $datasetOverview.geographicScope.marineRegions.includes(feature.properties['title_EN'])
 							? '#289f9c'
 							: '#A0E7E5',
 					fillOpacity:
-						$datasetOverview.countries.includes(feature.properties['title_EN']) ||
-						$datasetOverview.marineRegions.includes(feature.properties['title_EN'])
+						$datasetOverview.geographicScope.countries.includes(feature.properties['title_EN']) ||
+						$datasetOverview.geographicScope.marineRegions.includes(feature.properties['title_EN'])
 							? 0.5
 							: 0.2
 				};
@@ -110,8 +110,8 @@
 			const region: string = e.layer.feature.properties['title_EN'];
 			const regionType: string = e.layer.feature.properties['regiontype'];
 			if (regionType === 'ADM') {
-				if ($datasetOverview.countries.includes(region)) {
-					$datasetOverview.countries = $datasetOverview.countries.filter(
+				if ($datasetOverview.geographicScope.countries.includes(region)) {
+					$datasetOverview.geographicScope.countries = $datasetOverview.geographicScope.countries.filter(
 						(country: string) => country !== region
 					);
 					e.layer.setStyle({
@@ -119,15 +119,15 @@
 						fillOpacity: 0.2
 					});
 				} else {
-					$datasetOverview.countries = [...$datasetOverview.countries, region];
+					$datasetOverview.geographicScope.countries = [...$datasetOverview.geographicScope.countries, region];
 					e.layer.setStyle({
 						fillColor: '#0f9d38',
 						fillOpacity: 0.5
 					});
 				}
 			} else {
-				if ($datasetOverview.marineRegions.includes(region)) {
-					$datasetOverview.marineRegions = $datasetOverview.marineRegions.filter(
+				if ($datasetOverview.geographicScope.marineRegions.includes(region)) {
+					$datasetOverview.geographicScope.marineRegions = $datasetOverview.geographicScope.marineRegions.filter(
 						(country: string) => country !== region
 					);
 					e.layer.setStyle({
@@ -135,7 +135,7 @@
 						fillOpacity: 0.2
 					});
 				} else {
-					$datasetOverview.marineRegions = [...$datasetOverview.marineRegions, region];
+					$datasetOverview.geographicScope.marineRegions = [...$datasetOverview.geographicScope.marineRegions, region];
 					e.layer.setStyle({
 						fillColor: '#289f9c',
 						fillOpacity: 0.5

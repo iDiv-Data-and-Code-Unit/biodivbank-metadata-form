@@ -14,7 +14,9 @@ export type PrimaryContact = {
 };
 
 export interface ListAuthor extends Author {
+	id:string;
 	orcId: string | null;
+	noOrcId: boolean;
 	isPrimaryContact: boolean;
 	primaryContact: PrimaryContact | null;
 }

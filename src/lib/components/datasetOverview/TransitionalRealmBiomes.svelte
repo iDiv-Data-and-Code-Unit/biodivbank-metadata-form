@@ -64,8 +64,8 @@
 				<input
 					type="checkbox"
 					{value}
-					disabled={!$datasetOverview.transitionalRealms.includes('freshwaterMarine')}
-					bind:group={$datasetOverview.transitionalRealmBiomes}
+					disabled={!$datasetOverview.realm.transitional.includes('freshWaterMarine')}
+					bind:group={$datasetOverview.biome.transitional.freshWaterMarine}
 					name="transitionalRealmBiomes"
 				/>
 				<span class="text-sm shrink-0">
@@ -79,8 +79,8 @@
 				<input
 					type="checkbox"
 					{value}
-					disabled={!$datasetOverview.transitionalRealms.includes('terrestrialFreshwater')}
-					bind:group={$datasetOverview.transitionalRealmBiomes}
+					disabled={!$datasetOverview.realm.transitional.includes('terrestrialFreshwater')}
+					bind:group={$datasetOverview.biome.transitional.terrestrialFreshwater}
 					name="transitionalRealmBiomes"
 				/>
 				<span class="text-sm shrink-0">
@@ -94,8 +94,8 @@
 				<input
 					type="checkbox"
 					{value}
-					disabled={!$datasetOverview.transitionalRealms.includes('marineTerrestrial')}
-					bind:group={$datasetOverview.transitionalRealmBiomes}
+					disabled={!$datasetOverview.realm.transitional.includes('marineTerrestrial')}
+					bind:group={$datasetOverview.biome.transitional.marineFreshwaterTerrestrialBiomes}
 					name="transitionalRealmBiomes"
 				/>
 				<span class="text-sm shrink-0">
@@ -109,8 +109,8 @@
 				<input
 					type="checkbox"
 					{value}
-					disabled={!$datasetOverview.transitionalRealms.includes('marineFreshwaterTerrestrial')}
-					bind:group={$datasetOverview.transitionalRealmBiomes}
+					disabled={!$datasetOverview.realm.transitional.includes('marineFreshwaterTerrestrial')}
+					bind:group={$datasetOverview.biome.transitional.marineFreshwaterTerrestrial}
 					name="transitionalRealmBiomes"
 				/>
 				<span class="text-sm shrink-0">
@@ -124,8 +124,8 @@
 				<input
 					type="checkbox"
 					{value}
-					disabled={!$datasetOverview.transitionalRealms.includes('subterraneanFreshwater')}
-					bind:group={$datasetOverview.transitionalRealmBiomes}
+					disabled={!$datasetOverview.realm.transitional.includes('subterraneanFreshwater')}
+					bind:group={$datasetOverview.biome.transitional.subterraneanFreshwater}
 					name="transitionalRealmBiomes"
 				/>
 				<span class="text-sm shrink-0">
@@ -139,8 +139,8 @@
 				<input
 					type="checkbox"
 					{value}
-					disabled={!$datasetOverview.transitionalRealms.includes('subterraneanFreshwater')}
-					bind:group={$datasetOverview.transitionalRealmBiomes}
+					disabled={!$datasetOverview.realm.transitional.includes('subterraneanFreshwater')}
+					bind:group={$datasetOverview.biome.transitional.subterraneanFreshwater}
 					name="transitionalRealmBiomes"
 				/>
 				<span class="text-sm shrink-0">
@@ -154,8 +154,8 @@
 				<input
 					type="checkbox"
 					{value}
-					disabled={!$datasetOverview.transitionalRealms.includes('subterraneanMarine')}
-					bind:group={$datasetOverview.transitionalRealmBiomes}
+					disabled={!$datasetOverview.realm.transitional.includes('subterraneanMarine')}
+					bind:group={$datasetOverview.biome.transitional.subterraneanMarine}
 					name="transitionalRealmBiomes"
 				/>
 				<span class="text-sm shrink-0">

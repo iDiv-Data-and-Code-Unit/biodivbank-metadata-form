@@ -13,7 +13,7 @@
 	export let invalidatedErrorMsg: string;
 	export let invalidInputErrorMsg: string;
 	export let confirmCheckboxMsg: string;
-	export let value: string;
+	export let value: string | undefined;
 	export let notAvailable: boolean;
 	export let name: string;
 	export let label: string;
@@ -49,8 +49,8 @@
 					validityStatus = 'validated';
 					const json = await res.json();
 					console.log(json);
-					$generalInformation.firstName = json.person.name['given-names'].value;
-					$generalInformation.familyName = json.person.name['family-name'].value;
+					$generalInformation.dataProvider.firstName = json.person.name['given-names'].value;
+					$generalInformation.dataProvider.familyName = json.person.name['family-name'].value;
 					// console.log(
 					// 	json.person.name['given-names'].value + ' ' + json.person.name['family-name'].value
 					// );

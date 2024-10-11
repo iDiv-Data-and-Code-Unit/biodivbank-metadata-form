@@ -22,14 +22,14 @@
 			Certain mandatory questions have not been answered on the previous screen. You can revise
 			these at the end of the form, or return to complete the section at any point in the process.
 		</p>
-		<!-- <ul class="flex flex-col gap-1">
+		<ul class="flex flex-col gap-1">
 			{#each toast.incompleteFields as field}
 				<li class="text-sm flex items-center gap-2">
 					<span>⚠️</span>
 					{field}
 				</li>
 			{/each}
-		</ul> -->
+		</ul>
 	</section>
 </div>
 <!-- <span>

@@ -1,11 +1,16 @@
 <script lang="ts">
 	export let label: string;
 	export let value: string | Record<string, string[] | string> | Record<string, string>[];
+
 	// export let multiple = false;
+	
 </script>
 
 <div class="flex gap-72 [&:not(:first-child)]:pt-2">
 	<h4 class="text-description w-52 shrink-0">{label}</h4>
+	{#if value == undefined}
+		<span class="text-description">No data</span>	
+	{:else}
 	{#if typeof value === 'string'}
 		<span>
 			{value}
@@ -37,4 +42,5 @@
 			{/each}
 		</ul>
 	{/if}
+{/if}
 </div>

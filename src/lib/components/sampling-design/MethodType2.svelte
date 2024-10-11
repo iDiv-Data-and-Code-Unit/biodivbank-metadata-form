@@ -6,9 +6,10 @@
 	import ArrowLeft from '$lib/icons/ArrowLeft.svelte';
 	import ArrowRight from '$lib/icons/ArrowRight.svelte';
 	import Multistep from '../Multistep.svelte';
+	import MethodType from './MethodType.svelte';
 
 	let stage1Inputs = [
-		{ label: 'Human / direct observation', value: 'human' },
+		{ label: 'Human / direct observation', value: 'humanDirectObservation' },
 		{ label: 'Machine observation', value: 'machineObservation' },
 		{ label: 'Trap or capture', value: 'capture' },
 		{ label: 'Environmental sample', value: 'environmentalSample' },
@@ -134,49 +135,49 @@
 	<Multistep question="How were the data obtained? (Select all that apply)" steps={3}>
 		<div class="grid gap-8">
 			<CheckboxGroup
-				bind:group={$samplingDesign.methodTypes.stage1}
+				bind:group={$samplingDesign.methods.methodType.stageOne}
 				name="stage-1"
 				inputs={stage1Inputs}
 			/>
 		</div>
 
 		<div class="grid gap-8" slot="step-2">
-			{#if $samplingDesign.methodTypes.stage1.includes('human')}
+			{#if $samplingDesign.methods.methodType.stageOne.includes('humanDirectObservation')}
 				<h3 class="col-span-2 text-sm text-min-contrast-gray">Human / direct observation</h3>
 				<CheckboxGroup
-					bind:group={$samplingDesign.methodTypes.stage2}
+					bind:group={$samplingDesign.methods.methodType.stageTwo.humanDirectObservation}
 					name="stage-2"
 					inputs={humanInputs}
 				/>
 			{/if}
-			{#if $samplingDesign.methodTypes.stage1.includes('machineObservation')}
+			{#if $samplingDesign.methods.methodType.stageOne.includes('machineObservation')}
 				<h3 class="col-span-2 text-sm text-min-contrast-gray">Machine observation</h3>
 				<CheckboxGroup
-					bind:group={$samplingDesign.methodTypes.stage2}
+					bind:group={$samplingDesign.methods.methodType.stageTwo.machineObservation}
 					name="stage-2"
 					inputs={machineObservationInputs}
 				/>
 			{/if}
-			{#if $samplingDesign.methodTypes.stage1.includes('capture')}
+			{#if  $samplingDesign.methods.methodType.stageOne.includes('capture')}
 				<h3 class="col-span-2 text-sm text-min-contrast-gray">Capture</h3>
 				<CheckboxGroup
-					bind:group={$samplingDesign.methodTypes.stage2}
+					bind:group={$samplingDesign.methods.methodType.stageTwo.capture}
 					name="stage-2"
 					inputs={captureInputs}
 				/>
 			{/if}
-			{#if $samplingDesign.methodTypes.stage1.includes('environmentalSample')}
+			{#if  $samplingDesign.methods.methodType.stageOne.includes('environmentalSample')}
 				<h3 class="col-span-2 text-sm text-min-contrast-gray">Environmental sample</h3>
 				<CheckboxGroup
-					bind:group={$samplingDesign.methodTypes.stage2}
+					bind:group={$samplingDesign.methods.methodType.stageTwo.environmentalSample}
 					name="stage-2"
 					inputs={environmentalSampleInputs}
 				/>
 			{/if}
-			{#if $samplingDesign.methodTypes.stage1.includes('physicalEvidence')}
+			{#if  $samplingDesign.methods.methodType.stageOne.includes('physicalEvidence')}
 				<h3 class="col-span-2 text-sm text-min-contrast-gray">Physical evidence</h3>
 				<CheckboxGroup
-					bind:group={$samplingDesign.methodTypes.stage2}
+					bind:group={$samplingDesign.methods.methodType.stageTwo.physicalEvidence}
 					name="stage-2"
 					inputs={physicalEvidenceInputs}
 				/>
@@ -184,55 +185,56 @@
 		</div>
 
 		<div class="grid gap-8" slot="step-3">
-			{#if $samplingDesign.methodTypes.stage2.length && $samplingDesign.methodTypes.stage1.length}
-				{#if $samplingDesign.methodTypes.stage2.includes('net')}
+			{#if $samplingDesign.methods.methodType.stageTwo.length &&  $samplingDesign.methods.methodType.stageOne.length}
+				{#if $samplingDesign.methods.methodType.stageTwo.capture.includes('net')}
 					<h3 class="col-span-2 text-sm text-min-contrast-gray">Net</h3>
 					<CheckboxGroup
-						bind:group={$samplingDesign.methodTypes.stage3}
+						bind:group={$samplingDesign.methods.methodType.stageThree.net}
 						name="stage-3-plot"
 						inputs={netInputs}
 					/>
 				{/if}
-				{#if $samplingDesign.methodTypes.stage2.includes('trap')}
+				{#if $samplingDesign.methods.methodType.stageTwo.capture.includes('trap')}
 					<h3 class="col-span-2 text-sm text-min-contrast-gray">Trap</h3>
 					<CheckboxGroup
-						bind:group={$samplingDesign.methodTypes.stage3}
+						bind:group={$samplingDesign.methods.methodType.stageThree.trap}
 						name="stage-3-plot"
 						inputs={trapInputs}
 					/>
 				{/if}
-				{#if $samplingDesign.methodTypes.stage2.includes('trawl')}
+				{#if $samplingDesign.methods.methodType.stageTwo.capture.includes('trawl')}
 					<h3 class="col-span-2 text-sm text-min-contrast-gray">Trawl</h3>
 					<CheckboxGroup
-						bind:group={$samplingDesign.methodTypes.stage3}
+						bind:group={$samplingDesign.methods.methodType.stageThree.trawl}
 						name="stage-3-plot"
 						inputs={trawlInputs}
 					/>
 				{/if}
-				{#if $samplingDesign.methodTypes.stage2.includes('chemicalIrritant')}
+				<b>not finished</b>
+				<!-- {#if $samplingDesign.methods.methodType.stageTwo.capture.includes('chemicalIrritant')}
 					<h3 class="col-span-2 text-sm text-min-contrast-gray">Chemical irritant</h3>
 					<CheckboxGroup
-						bind:group={$samplingDesign.methodTypes.stage3}
+						bind:group={$samplingDesign.methods.methodType.stageThree.chemicalIrritant}
 						name="stage-3-plot"
 						inputs={chemicalIrritantInputs}
 					/>
 				{/if}
-				{#if $samplingDesign.methodTypes.stage2.includes('chemicalKnockdown')}
+				{#if $samplingDesign.methods.methodType.stageTwo.includes('chemicalKnockdown')}
 					<h3 class="col-span-2 text-sm text-min-contrast-gray">Chemical knockdown</h3>
 					<CheckboxGroup
-						bind:group={$samplingDesign.methodTypes.stage3}
+						bind:group={$samplingDesign.methods.methodType.stageThree.chemicalKnockdown}
 						name="stage-3-plot"
 						inputs={chemicalKnockdownInputs}
 					/>
 				{/if}
-				{#if $samplingDesign.methodTypes.stage2.includes('markRecapture')}
+				{#if $samplingDesign.methods.methodType.stageTwo.includes('markRecapture')}
 					<h3 class="col-span-2 text-sm text-min-contrast-gray">Mark-recapture</h3>
 					<CheckboxGroup
-						bind:group={$samplingDesign.methodTypes.stage3}
+						bind:group={$samplingDesign.methods.methodType.stageThree}
 						name="stage-3-plot"
 						inputs={markRecaptureInputs}
 					/>
-				{/if}
+				{/if} -->
 			{/if}
 		</div>
 	</Multistep>

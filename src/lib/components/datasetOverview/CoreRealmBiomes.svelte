@@ -86,8 +86,8 @@
 				<input
 					type="checkbox"
 					{value}
-					disabled={!$datasetOverview.coreRealms.includes('freshwater')}
-					bind:group={$datasetOverview.coreRealmBiomes}
+					disabled={!$datasetOverview.realm.core.includes('freshwater')}
+					bind:group={$datasetOverview.biome.core.freshwater}
 					name="coreRealmBiome"
 				/>
 				<span class="text-sm shrink-0">
@@ -101,8 +101,8 @@
 				<input
 					type="checkbox"
 					{value}
-					disabled={!$datasetOverview.coreRealms.includes('marine')}
-					bind:group={$datasetOverview.coreRealmBiomes}
+					disabled={!$datasetOverview.realm.core.includes('marine')}
+					bind:group={$datasetOverview.biome.core}
 					name="coreRealmBiome"
 				/>
 				<span class="text-sm shrink-0">
@@ -116,8 +116,8 @@
 				<input
 					type="checkbox"
 					{value}
-					disabled={!$datasetOverview.coreRealms.includes('terrestrial')}
-					bind:group={$datasetOverview.coreRealmBiomes}
+					disabled={!$datasetOverview.realm.core.includes('terrestrial')}
+					bind:group={$datasetOverview.biome.core}
 					name="coreRealmBiome"
 				/>
 				<span class="text-sm shrink-0">
@@ -131,8 +131,8 @@
 				<input
 					type="checkbox"
 					{value}
-					disabled={!$datasetOverview.coreRealms.includes('subterranean')}
-					bind:group={$datasetOverview.coreRealmBiomes}
+					disabled={!$datasetOverview.realm.core.includes('subterranean')}
+					bind:group={$datasetOverview.biome.core}
 					name="coreRealmBiome"
 				/>
 				<span class="text-sm shrink-0">

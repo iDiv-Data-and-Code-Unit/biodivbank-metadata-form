@@ -6,6 +6,7 @@
 	import Ror from '../ROR.svelte';
 
 	let notAvailable = false;
+	
 </script>
 
 <div class="col-span-2 flex justify-between items-center gap-3">
@@ -13,20 +14,20 @@
 		label="Institution name"
 		required
 		placeholder="E.g. Institute of Biodiversity Studies"
-		bind:value={$generalInformation.institutionName}
+		bind:value={$generalInformation.dataProvider.institutionName}
 	/>
 	<Select
 		label="Institution country"
 		required
 		placeholder="Select country..."
-		bind:value={$generalInformation.institutionCountry}
+		bind:value={$generalInformation.dataProvider.institutionCountry}
 		options={countries.map((c) => c.en)}
 	/>
 </div>
 <div>
 	<Ror
-		bind:value={$generalInformation.ror}
-		bind:notAvailable={$generalInformation.noRor}
+		bind:value={$generalInformation.dataProvider.rorId}
+		bind:notAvailable={$generalInformation.dataProvider.noRorId}
 		name="ror-author-list"
 		label="Institution ROR ID"
 		maxLength={9}

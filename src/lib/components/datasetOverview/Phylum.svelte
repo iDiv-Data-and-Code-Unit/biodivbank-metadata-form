@@ -115,19 +115,23 @@
 			value: 'rhodophyta'
 		}
 	];
-</script>
 
-{#if $datasetOverview.kingdoms.includes('animalia') || $datasetOverview.kingdoms.includes('fungi')}
+	console.log($datasetOverview.taxonomicScope.kingdom,	$datasetOverview.taxonomicScope.subdivision);
+	
+
+</script>
+{#if $datasetOverview.taxonomicScope.kingdom && $datasetOverview.taxonomicScope.subdivision}
+{#if $datasetOverview.taxonomicScope.kingdom.includes('animalia') || $datasetOverview.taxonomicScope.kingdom.includes('fungi')}
 	<div class="flex flex-col gap-8 text-sm">
-		{#if $datasetOverview.kingdoms.includes('animalia')}
+		{#if $datasetOverview.taxonomicScope.kingdom.includes('animalia')}
 			<h5 class="text-description">Animalia</h5>
 			{#each animalia as { label, value }}
 				<label class="flex items-center gap-3">
 					<input
 						type="checkbox"
 						{value}
-						bind:group={$datasetOverview.subDivisions}
-						name="subDivisions"
+						bind:group={$datasetOverview.taxonomicScope.subdivision.animalia}
+						name="subdivision"
 					/>
 					<span class="text-sm shrink-0">
 						{label}&nbsp;
@@ -135,10 +139,10 @@
 				</label>
 			{/each}
 		{/if}
-		{#if $datasetOverview.kingdoms.includes('animalia') && $datasetOverview.kingdoms.includes('fungi')}
+		{#if $datasetOverview.taxonomicScope.kingdom.includes('animalia') && $datasetOverview.taxonomicScope.kingdom.includes('fungi')}
 			<div class="bg-divider h-px w-1/2" />
 		{/if}
-		{#if $datasetOverview.kingdoms.includes('fungi')}
+		{#if $datasetOverview.taxonomicScope.kingdom.includes('fungi')}
 			<h5 class="text-description">Fungi</h5>
 			<div class="grid grid-cols-2 gap-8">
 				{#each fungi as { label, value }}
@@ -146,8 +150,8 @@
 						<input
 							type="checkbox"
 							{value}
-							bind:group={$datasetOverview.subDivisions}
-							name="subDivisions"
+							bind:group={$datasetOverview.taxonomicScope.subdivision.fungi}
+							name="subdivision"
 						/>
 						<span class="text-sm shrink-0">
 							{label}&nbsp;
@@ -158,10 +162,10 @@
 		{/if}
 	</div>
 {/if}
-{#if ($datasetOverview.kingdoms.includes('animalia') || $datasetOverview.kingdoms.includes('fungi')) && $datasetOverview.kingdoms.includes('plantae')}
+{#if ($datasetOverview.taxonomicScope.kingdom.includes('animalia') || $datasetOverview.taxonomicScope.kingdom.includes('fungi')) && $datasetOverview.taxonomicScope.kingdom.includes('plantae')}
 	<div class="bg-divider h-px w-1/2" />
 {/if}
-{#if $datasetOverview.kingdoms.includes('plantae')}
+{#if $datasetOverview.taxonomicScope.kingdom.includes('plantae')}
 	<div class="flex flex-col gap-8 text-sm">
 		<h5 class="text-description">Land Plants</h5>
 		<div class="grid grid-cols-2 gap-8">
@@ -170,8 +174,8 @@
 					<input
 						type="checkbox"
 						{value}
-						bind:group={$datasetOverview.subDivisions}
-						name="subDivisions"
+						bind:group={$datasetOverview.taxonomicScope.subdivision.plantae}
+						name="subdivision"
 					/>
 					<span class="text-sm shrink-0">
 						{label}&nbsp;
@@ -180,15 +184,16 @@
 			{/each}
 		</div>
 		<!-- <div class="bg-divider h-px w-1/2" /> -->
+
 		<div class="grid grid-cols-2 gap-8 col-span-2">
-			<div class="grid gap-8"><h5 class="text-description">Green algae</h5>
-		{#each greenAlgae as { label, value }}
+			<div class="grid gap-8"><h5 class="text-description">Green algae</h5> 		not implemented
+		<!--{#each greenAlgae as { label, value }}
 			<label class="flex items-center gap-3">
 				<input
 					type="checkbox"
 					{value}
-					bind:group={$datasetOverview.subDivisions}
-					name="subDivisions"
+					bind:group={$datasetOverview.taxonomicScope.subdivision["greenAlgae"]}
+					name="subdivision"
 				/>
 				<span class="text-sm shrink-0">
 					{label}&nbsp;
@@ -198,22 +203,25 @@
 		</div>
 	
 	<div class="grid gap-8"><h5 class="text-description">Other algae</h5>
+
 		{#each otherAlgae as { label, value }}
 			<label class="flex items-center gap-3">
 				<input
 					type="checkbox"
 					{value}
-					bind:group={$datasetOverview.subDivisions}
-					name="subDivisions"
+					bind:group={$datasetOverview.taxonomicScope.subdivision}
+					name="subdivision"
 				/>
 				<span class="text-sm shrink-0">
 					{label}&nbsp;
 				</span>
 			</label>
-		{/each}</div>
+		{/each} -->
+	</div>
 	</div>
 		
 		<!-- <div class="bg-divider h-px w-1/2" /> -->
 		
 	</div>
+{/if}
 {/if}

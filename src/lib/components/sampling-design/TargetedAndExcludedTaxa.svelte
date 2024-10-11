@@ -12,12 +12,12 @@
 		helpText="Multiple responses can be entered; separate the words or phrases using a comma"
 		placeholder="E.g. Aves"
 		label="Targeted taxa"
-		bind:value={$samplingDesign.targetedAndExludedTaxa.targeted}
+		bind:value={$samplingDesign.samplingScope.targetedTaxa}
 	/>
 	<TextInput
 		placeholder="E.g. Anatidae, raptors"
 		label="Excluded taxa"
 		helpText="Multiple responses can be entered; separate the words or phrases using a comma"
-		bind:value={$samplingDesign.targetedAndExludedTaxa.excluded}
+		bind:value={$samplingDesign.samplingScope.excludedTaxa}
 	/>
 </Question>

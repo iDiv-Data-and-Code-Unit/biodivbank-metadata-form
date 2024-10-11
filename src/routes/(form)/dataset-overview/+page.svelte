@@ -14,35 +14,34 @@
 	import { onMount } from 'svelte';
 	import toast from 'svelte-french-toast';
 	import CustomToast from '$lib/components/CustomToast.svelte';
+	import { geoStore } from '$lib/stores/geo';
+	import { datasetOverviewSchema } from '$lib/schemas/datasetOverview';
 
 	onMount(() => {
+
+		console.log("********** DATASETOVERVIEW *************************************");
+		console.log($datasetOverview);
+		console.log($geoStore);
+		console.log("************************************************************");
+
 		step.set(2);
 
 		return () => {
-			const {
-				originalOrCompiledDataset,
-				temporalScopeStart,
-				temporalScopeEnd,
-				spatialScope,
-				coreRealms
-			} = $datasetOverview;
-			if (
-				!originalOrCompiledDataset ||
-				!temporalScopeStart ||
-				!temporalScopeEnd ||
-				!spatialScope ||
-				!coreRealms.length
-			) {
+	
+			const result = datasetOverviewSchema.safeParse($datasetOverview);
+
+			if (!result.success) {
+				toast(CustomToast, {
+					// @ts-ignore
+					step: 'Dataset overview',
+					// @ts-ignore
+					incompleteFields: result.error.errors.map((error) => error.path),
+					position: 'bottom-right',
+					duration: 10000,
+					className: 'mr-40'
+				});
+				return;
 			}
-			toast(CustomToast, {
-				// @ts-ignore
-				step: 'Dataset overview',
-				// @ts-ignore
-				incompleteFields: [],
-				position: 'bottom-right',
-				duration: 10000,
-				className: 'mr-40'
-			});
 		};
 	});
 </script>
@@ -95,9 +94,9 @@
 		title="Taxonomic scope"
 		description="Which taxonomic groups are represented in the dataset? (Select all that apply)"
 	>
-		<!-- <Question question="Which kingdoms are involved?">
+		<Question question="Which kingdoms are involved?">
 			<TaxonomicScope />
-		</Question> -->
+		</Question> 
 		<div class="col-span-2"><TaxonomicScope2 /></div>
 	</Section>
 </div>
