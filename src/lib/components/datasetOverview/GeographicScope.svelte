@@ -145,7 +145,7 @@
 	<TextInput
 		label="Field station"
 		placeholder="E.g. Smithsonian Tropical Research Institute, Barro Colorado Island"
-		bind:value={$datasetOverview.geographicScope.fieldStation?.name}
+		bind:value={$datasetOverview.geographicScope.fieldStation.name}
 	/> 
 	<div>
 	<Ror
