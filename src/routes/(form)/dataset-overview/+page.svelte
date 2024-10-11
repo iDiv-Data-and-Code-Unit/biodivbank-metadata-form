@@ -92,11 +92,8 @@
 
 	<Section
 		title="Taxonomic scope"
-		description="Which taxonomic groups are represented in the dataset? (Select all that apply)"
-	>
-		<Question question="Which kingdoms are involved?">
-			<TaxonomicScope />
-		</Question> 
+		description="Which taxonomic groups are represented in the dataset? (Select all that apply)">
+
 		<div class="col-span-2"><TaxonomicScope2 /></div>
 	</Section>
 </div>

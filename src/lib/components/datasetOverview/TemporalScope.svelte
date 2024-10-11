@@ -3,6 +3,7 @@
 	import clsx from 'clsx';
 	import Question from '../formControls/Question.svelte';
 	import { datasetOverview } from '$lib/stores/datasetOverview';
+	import { onMount } from 'svelte';
 
 	let months = [
 		'January',
@@ -22,40 +23,72 @@
 	let startMonth = '';
 	let endMonth = '';
 
-	let start ={
-		year: '',
+ type dateType	= {
+	year: number | undefined,
+	month: string,
+	day: number| undefined,
+	}
+
+	let start:dateType ={
+		year: undefined,
 		month: '',
-		day: ''
+		day: undefined
 	}
 
-	let end ={
-		year: '',
+	let end:dateType ={
+		year: undefined,
 		month: '',
-		day: ''
+		day: undefined
 	}
 
-	$:start, updateStart(start,$datasetOverview.temporalScope.start)
-	$:end, updateEnd(end,$datasetOverview.temporalScope.end)
+	$:start, updateStart(start);
+	$:end, updateEnd(end)
 
-	initDate(start, $datasetOverview.temporalScope.start);
-	initDate(end, $datasetOverview.temporalScope.end);
-
-	function initDate(newdate:any, destination:string){
-		let date = destination.split("/");
-		newdate.year = date[0];
-		newdate.month = date[1];
-		newdate.day = date[2];
+	function updateStart(s)
+	{
+			console.log("🚀 ~ updateStart ~ start", start);
+			if(start.day	!= undefined && start.month != "" && start.year != undefined)
+			{
+				const sm = months.indexOf(start.month)+1;
+				$datasetOverview.temporalScope = {...$datasetOverview.temporalScope, start : new Date(start.year,sm, start.day)};
+			}
 	}
 
-	function updateStart(newdate:any, destination:string){
-		destination = newdate.year + "/" + newdate.month + "/" + newdate.day;
-		$datasetOverview.temporalScope.start = destination
+	function updateEnd(e)
+	{
+			console.log("🚀 ~ updateEnd ~ start", end);
+			if(end.day	!= undefined && end.month != "" && end.year != undefined)
+			{
+				const sm = months.indexOf(start.month)+1;
+				$datasetOverview.temporalScope = {...$datasetOverview.temporalScope, end : new Date(end.year,sm, end.day)};
+
+			}
+
+			console.log($datasetOverview.temporalScope);
+			
 	}
 
-	function updateEnd(newdate:any, destination:string){
-		destination = newdate.year + "/" + newdate.month + "/" + newdate.day;
-		$datasetOverview.temporalScope.end = destination
-	}
+
+
+
+ onMount(() => {
+
+		console.log("🚀 ~ initDates ~ newDate:", $datasetOverview.temporalScope);
+		//initDates();
+		const s = new Date($datasetOverview.temporalScope.start);
+		start.month = months[s.getMonth()]; // Months are zero-indexed
+  start.year = s.getFullYear();
+  start.day	= s.getDate();
+
+		const e = new Date($datasetOverview.temporalScope.end);
+		start.month = months[e.getMonth()]; // Months are zero-indexed
+  start.year = e.getFullYear();
+  start.day	= e.getDate();
+
+		// const newDate = new Date($datasetOverview.temporalScope.start.getFullYear, $datasetOverview.temporalScope.start.getMonth, $datasetOverview.temporalScope.start.getDay);	
+		
+	});
+
 
 
 </script>
@@ -65,7 +98,7 @@
 	<div class="w-full">
 		<div class="flex gap-4 items-center">
 			<h4 class="shrink-0">Start date</h4>
-			not implemented {$datasetOverview.temporalScope.start}
+			not implemented {start}
 			<input
 				class="bg-input rounded-md px-4 py-3 border-none w-full placeholder:text-placeholder"
 				placeholder="Year"
@@ -87,7 +120,7 @@
 			<input
 				class="bg-input rounded-md px-4 py-3 border-none w-full placeholder:text-placeholder"
 				placeholder="Day"
-				type="text"
+				type="number"
 				bind:value={start.day}
 			/>
 		</div>
@@ -96,11 +129,11 @@
 	<div class="w-full">
 		<div class="flex gap-4 items-center">
 			<h4 class="shrink-0">End date</h4>
-			not implemented  {$datasetOverview.temporalScope.end}
+			not implemented  {end.year}
 			<input
 				class="bg-input rounded-md px-4 py-3 border-none w-full placeholder:text-placeholder"
 				placeholder="Year"
-				type="text"
+				type="number"
 				bind:value={end.year}
 			/>
 			<select
@@ -118,7 +151,7 @@
 			<input
 				class="bg-input rounded-md px-4 py-3 border-none w-full placeholder:text-placeholder"
 				placeholder="Day"
-				type="text"
+				type="number"
 				bind:value={end.day}
 			/>
 		</div>

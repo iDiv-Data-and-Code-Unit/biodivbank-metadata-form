@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { datasetOverview } from '$lib/stores/datasetOverview';
+	import { RealmCoreEnum } from '$lib/schemas/datasetOverview';
 	import CheckboxGroup from '../CheckboxGroup.svelte';
 	import Question from '../formControls/Question.svelte';
 

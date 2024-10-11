@@ -44,68 +44,36 @@
 		label="Single sampling design"
 		value="singleSource"
 		addition="one unified methodology"
-		bind:group={$datasetOverview.originalOrCompiledDataset}
+		bind:group={$datasetOverview.dataOrigin.originalOrCompiledDataset}
 		name="originalOrCompiledDataset"
 	/>
 	<Radio
 		label="Compilation"
 		addition="single dataset, combining multiple different methodologies"
 		value="compilation"
-		bind:group={$datasetOverview.originalOrCompiledDataset}
+		bind:group={$datasetOverview.dataOrigin.originalOrCompiledDataset}
 		name="originalOrCompiledDataset"
 	/>
 	<Radio
 		label="Synthesis study"
 		addition="aggregated from multiple source datasets"
 		value="synthesis"
-		bind:group={$datasetOverview.originalOrCompiledDataset}
+		bind:group={$datasetOverview.dataOrigin.originalOrCompiledDataset}
 		name="originalOrCompiledDataset"
 	/>
 </Question>
-<!--  -->
+
 <Question
 	question="Is the full context of the study known by the data provider or dataset creators? (Select all that apply)"
 	direction="column"
 >
 	<CheckboxGroup
 		name="dataSource"
-		bind:group={$datasetOverview.currentOrLegacyDataset}
+		bind:group={$datasetOverview.dataOrigin.currentOrLegacyDataset}
 		inputs={currentOrLegacy}
 	/>
-	<!-- <Radio
-		label="Current"
-		addition="E.g. recently collected, &/or original authors are contactable"
-		value="current"
-		bind:group={$datasetOverview.currentOrLegacyDataset}
-		name="currentOrLegacy"
-		layout="stacked"
-	/>
-	<Radio
-		label="Legacy"
-		addition="E.g. from an older publication, grey literature, field notes"
-		value="legacy"
-		bind:group={$datasetOverview.currentOrLegacyDataset}
-		name="currentOrLegacy"
-		layout="stacked"
-	/>
-	<Radio
-		label="Unsure"
-		value="unsure"
-		bind:group={$datasetOverview.currentOrLegacyDataset}
-		name="currentOrLegacy"
-		layout="stacked"
-	/> -->
+	
 </Question>
 <Question question="What is the source of the data? (Select all that apply)" direction="grid">
-	<CheckboxGroup name="dataSource" bind:group={$datasetOverview.dataSource} inputs={sources} />
-	<!-- {#each sources as { label, addition, value }}
-		<Checkbox
-			{label}
-			name="dataSource"
-			bind:group={$datasetOverview.dataSource}
-			addition={addition ?? ''}
-			{value}
-			custom={label === 'Other'}
-		/>
-	{/each} -->
+	<CheckboxGroup name="dataSource" bind:group={$datasetOverview.dataOrigin.dataSource} inputs={sources} />
 </Question>

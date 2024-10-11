@@ -48,6 +48,7 @@
 		}
 
 		window.parent.postMessage('save', '*');
+		window.open('/','_self');
 	}
 
 

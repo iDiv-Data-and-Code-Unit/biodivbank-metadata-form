@@ -4,6 +4,7 @@
 	// import countries from '../generalInformation/countries.json';
 	import TextInput from '../TextInput.svelte';
 	import { datasetOverview } from '$lib/stores/datasetOverview';
+	import type{ FieldStation } from '$lib/schemas/datasetOverview';
 	import Radio from '$lib/components/Radio.svelte';
 	import Leaflet from '../Leaflet.svelte';
 	import type { LatLngExpression } from 'leaflet';
@@ -21,9 +22,16 @@
 	let selectedCountry = '';
 	let selectedMarineRegion = '';
 
-	$datasetOverview.geographicScope.countries = $datasetOverview.geographicScope.countries.filter((c) => c !== '');
-	$datasetOverview.geographicScope.marineRegions = $datasetOverview.geographicScope.marineRegions.filter((c) => c !== '');
 	
+onMount(() => {
+		$datasetOverview.geographicScope.countries = $datasetOverview.geographicScope.countries.filter((c) => c !== '');
+	 $datasetOverview.geographicScope.marineRegions = $datasetOverview.geographicScope.marineRegions.filter((c) => c !== '');
+	
+})
+	
+
+	
+
 </script>
 
 <Question direction="column" question="What is the geographic extent of the dataset?">
@@ -138,6 +146,7 @@
 		<!-- <img class="col-span-2" src="/map.png" alt="" /> -->
 	</div>
 </Question>
+<!-- {#if $datasetOverview.geographicScope.fieldStation} -->
 <Question
 	question="Was the original work carried out at a named field station, ecological observatory or network?"
 	direction="column"
@@ -148,9 +157,10 @@
 		bind:value={$datasetOverview.geographicScope.fieldStation.name}
 	/> 
 	<div>
+	
 	<Ror
 		bind:value={$datasetOverview.geographicScope.fieldStation.rorId}
-		bind:notAvailable={notAvailable}
+		bind:notAvailable={$datasetOverview.geographicScope.fieldStation.noRorId}
 		name="ror-author-list"
 		label={`Institution ROR ID ${$datasetOverview.geographicScope.fieldStation.name ? ' *' : ''}`}
 		maxLength={9}
@@ -161,3 +171,4 @@
 		validatedMsg="ROR ID found."
 	/>
 </Question>
+<!-- {/if} -->

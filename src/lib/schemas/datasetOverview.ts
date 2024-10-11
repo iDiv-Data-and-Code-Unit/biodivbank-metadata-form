@@ -269,3 +269,16 @@ export const datasetOverviewSchema = z.object({
 		});
 	}
 });
+
+// Types
+export type DataOrigin = z.infer<typeof DataOriginSchema>;
+export type TemporalScope = z.infer<typeof TemporalScopeSchema>;
+export type FieldStation = z.infer<typeof FieldStationSchema>;
+export type GeographicScope = z.infer<typeof GeographicScopeSchema>;
+export type Realm = z.infer<typeof RealmSchema>;
+export type BiomeCore = z.infer<typeof BiomeCoreSchema>;
+export type BiomeTransitional = z.infer<typeof BiomeTransitionalSchema>;
+export type Biome = z.infer<typeof BiomeSchema>;
+export type SubDivisions = z.infer<typeof SubDivisionsSchema>;
+export type TaxonomicScope = z.infer<typeof TaxonomicScopeSchema>;
+export type DatasetOverview = z.infer<typeof datasetOverviewSchema>;
