@@ -141,24 +141,24 @@ export const SubDivisionsSchema = z.object({
 });
 
 export const TaxonomicScopeSchema = z.object({
-	kingdoms: z.array(KingdomEnum),
+	kingdom: z.array(KingdomEnum),
 	subDivisions: SubDivisionsSchema
-}).superRefine(({ kingdoms, subDivisions }, taxonomicCtx) => {
-	if (!kingdoms.includes('Animalia') && subDivisions.animalia.length > 0) {
+}).superRefine(({ kingdom, subDivisions }, taxonomicCtx) => {
+	if (!kingdom.includes('Animalia') && subDivisions.animalia.length > 0) {
 		taxonomicCtx.addIssue({
 			code: z.ZodIssueCode.custom,
 			message: 'Animalia sub-divisions are only allowed if Animalia Kingdom is selected',
 			path: ['subDivisions', 'animalia']
 		});
 	}
-	if (!kingdoms.includes('Fungi') && subDivisions.fungi.length > 0) {
+	if (!kingdom.includes('Fungi') && subDivisions.fungi.length > 0) {
 		taxonomicCtx.addIssue({
 			code: z.ZodIssueCode.custom,
 			message: 'Fungi sub-divisions are only allowed if Fungi Kingdom is selected',
 			path: ['subDivisions', 'fungi']
 		});
 	}
-	if (!kingdoms.includes('Plantae') && subDivisions.plantae.length > 0) {
+	if (!kingdom.includes('Plantae') && subDivisions.plantae.length > 0) {
 		taxonomicCtx.addIssue({
 			code: z.ZodIssueCode.custom,
 			message: 'Plantae sub-divisions are only allowed if Plantae Kingdom is selected',

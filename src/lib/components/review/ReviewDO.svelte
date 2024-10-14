@@ -48,10 +48,10 @@
 					<!-- <Point label="Core realm biomes" value={$datasetOverview.biome.core. .join(', ')} /> -->
 				{/if}
 				{#if $datasetOverview.realm.transitional.length}
-					<Point
+							<!-- <Point
 						label="Transitional realm biomes"
 						value={$datasetOverview.biome.transitional.join(', ')}
-					/>
+					/> -->
 				{/if}
 			</div>
 		</section>

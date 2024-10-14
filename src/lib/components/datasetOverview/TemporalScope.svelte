@@ -81,9 +81,9 @@
   start.day	= s.getDate();
 
 		const e = new Date($datasetOverview.temporalScope.end);
-		start.month = months[e.getMonth()]; // Months are zero-indexed
-  start.year = e.getFullYear();
-  start.day	= e.getDate();
+		end.month = months[e.getMonth()]; // Months are zero-indexed
+  end.year = e.getFullYear();
+  end.day	= e.getDate();
 
 		// const newDate = new Date($datasetOverview.temporalScope.start.getFullYear, $datasetOverview.temporalScope.start.getMonth, $datasetOverview.temporalScope.start.getDay);	
 		
@@ -98,7 +98,6 @@
 	<div class="w-full">
 		<div class="flex gap-4 items-center">
 			<h4 class="shrink-0">Start date</h4>
-			not implemented {start}
 			<input
 				class="bg-input rounded-md px-4 py-3 border-none w-full placeholder:text-placeholder"
 				placeholder="Year"
@@ -129,7 +128,6 @@
 	<div class="w-full">
 		<div class="flex gap-4 items-center">
 			<h4 class="shrink-0">End date</h4>
-			not implemented  {end.year}
 			<input
 				class="bg-input rounded-md px-4 py-3 border-none w-full placeholder:text-placeholder"
 				placeholder="Year"
