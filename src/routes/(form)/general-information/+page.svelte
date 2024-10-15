@@ -30,7 +30,8 @@
 	params.update((current) => ({
 		...current,
 		id: url.searchParams.get('id') || '',
-		auth: url.searchParams.get('auth') || ''
+		auth: url.searchParams.get('auth') || '',
+		rest:true
 	}));
 
 	//console.log(url.searchParams.get('id'));
@@ -46,16 +47,22 @@
 			//console.log("🚀 ~ LOAD Metadata:", $generalInformation);
 			
 			let id = 14;
+			
 			if($params?.id)
 			{
 				id = JSON.parse($params.id);
 			}
 
+			const	reset = $params?.rest;
+
 			datasetIdStore.set(id);
 
 
-			//console.log("🚀 ~ x ~ $generalInformation:", $generalInformation)
-			if($generalInformation === undefined)
+			// ATTENTION
+			// if go back to this stepp currently means reload metadata from  bexis2
+			// need to change	this to load from store but with a reset option from the beginning
+			// or start with a other page as entry	point
+			if($generalInformation === undefined || reset)
 			{
 
 				const res = await getMetadata(id);

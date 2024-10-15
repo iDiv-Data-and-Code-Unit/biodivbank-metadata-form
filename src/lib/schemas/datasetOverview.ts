@@ -43,8 +43,8 @@ export const SubterraneanFreshWaterBiomeEnum = z.enum([
 ]);
 export const SubterraneanMarineBiomeEnum = z.enum(['Subterranean tidal']);
 export const KingdomEnum = z.enum(['Animalia', 'Fungi', 'Plantae', 'Chromista', 'Protozoa', 'Archaea', 'Bacteria']);
-export const AnimaliaSubDivisionEnum = z.enum(['Macroinvertebrate', 'Microinvertebrate', 'Vertebrate']);
-export const FungiSubDivisionEnum = z.enum([
+export const AnimaliaSubdivisionEnum = z.enum(['Macroinvertebrate', 'Microinvertebrate', 'Vertebrate']);
+export const FungiSubdivisionEnum = z.enum([
 	'Blastoclads',
 	'Chytrids',
 	'Club fungi',
@@ -54,7 +54,7 @@ export const FungiSubDivisionEnum = z.enum([
 	'Sac fungi',
 	'Zygomycetes'
 ]);
-export const PlantaeSubDivisionEnum = z.enum([
+export const PlantaeSubdivisionEnum = z.enum([
 	'Angiosperms',
 	'Clubmosses & spikemosses',
 	'Conifers',
@@ -131,9 +131,9 @@ export const BiomeSchema = z.object({
 });
 
 export const SubDivisionsSchema = z.object({
-	animalia: z.array(AnimaliaSubDivisionEnum),
-	fungi: z.array(FungiSubDivisionEnum),
-	plantae: z.array(PlantaeSubDivisionEnum),
+	animalia: z.array(AnimaliaSubdivisionEnum),
+	fungi: z.array(FungiSubdivisionEnum),
+	plantae: z.array(PlantaeSubdivisionEnum),
 	chromista: z.array(z.string()),
 	protozoa: z.array(z.string()),
 	archaea: z.array(z.string()),
@@ -142,27 +142,27 @@ export const SubDivisionsSchema = z.object({
 
 export const TaxonomicScopeSchema = z.object({
 	kingdom: z.array(KingdomEnum),
-	subDivisions: SubDivisionsSchema
-}).superRefine(({ kingdom, subDivisions }, taxonomicCtx) => {
-	if (!kingdom.includes('Animalia') && subDivisions.animalia.length > 0) {
+	subdivision: SubDivisionsSchema
+}).superRefine(({ kingdom, subdivision }, taxonomicCtx) => {
+	if (!kingdom.includes('Animalia') && subdivision.animalia.length > 0) {
 		taxonomicCtx.addIssue({
 			code: z.ZodIssueCode.custom,
 			message: 'Animalia sub-divisions are only allowed if Animalia Kingdom is selected',
-			path: ['subDivisions', 'animalia']
+			path: ['subdivision', 'animalia']
 		});
 	}
-	if (!kingdom.includes('Fungi') && subDivisions.fungi.length > 0) {
+	if (!kingdom.includes('Fungi') && subdivision.fungi.length > 0) {
 		taxonomicCtx.addIssue({
 			code: z.ZodIssueCode.custom,
 			message: 'Fungi sub-divisions are only allowed if Fungi Kingdom is selected',
-			path: ['subDivisions', 'fungi']
+			path: ['subdivision', 'fungi']
 		});
 	}
-	if (!kingdom.includes('Plantae') && subDivisions.plantae.length > 0) {
+	if (!kingdom.includes('Plantae') && subdivision.plantae.length > 0) {
 		taxonomicCtx.addIssue({
 			code: z.ZodIssueCode.custom,
 			message: 'Plantae sub-divisions are only allowed if Plantae Kingdom is selected',
-			path: ['subDivisions', 'plantae']
+			path: ['subdivision', 'plantae']
 		});
 	}
 });
