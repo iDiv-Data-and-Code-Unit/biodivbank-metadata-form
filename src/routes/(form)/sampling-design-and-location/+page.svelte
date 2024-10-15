@@ -15,6 +15,7 @@
 	import VegetationLayer from '$lib/components/sampling-design/VegetationLayer.svelte';
 	import Textarea from '$lib/components/Textarea.svelte';
 	import { datasetOverview } from '$lib/stores/datasetOverview';
+	import { multipleEventsEnum, samplingDesignAndLocationSchema } from '$lib/schemas/samplingDesignAndLocation';
 	import { params } from '$lib/stores/paramsStore';
 	import { samplingDesign } from '$lib/stores/samplingDesign';
 	import { step } from '$lib/stores/steps';
@@ -36,20 +37,23 @@
 
 		step.set(3);
 
-		// return () => {
-		// 	const { effortIdentical, effortIntensity } = $samplingDesign;
-		// 	if (!effortIdentical || !effortIntensity) {
-		// 	}
-		// 	toast(CustomToast, {
-		// 		// @ts-ignore
-		// 		step: 'Sampling design and location',
-		// 		// @ts-ignore
-		// 		incompleteFields: [],
-		// 		position: 'bottom-right',
-		// 		duration: 10000,
-		// 		className: 'mr-40'
-		// 	});
-		// };
+		return () => {
+	
+		const result = samplingDesignAndLocationSchema.safeParse($samplingDesign);
+
+		if (!result.success) {
+			toast(CustomToast, {
+				// @ts-ignore
+				step: 'Dataset overview',
+				// @ts-ignore
+				incompleteFields: result.error.errors.map((error) => error.path),
+				position: 'bottom-right',
+				duration: 10000,
+				className: 'mr-40'
+			});
+			return;
+		}
+	};
 	});
 
 	// $: {
@@ -57,6 +61,9 @@
 	// 		selectedStep = 'Stage 2';
 	// 	}
 	// }
+
+	const no	= multipleEventsEnum.enum['No'];
+
 </script>
 
 <StepTitle title="Sampling design" />
@@ -73,7 +80,7 @@
 						{value}
 						bind:group={$samplingDesign.studyDesign.multipleEvents}
 						name="multipleEvents"
-						disabled={value !== 'no' && $samplingDesign.studyDesign.multipleEvents.includes('no')}
+						disabled={value !== no && $samplingDesign.studyDesign.multipleEvents.includes(no)}
 					/>
 					<span class="text-sm shrink-0">
 						{label}&nbsp;
@@ -81,7 +88,7 @@
 				</label>
 			{/each}
 		</Question>
- {#if $samplingDesign.studyDesign.multipleEvents.length && !$samplingDesign.studyDesign.multipleEvents.includes('no')}
+ {#if $samplingDesign.studyDesign.multipleEvents.length && !$samplingDesign.studyDesign.multipleEvents.includes(no)}
 			<Question
 				question="Did environmental characteristics (e.g. habitat types, disturbance types) or methods (e.g. devices or effort) vary across sampling events?"
 				direction="column"
