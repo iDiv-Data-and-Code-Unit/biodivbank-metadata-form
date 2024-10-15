@@ -59,7 +59,7 @@
 			console.log("🚀 ~ updateEnd ~ start", end);
 			if(end.day	!= undefined && end.month != "" && end.year != undefined)
 			{
-				const sm = months.indexOf(start.month)+1;
+				const sm = months.indexOf(end.month)+1;
 				$datasetOverview.temporalScope = {...$datasetOverview.temporalScope, end : new Date(end.year,sm, end.day)};
 
 			}

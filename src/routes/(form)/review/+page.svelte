@@ -51,9 +51,19 @@
 		window.open('/','_self');
 	}
 
-
 	onMount(() => {
 		step.set(4);
+
+		const metadata={
+			"generalInformation": $generalInformation,
+			"datasetOverview": $datasetOverview,
+			"samplingDesign": $samplingDesign
+		}
+		
+		const metadataStructureId = get(metadataStructureIdStore);
+		const result = convertToApiModel(metadata, metadataStructureId);
+		console.log("🚀 ~ onMount ~ result:", result)
+
 	});
 </script>
 

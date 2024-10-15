@@ -2,6 +2,7 @@
 import { type ListAuthor } from "./types/author";
 import { nanoid } from "nanoid";
 import type { authorType } from "./schemas/generalInformation";
+import { string } from "zod";
 
 
 
@@ -85,22 +86,40 @@ function transformJSONToApi(data) {
 	for (const key in data) {
 			if (data.hasOwnProperty(key)) {
 
-					const value = data[key];
+					let value = data[key];
+
+					// console.log("all key:", key, value, typeof value, value instanceof Date, value instanceof String, ""+value);
+					
 					if (Array.isArray(value)) {
 							result[key] = value.map(item => 
 								transformJSONToApi(item)
 							);
 					} else if (typeof value === "object") {
-							//console.log("OBJECT ~ transformJSONToApi ~ key:", key, value, data);
-							result[key] = {		
-								'@ref': '',
-								'@partyId': '',
-								...transformJSONToApi(value)
-							}
+
+						// if value is a date
+						if(value instanceof Date)
+						{
+								result[key] = {		
+									'@ref': '',
+									'@partyId': '',
+									...formatData(value)
+								}
+						}
+						else
+						{
+									console.log("Object, key:", key, value, typeof value);
+
+									result[key] = {		
+										'@ref': '',
+										'@partyId': '',
+										...transformJSONToApi(value)
+									}
+						}
 							
 					} else {
-						 //console.log("SIMPLE ~ transformJSONToApi ~ key:", key, value);
-								result[key] = formatData(value);
+						 console.log("simple, key:", key, value, typeof value);
+							result[key] = formatData(value);
+							
 					}
 			}
 	}

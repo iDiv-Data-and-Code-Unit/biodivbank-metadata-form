@@ -1,4 +1,4 @@
-.subdivisions<script lang="ts">
+<script lang="ts">
 	import { datasetOverview } from '$lib/stores/datasetOverview';
 
 	import { 
@@ -26,11 +26,9 @@ if($datasetOverview.taxonomicScope.subdivision == undefined)
 
 
 </script>
-{Date.now()}
-{$datasetOverview.taxonomicScope.kingdom}
-{$datasetOverview.taxonomicScope.subdivision}
+
 {#if $datasetOverview.taxonomicScope.kingdom && $datasetOverview.taxonomicScope.subdivision}
-{Date.now()}
+
 {#if $datasetOverview.taxonomicScope.kingdom.includes(KingdomEnum.enum[animalia])}
 	<div class="flex flex-col gap-8 text-sm">
 		{#if $datasetOverview.taxonomicScope.kingdom.includes(KingdomEnum.enum[animalia])}
