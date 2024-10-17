@@ -20,7 +20,14 @@
 	let promise = Promise.resolve();
 
 	console.log("********** REVIEW *************************************");
-	console.log($samplingDesign);
+	console.log("🚀 ~ 4:", 
+					$datasetIdStore,
+					$metadataStructureIdStore,
+					$generalInformation,
+					$datasetOverview,
+					$samplingDesign
+				)
+
 	console.log("************************************************************");
 
 

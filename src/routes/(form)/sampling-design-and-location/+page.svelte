@@ -6,7 +6,7 @@
 	import Radio from '$lib/components/Radio.svelte';
 	import InventoryProcess2 from '$lib/components/sampling-design/InventoryProcess2.svelte';
 	import MethodType2 from '$lib/components/sampling-design/MethodType2.svelte';
-	import OtherTargetedCategories2 from '$lib/components/sampling-design/OtherTargetedCategories2.svelte';
+	import SpecificCategory from '$lib/components/sampling-design/SpecificCategory.svelte';
 	import RiverCrossSection from '$lib/components/sampling-design/RiverCrossSection.svelte';
 	import RiverZone from '$lib/components/sampling-design/RiverZone.svelte';
 	import StreamOrder from '$lib/components/sampling-design/StreamOrder.svelte';
@@ -15,16 +15,25 @@
 	import VegetationLayer from '$lib/components/sampling-design/VegetationLayer.svelte';
 	import Textarea from '$lib/components/Textarea.svelte';
 	import { datasetOverview } from '$lib/stores/datasetOverview';
-	import { multipleEventsEnum, samplingDesignAndLocationSchema } from '$lib/schemas/samplingDesignAndLocation';
+	import { EffortIdenticalEnum, multipleEventsEnum, samplingDesignAndLocationSchema } from '$lib/schemas/samplingDesignAndLocation';
 	import { params } from '$lib/stores/paramsStore';
 	import { samplingDesign } from '$lib/stores/samplingDesign';
 	import { step } from '$lib/stores/steps';
 	import { onMount } from 'svelte';
 	import toast from 'svelte-french-toast';
+	import { datasetIdStore, metadataStructureIdStore } from '$lib/stores/datasetStore';
+	import { generalInformation } from '$lib/stores/generalInformation';
 
 	// $: console.log($params);
 	console.log("********** SAMPLEDESIGN *************************************");
-	console.log($samplingDesign);
+
+	console.log("🚀 ~ 3:", 
+					$datasetIdStore,
+					$metadataStructureIdStore,
+					$generalInformation,
+					$datasetOverview,
+					$samplingDesign
+				)
 	console.log("************************************************************");
 
 	let multipleEventsInputs = [
@@ -47,7 +56,7 @@
 				step: 'Dataset overview',
 				// @ts-ignore
 				incompleteFields: result.error.errors.map((error) => error.path),
-				position: 'bottom-right',
+				position: 'bottom-center',
 				duration: 10000,
 				className: 'mr-40'
 			});
@@ -92,7 +101,7 @@
 			<Question
 				question="Did environmental characteristics (e.g. habitat types, disturbance types) or methods (e.g. devices or effort) vary across sampling events?"
 				direction="column"
-			><b>not existing in zod schema</b>
+			><b>not existing in zod schema: envCharacteristics</b>
 				<!-- <Radio
 					label="Identical"
 					value="identical"
@@ -127,16 +136,17 @@
 		description="If a specific checklist of target taxa was used in the survey, please upload it [here]."
 	>
 		<div class="grid gap-20 col-span-2">
-			<!-- <div class="col-span-2 gap-8 grid"><TargetedAndExcludedTaxa /></div>
-			<div class="col-span-2 gap-8 grid"><OtherTargetedCategories2 /></div>
-			<div class="col-span-2 gap-8 grid"><UnderRepresented2 /></div> -->
+			<div class="col-span-2 gap-8 grid"><TargetedAndExcludedTaxa /></div>
+			<div class="col-span-2 gap-8 grid"><SpecificCategory /></div>
+			 <!-- <div class="col-span-2 gap-8 grid"><UnderRepresented2 /></div> -->
+				<b>not refactored: UnderRepresented </b>
 		</div>
 	</Section>
 
-	<!-- <Section title="Sampling effort">
+	<Section title="Sampling effort">
 		<Question question="Describe the intensity of sampling (i.e. effort)">
 			<Textarea
-				bind:value={$samplingDesign.effortIntensity}
+				bind:value={$samplingDesign.samplingEffort.intensity}
 				placeholder="E.g. 40 box traps, deployed at even spacings along 4 parallel 100 m transects placed 50 m apart, and visited at 6-hourly intervals over a 48 hour period.
 E.g. Two people occupying a bird hide for a period of 8 hours and undertaking a 30-minute count of species within the 150 degree field of view every 2 hours.
 E.g. A single baited camera trap station with motion sensor trigger, deployed for a period of 10 days and configured for detecting large fauna moving through a known traffic way."
@@ -147,32 +157,32 @@ E.g. A single baited camera trap station with motion sensor trigger, deployed fo
 		<Question question="Was sampling effort identical for all sampling events?" direction="column">
 			<Radio
 				label="Yes"
-				value="yes"
-				bind:group={$samplingDesign.effortIdentical}
+				value="{EffortIdenticalEnum.enum["Yes"]}"
+				bind:group={$samplingDesign.samplingEffort.effortIdentical}
 				name="effortIdentical"
 			/>
 			<Radio
 				label="No"
-				value="no"
-				bind:group={$samplingDesign.effortIdentical}
+				value="{EffortIdenticalEnum.enum["No"]}"
+				bind:group={$samplingDesign.samplingEffort.effortIdentical}
 				name="effortIdentical"
 			/>
 			<Radio
 				label="Unsure"
-				value="unsure"
-				bind:group={$samplingDesign.effortIdentical}
+				value="{EffortIdenticalEnum.enum["Unsure"]}"
+				bind:group={$samplingDesign.samplingEffort.effortIdentical}
 				name="effortIdentical"
 			/>
 			<Radio
 				label="Not applicable"
 				addition="only 1 sampling event"
-				value="notApplicable"
-				bind:group={$samplingDesign.effortIdentical}
+				value="{EffortIdenticalEnum.enum["Not applicable (only 1 sampling event)"]}"
+				bind:group={$samplingDesign.samplingEffort.effortIdentical}
 				name="effortIdentical"
 			/>
-			{#if $samplingDesign.effortIdentical === 'no'}
+			{#if $samplingDesign.samplingEffort.effortIdentical === EffortIdenticalEnum.enum["No"]}
 				<Textarea
-					bind:value={$samplingDesign.effortVariation}
+					bind:value={$samplingDesign.samplingEffort.description}
 					class="col-start-1 col-span-2"
 					placeholder="Please describe how effort varied between locations or at different points in time"
 					label=""
@@ -181,7 +191,8 @@ E.g. A single baited camera trap station with motion sensor trigger, deployed fo
 			{/if}
 		</Question>
 	</Section>
-
+	<b>not refactored: riversAndStreams </b>
+<!-- 
 	{#if $datasetOverview.biome.core.includes('riversAndStreams') || $datasetOverview.biome.core.includes('terrestrial') || $datasetOverview.transitionalRealms.some( (realm) => realm
 					.toLowerCase()
 					.includes('terrestrial') ) || $samplingDesign.riverCrossSection.riparianZone}
@@ -196,7 +207,7 @@ E.g. A single baited camera trap station with motion sensor trigger, deployed fo
 				</div>
 
 				<div>
-					{#if $datasetOverview.coreRealms.includes('terrestrial') || $datasetOverview.transitionalRealms.some( (realm) => realm
+					{#if $datasetOverview.realm.core.includes('terrestrial') || $datasetOverview.transitionalRealms.some( (realm) => realm
 									.toLowerCase()
 									.includes('terrestrial') ) || $samplingDesign.riverCrossSection.riparianZone}
 						<VegetationLayer />
@@ -205,8 +216,8 @@ E.g. A single baited camera trap station with motion sensor trigger, deployed fo
 			</div>
 		</Section>
 	{/if}
-
-	<Section
+-->
+	<!-- <Section
 		title="Further information"
 		description={[
 			'For example, could another person re-run your field study, or fully interpret and reuse this dataset, without additional information? If not, please use the textbox to add further detail.',
@@ -217,11 +228,11 @@ E.g. A single baited camera trap station with motion sensor trigger, deployed fo
 			question="Are there any details of your sampling methodology that have not been captured by this form?"
 		>
 			<Textarea
-				bind:value={$samplingDesign.furtherInformation}
+				bind:value={$samplingDesign.furtherInformation.details}
 				placeholder="Describe any aspect of the study design, scheduling or spatial distribution of sampling, methodology or equipment used, pre-processing of raw data, environmental conditions during a survey or unforeseen events, that are not covered by this metadata form. Be as specific as possible."
 				label=""
 				rows={10}
 			/>
 		</Question>
-	</Section>-->
+	</Section> -->
 </div>

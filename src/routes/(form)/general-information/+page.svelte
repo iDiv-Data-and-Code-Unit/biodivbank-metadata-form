@@ -11,7 +11,6 @@
 	import { datasetOverview } from '$lib/stores/datasetOverview';
 	import { generalInformationSchema } from '$lib/schemas/generalInformation';
 	import DatasetCreators from '$lib/components/generalInformation/DatasetCreators.svelte';
-	import Handle from '$lib/icons/Handle.svelte';
 	import DatasetFunders from '$lib/components/generalInformation/DatasetFunders.svelte';
 	import RelatedResources from '$lib/components/generalInformation/RelatedResources.svelte';
 	import type { ActionData, PageData } from '../../(form)/general-information/$types';
@@ -30,53 +29,46 @@
 	params.update((current) => ({
 		...current,
 		id: url.searchParams.get('id') || '',
-		auth: url.searchParams.get('auth') || '',
-		rest:true
+		auth: url.searchParams.get('auth') || ''
 	}));
 
 	//console.log(url.searchParams.get('id'));
 	//console.log(url.searchParams.get('auth'));
 		
-	let loaded:boolen = false;
+	let loaded:boolean = false;
 	export let form: ActionData;
 
-
-
 	onMount(() => {
-		async function x() {
-			//console.log("🚀 ~ LOAD Metadata:", $generalInformation);
-			
-			let id = 14;
+		async function load() {
+			let id = 16;
 			
 			if($params?.id)
 			{
 				id = JSON.parse($params.id);
 			}
 
-			const	reset = $params?.rest;
-
 			datasetIdStore.set(id);
-
 
 			// ATTENTION
 			// if go back to this stepp currently means reload metadata from  bexis2
 			// need to change	this to load from store but with a reset option from the beginning
 			// or start with a other page as entry	point
-			if($generalInformation === undefined || reset)
-			{
+			// if($generalInformation === undefined || reset)
+			// {
 
 				const res = await getMetadata(id);
-				console.log("🚀 ~ x ~ res:", res)
+				
 				const data = convertToModel(res);
+				
 
 				metadataStructureIdStore.set(res['@id']);
 				generalInformation.set(data.generalInformation);
 				datasetOverview.set(data.datasetOverview);
 				samplingDesign.set(data.samplingDesignAndLocation);
 		
-			}
+			
 
-			console.log("🚀 ~ LOAD:", 
+			console.log("🚀 ~ 1:", 
 					$datasetIdStore,
 					$metadataStructureIdStore,
 					$generalInformation,
@@ -85,19 +77,18 @@
 				)
 
 			loaded	= true;
-	}
-		
-		x();
-		
-		
 	
+
+		}
+		
+	 load();
+		
 		
 		step.set(1);
 
 		return () => {
 	
-	const result = generalInformationSchema.safeParse($generalInformation);
-	 console.log("🚀 ~ return ~ result:", result)
+		const result = generalInformationSchema.safeParse($generalInformation);
 
 		if (!result.success) {
 
@@ -106,9 +97,8 @@
 				step: 'General information',
 				// @ts-ignore
 				incompleteFields: result.error.errors.map((error) => error.path +" + "+error.message),
-				position: 'bottom-right',
-				duration: 10000,
-				className: 'mr-40'
+				position: 'bottom-center',
+				duration: 10000
 			});
 			return;
 		}
@@ -119,6 +109,7 @@
 
 
 </script>
+
 {#if loaded}
 
 <StepTitle title="General information" />

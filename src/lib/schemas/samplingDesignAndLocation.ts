@@ -168,7 +168,7 @@ export const stageThreeMarkRecaptureEnum = z.enum([
  'Other'
 ]);
 
-export const EffortIdenticalEnum = z.enum(['Yes', 'No', 'Unsure', 'Not applicable (only 1 sampling event']);
+export const EffortIdenticalEnum = z.enum(['Yes', 'No', 'Unsure', 'Not applicable (only 1 sampling event)']);
 export const ZoneEnum = z.enum([
  'Source Zone (crenon)',
  'Upstream / transition zone  (rhithron)',
@@ -213,6 +213,17 @@ export const VegetationLayerEnum = z.enum([
  'Unsure',
  'Other'
 ]);
+
+export const CategoryEnum = z.enum([
+  'Sex',
+  'Life stage / age class',
+  'Reproductive condition',
+  'Growth form',
+  'Other category',
+  'Other'
+ ]);
+
+
 
 export const studyDesignSchema = z.object({
  multipleEvents: z.array(multipleEventsEnum)
@@ -473,6 +484,7 @@ export const otherSchema = z.object({
 });
 
 export const specificCategorySchema = z.object({
+ category: z.array(z.string()),
  sex: sexSchema,
  lifeStageAgeClass: lifeStageAgeClassSchema,
  reproductiveCondition: reproductiveConditionSchema,

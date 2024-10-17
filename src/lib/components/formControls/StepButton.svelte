@@ -6,6 +6,7 @@
 	export let direction: 'prev' | 'next';
 </script>
 
+
 <button
 	on:click={direction === 'prev' ? step.prev : step.next}
 	disabled={direction === 'prev' ? $step === step.min : $step === step.max}

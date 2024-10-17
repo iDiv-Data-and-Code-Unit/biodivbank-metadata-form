@@ -16,12 +16,23 @@
 	import CustomToast from '$lib/components/CustomToast.svelte';
 	import { geoStore } from '$lib/stores/geo';
 	import { datasetOverviewSchema } from '$lib/schemas/datasetOverview';
+	import { datasetIdStore, metadataStructureIdStore } from '$lib/stores/datasetStore';
+	import { generalInformation } from '$lib/stores/generalInformation';
+	import { samplingDesign } from '$lib/stores/samplingDesign';
 
 	onMount(() => {
 
 		console.log("********** DATASETOVERVIEW *************************************");
 		console.log($datasetOverview);
 		console.log($geoStore);
+		console.log("🚀 ~ 2:", 
+					$datasetIdStore,
+					$metadataStructureIdStore,
+					$generalInformation,
+					$datasetOverview,
+					$samplingDesign
+				)
+
 		console.log("************************************************************");
 
 		step.set(2);
@@ -36,9 +47,9 @@
 					step: 'Dataset overview',
 					// @ts-ignore
 					incompleteFields: result.error.errors.map((error) => error.path),
-					position: 'bottom-right',
-					duration: 10000,
-					className: 'mr-40'
+					position: 'bottom-center',
+					duration: 10000
+					
 				});
 				return;
 			}

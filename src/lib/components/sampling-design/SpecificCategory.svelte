@@ -7,16 +7,23 @@
 	import { samplingDesign } from '../../stores/samplingDesign';
 	import CheckboxWithInput from './CheckboxWithInput.svelte';
 	import Multistep from '../Multistep.svelte';
+	import { CategoryEnum, specificCategorySchema } from '$lib/schemas/samplingDesignAndLocation';
+	import CheckboxGroupValue from '../CheckboxGroupValue.svelte';
 
-	$: console.log($samplingDesign.otherTargetedSelectedCategories);
+	// $: console.log($samplingDesign.otherTargetedSelectedCategories);
 
-	const inputs = [
-		{ label: 'Sex', value: 'sex' },
-		{ label: 'Life stage / age class', value: 'lifeStage' },
-		{ label: 'Reproductive condition', value: 'reproductiveCondition' },
-		{ label: 'Growth form', value: 'growthForm' },
-		{ label: 'Other category', value: 'other' }
-	];
+ const model = $samplingDesign.samplingScope.specificCategory;
+
+const inputs = CategoryEnum.options;
+
+
+	// const inputs = [
+	// 	{ label: 'Sex', value: 'sex' },
+	// 	{ label: 'Life stage / age class', value: 'lifeStage' },
+	// 	{ label: 'Reproductive condition', value: 'reproductiveCondition' },
+	// 	{ label: 'Growth form', value: 'growthForm' },
+	// 	{ label: 'Other category', value: 'other' }
+	// ];
 
 	const placeholders = {
 		sex: {
@@ -47,29 +54,55 @@
 	helpText="Multiple examples of a category can be entered in the textbox; separate the words or phrases using a comma."
 	direction="column"
 > -->
+
 <div class="col-span-2">
 	<Multistep
 		question="Was a particular sex, age class or life stage, growth form, etc, specifically targeted for sampling? Were any groups intentionally excluded from sampling?"
 		steps={2}
 	>
 		<div class="grid gap-8">
-			<CheckboxGroup
+			<CheckboxGroupValue
 				name="Category"
-				bind:group={$samplingDesign.otherTargetedSelectedCategories}
+				bind:group={$samplingDesign.samplingScope.specificCategory.category}
 				{inputs}
 			/>
 		</div>
 
 		<div slot="step-2" class="grid gap-16">
-      {#if $samplingDesign.otherTargetedSelectedCategories.length }
+      {#if $samplingDesign.samplingScope.specificCategory.category.length>0 }
         <span class="text-description text-sm col-span-2">Multiple examples of a category can be entered in the textbox; separate the words or phrases using a comma.</span>
       {/if}
-			{#each $samplingDesign.otherTargetedSelectedCategories as category}
+ 					
+
+			<!-- category contains sex-->
+			{#if $samplingDesign.samplingScope.specificCategory.category.includes(CategoryEnum.enum["Sex"])}
+				<h4 class="col-span-2 font-medium -mb-3">
+					{CategoryEnum.enum["Sex"]}
+				</h4>
+
+					<TextInput
+						bind:value={$samplingDesign.samplingScope.specificCategory.sex.targeted}
+						label="Targeted"
+						placeholder={placeholders["sex"].targeted}
+						class="col-span-2"
+					/>
+					<TextInput
+						bind:value={$samplingDesign.samplingScope.specificCategory.sex.excluded}
+						label="Excluded"
+						placeholder={placeholders["sex"].excluded}
+						class="col-span-2"
+					/>
+			{/if} 
+
+
+
+			{#each $samplingDesign.samplingScope.specificCategory.category as category}
 				<div class="grid gap-8 col-span-2">
 					<h4 class="col-span-2 font-medium -mb-3">
-						{inputs.find((i) => i.value === category)?.label}
+						{category}
 					</h4>
-					{#if category === 'other'}
+
+					<!--{#if category === 'other'}
 						<TextInput
 							bind:value={$samplingDesign.otherTargetedCategories.other.name}
 							label="Category"
@@ -88,9 +121,9 @@
 						label="Excluded"
 						placeholder={placeholders[category].excluded}
 						class="col-span-2"
-					/>
+					/>-->
 				</div>
-			{/each}
+			{/each} 
 		</div>
 	</Multistep>
 </div>
