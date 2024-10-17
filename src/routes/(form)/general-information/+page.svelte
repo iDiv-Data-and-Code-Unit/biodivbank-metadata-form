@@ -96,7 +96,7 @@
 				// @ts-ignore
 				step: 'General information',
 				// @ts-ignore
-				incompleteFields: result.error.errors.map((error) => error.path +" + "+error.message),
+				incompleteIssues: result.error.errors,
 				position: 'bottom-center',
 				duration: 10000
 			});

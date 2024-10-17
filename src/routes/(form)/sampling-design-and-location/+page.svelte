@@ -55,10 +55,10 @@
 				// @ts-ignore
 				step: 'Dataset overview',
 				// @ts-ignore
-				incompleteFields: result.error.errors.map((error) => error.path),
+				incompleteIssues: result.error.errors,
 				position: 'bottom-center',
 				duration: 10000,
-				className: 'mr-40'
+				className:	'w-1/2'
 			});
 			return;
 		}

@@ -40,13 +40,14 @@
 		return () => {
 	
 			const result = datasetOverviewSchema.safeParse($datasetOverview);
-			console.log("🚀 ~ return ~ result:", result.error?.issues.map((error) => error))
+			console.log("🚀 ~ return ~ result:", result)
+
 			if (!result.success) {
 				toast(CustomToast, {
 					// @ts-ignore
 					step: 'Dataset overview',
 					// @ts-ignore
-					incompleteFields: result.error.errors.map((error) => error.path),
+					incompleteIssues: result.error?.errors,
 					position: 'bottom-center',
 					duration: 10000
 					
