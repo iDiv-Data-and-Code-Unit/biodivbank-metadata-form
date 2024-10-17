@@ -102,7 +102,7 @@
 					type="checkbox"
 					{value}
 					disabled={!$datasetOverview.realm.transitional.includes('Marine-Terrestrial')}
-					bind:group={$datasetOverview.biome.transitional.marineFreshWaterTerrestrial}
+					bind:group={$datasetOverview.biome.transitional.marineTerrestrial}
 					name="transitionalRealmBiomes"
 				/>
 				<span class="text-sm shrink-0">

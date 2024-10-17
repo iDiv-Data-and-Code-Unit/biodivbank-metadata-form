@@ -18,10 +18,10 @@
 					].join(' ')}
 				/>
 				<Point label="Email address" value={$generalInformation.dataProvider.email} />
-				<Point label="ORCiD" value={$generalInformation.dataProvider.orcidId} />
+				<Point label="ORCiD" value={""+$generalInformation.dataProvider.orcId} />
 				<Point label="Insitution name" value={$generalInformation.dataProvider.institutionName} />
 				<Point label="Institution country" value={$generalInformation.dataProvider.institutionCountry} />
-				<Point label="ROR ID" value={$generalInformation.dataProvider.ror} />
+				<Point label="ROR ID" value={""+$generalInformation.dataProvider.rorId} />
 			</div>
 		</section>
 		<section>

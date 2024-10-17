@@ -4,7 +4,7 @@
 	export let lgSpacing: boolean = false;
 </script>
 
-<div class="grid grid-cols-3 gap-x-8">
+<div class="grid grid-cols-3 gap-x-8 p-2">
 	<div>
 		<h2 class="text-xl font-medium text-black mb-3">{title}</h2>
 		{#if typeof description === 'string'}
