@@ -6,6 +6,7 @@
 	import Checkbox from '../Checkbox.svelte';
 	import CheckboxGroup from '../CheckboxGroup.svelte';
 
+
 	let currentOrLegacy = [
 		{
 			label: "Own or collaborator's data",

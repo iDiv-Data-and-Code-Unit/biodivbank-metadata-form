@@ -50,22 +50,34 @@ function transformJSONFromApi(data) {
 			if (data.hasOwnProperty(key)) {
 					const value = data[key];
 					if (Array.isArray(value)) {
-							result[key] = value.map(item => transformJSONFromApi(item));
+
+						 //check if array has only one simple item and  this is empty
+							if(value.length == 1 && typeof value[0] === "object" && value[0]['#text'] == ""){
+								result[key] = [];
+							}
+							else
+							{
+								result[key] = value.map(
+									item => transformJSONFromApi(item)
+								);
+							}
+
 					} else if (typeof value === "object") {
+
 							result[key] = transformJSONFromApi(value);
+
 					} else {
 
 						 if(key!='@ref' && key!='@partyid' && key =='#text'){
 								//console.log("SIMPLE ~ transformJSONFromApi ~ result:",value);
 								try
 								{
-									result = JSON.parse(value)||'';
+									result = JSON.parse(value)||undefined;
 								}
 								catch(e)
 								{
-									result = value;
+									 result = value;
 								}
-
 							}
 					}
 			}

@@ -14,12 +14,13 @@
 	export let invalidInputErrorMsg: string;
 	export let confirmCheckboxMsg: string;
 	export let value: string | undefined='';
-	export let notAvailable: boolean | '' = false;
+	export let notAvailable: boolean | null | undefined = false ;
 	export let name: string;
 	export let label: string;
 	export let required: boolean = false;
 
 	let validityStatus: ValidityStatus = 'neutral';
+
 
 	const handleInput = (event: Event) => {
 		event.preventDefault();

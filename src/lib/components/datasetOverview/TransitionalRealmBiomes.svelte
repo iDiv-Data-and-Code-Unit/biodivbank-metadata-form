@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { datasetOverview } from '$lib/stores/datasetOverview';
-	import { FreshWaterBiomeEnum, 
+	import {  
+		FreshWaterMarineBiomeEnum,
 		TerrestrialFreshWaterBiomeEnum,
 		 MarineTerrestrialBiomeEnum, 
 			SubterraneanFreshWaterBiomeEnum, 
@@ -65,7 +66,7 @@
 <div>
 	<h4 class="font-medium text-lg mb-8">Transitional realm biomes</h4>
 	<div class="flex flex-col gap-8 text-sm mb-8">
-		{#each FreshWaterBiomeEnum.options as value}
+		{#each FreshWaterMarineBiomeEnum.options as value}
 			<label class="flex items-center gap-3">
 				<input
 					type="checkbox"
@@ -147,21 +148,6 @@
 					{value}
 					disabled={!$datasetOverview.realm.transitional.includes('Subterranean-Freshwater')}
 					bind:group={$datasetOverview.biome.transitional.subterraneanFreshWater}
-					name="transitionalRealmBiomes"
-				/>
-				<span class="text-sm shrink-0">
-					{value}&nbsp;
-				</span>
-			</label>
-		{/each}
-		<div class="bg-divider h-px w-1/2" />
-		{#each SubterraneanMarineBiomeEnum.options as value}
-			<label class="flex items-center gap-3">
-				<input
-					type="checkbox"
-					{value}
-					disabled={!$datasetOverview.realm.transitional.includes('Subterranean-Marine')}
-					bind:group={$datasetOverview.biome.transitional.subterraneanMarine}
 					name="transitionalRealmBiomes"
 				/>
 				<span class="text-sm shrink-0">

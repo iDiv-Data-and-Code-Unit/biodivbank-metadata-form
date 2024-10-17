@@ -40,7 +40,7 @@
 		return () => {
 	
 			const result = datasetOverviewSchema.safeParse($datasetOverview);
-
+			console.log("🚀 ~ return ~ result:", result.error?.issues.map((error) => error))
 			if (!result.success) {
 				toast(CustomToast, {
 					// @ts-ignore

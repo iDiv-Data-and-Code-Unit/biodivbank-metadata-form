@@ -49,7 +49,7 @@
 		return () => {
 	
 		const result = samplingDesignAndLocationSchema.safeParse($samplingDesign);
-
+		console.log("🚀 ~ return ~ result:", result)
 		if (!result.success) {
 			toast(CustomToast, {
 				// @ts-ignore

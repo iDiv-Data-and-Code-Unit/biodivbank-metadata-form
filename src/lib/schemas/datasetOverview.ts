@@ -1,7 +1,13 @@
 import { z } from 'zod';
 
 // Enums
-export const OriginalOrCompiledDatasetEnum = z.enum(['Single Source', 'Compilation', 'Synthesis']);
+export const OriginalOrCompiledDatasetEnum= z.enum(['Single Source', 'Compilation', 'Synthesis'])
+
+// const OriginalOrCompiledDatasetCheck= z.preprocess(
+// 	(val) => val === "" ? undefined : val,
+// 	OriginalOrCompiledDatasetEnum.optional()
+// );
+
 export const ExtentEnum = z.enum(['Local', 'National', 'Regional', 'Continental', 'Global']);
 export const RealmCoreEnum = z.enum(['Freshwater', 'Marine', 'Terrestrial', 'Subterranean']);
 export const RealmTransitionalEnum = z.enum([
