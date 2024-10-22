@@ -4,7 +4,7 @@
 	import PersonalInformation from '$lib/components/generalInformation/PersonalInformation.svelte';
 	import { step } from '$lib/stores/steps';
 	import { datasetIdStore, metadataStructureIdStore, metadataStore } from '$lib/stores/datasetStore';
-	import { onMount } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import Institution from '$lib/components/generalInformation/Institution.svelte';
 	import DatasetMetadata from '$lib/components/generalInformation/DatasetMetadata.svelte';
 	import { generalInformation } from '$lib/stores/generalInformation';
@@ -16,12 +16,13 @@
 	import type { ActionData, PageData } from '../../(form)/general-information/$types';
 	import { page } from '$app/stores';
 	import { params } from '$lib/stores/paramsStore';
-	import axios from 'axios';
+	
 	import toast from 'svelte-french-toast';
 	import CustomToast from '$lib/components/CustomToast.svelte';
 	import { getMetadata, saveMetadata } from '../services';
 	import { convertToModel } from '$lib/helper';
 	import { samplingDesign } from '$lib/stores/samplingDesign';
+
 
 	const url = $page.url;
 
@@ -32,8 +33,8 @@
 		auth: url.searchParams.get('auth') || ''
 	}));
 
-	//console.log(url.searchParams.get('id'));
-	//console.log(url.searchParams.get('auth'));
+	console.log(url.searchParams.get('id'));
+	console.log(url.searchParams.get('auth'));
 		
 	let loaded:boolean = false;
 	export let form: ActionData;
@@ -56,18 +57,16 @@
 			// if($generalInformation === undefined || reset)
 			// {
 
+			try	{
 				const res = await getMetadata(id);
 				
 				const data = convertToModel(res);
-				
 
 				metadataStructureIdStore.set(res['@id']);
 				generalInformation.set(data.generalInformation);
 				datasetOverview.set(data.datasetOverview);
 				samplingDesign.set(data.samplingDesignAndLocation);
 		
-			
-
 			console.log("🚀 ~ 1:", 
 					$datasetIdStore,
 					$metadataStructureIdStore,
@@ -77,6 +76,11 @@
 				)
 
 			loaded	= true;
+			}
+			catch (error:any) {
+				console.log("🚀 ~ load ~ error:", error)
+				alert(error.data.ExceptionMessage);
+			}
 	
 
 		}
@@ -105,8 +109,6 @@
 	};
 
 	});
-
-
 
 </script>
 

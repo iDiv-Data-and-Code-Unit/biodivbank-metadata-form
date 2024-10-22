@@ -1,7 +1,7 @@
 <script lang="ts">
 	import StepTitle from '$lib/components/formControls/StepTitle.svelte';
 	import { step } from '$lib/stores/steps';
-	import { onMount } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import { generalInformation } from '$lib/stores/generalInformation';
 	import { datasetIdStore, metadataStructureIdStore } from '$lib/stores/datasetStore';
 	import ReviewGi from '$lib/components/review/ReviewGI.svelte';
@@ -54,7 +54,7 @@
 			localStorage.removeItem("samplingDesign");
 		}
 
-		window.parent.postMessage('save', '*');
+		window.parent.postMessage('saved', '*');
 		window.open('/','_self');
 	}
 

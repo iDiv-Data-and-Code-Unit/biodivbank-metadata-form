@@ -1,6 +1,7 @@
 // Api.js
 import axios from 'axios';
-import { host, username, password } from '$lib/stores/apiStores';
+import { host, username, password, auth } from '$lib/stores/apiStores';
+
 
 console.log('setup axios');
 
@@ -11,8 +12,19 @@ const apiRequest = (method, url, request) => {
 		baseURL: host
 	});
 
+ // const token = url.searchParams.get('auth')
+console.log("🚀 ~ apiRequest ~ auth:", auth)
+ let authorization
+ if(auth!==''){
+		authorization = 'Bearer ' + auth
+	}
+	else
+	{
+		authorization= 'Basic ' + btoa(username + ':' + password)
+	}
+	 
 	const headers = {
-		authorization: 'Basic ' + btoa(username + ':' + password)
+		authorization: authorization,
 	};
 
 	//using the axios instance to perform the request that received from each http method
