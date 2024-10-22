@@ -14,35 +14,46 @@
 	import { onMount } from 'svelte';
 	import toast from 'svelte-french-toast';
 	import CustomToast from '$lib/components/CustomToast.svelte';
+	import { geoStore } from '$lib/stores/geo';
+	import { datasetOverviewSchema } from '$lib/schemas/datasetOverview';
+	import { datasetIdStore, metadataStructureIdStore } from '$lib/stores/datasetStore';
+	import { generalInformation } from '$lib/stores/generalInformation';
+	import { samplingDesign } from '$lib/stores/samplingDesign';
 
 	onMount(() => {
+
+		console.log("********** DATASETOVERVIEW *************************************");
+		console.log($datasetOverview);
+		console.log($geoStore);
+		console.log("🚀 ~ 2:", 
+					$datasetIdStore,
+					$metadataStructureIdStore,
+					$generalInformation,
+					$datasetOverview,
+					$samplingDesign
+				)
+
+		console.log("************************************************************");
+
 		step.set(2);
 
 		return () => {
-			const {
-				originalOrCompiledDataset,
-				temporalScopeStart,
-				temporalScopeEnd,
-				spatialScope,
-				coreRealms
-			} = $datasetOverview;
-			if (
-				!originalOrCompiledDataset ||
-				!temporalScopeStart ||
-				!temporalScopeEnd ||
-				!spatialScope ||
-				!coreRealms.length
-			) {
+	
+			const result = datasetOverviewSchema.safeParse($datasetOverview);
+			console.log("🚀 ~ return ~ result:", result)
+
+			if (!result.success) {
+				toast(CustomToast, {
+					// @ts-ignore
+					step: 'Dataset overview',
+					// @ts-ignore
+					incompleteIssues: result.error?.errors,
+					position: 'bottom-center',
+					duration: 10000
+					
+				});
+				return;
 			}
-			toast(CustomToast, {
-				// @ts-ignore
-				step: 'Dataset overview',
-				// @ts-ignore
-				incompleteFields: [],
-				position: 'bottom-right',
-				duration: 10000,
-				className: 'mr-40'
-			});
 		};
 	});
 </script>
@@ -93,11 +104,8 @@
 
 	<Section
 		title="Taxonomic scope"
-		description="Which taxonomic groups are represented in the dataset? (Select all that apply)"
-	>
-		<!-- <Question question="Which kingdoms are involved?">
-			<TaxonomicScope />
-		</Question> -->
+		description="Which taxonomic groups are represented in the dataset? (Select all that apply)">
+
 		<div class="col-span-2"><TaxonomicScope2 /></div>
 	</Section>
 </div>

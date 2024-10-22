@@ -12,7 +12,7 @@
 	placeholder="Dataset title"
 	maxlength={100}
 	helpText="See [here] for examples of a good title. Allowed: 100 characters."
-	bind:value={$generalInformation.datasetTitle}
+	bind:value={$generalInformation.dataset.title}
 />
 <Textarea
 	class="col-start-1 col-span-2"
@@ -22,7 +22,7 @@
 	placeholder="Dataset abstract"
 	maxlength={1500}
 	helpText="See [here] for an explanation of what content should be included and an example. Allowed: 1500 characters."
-	bind:value={$generalInformation.datasetAbstract}
+	bind:value={$generalInformation.dataset.abstract}
 />
 <!-- <TextInput
 	class="col-start-1"
@@ -35,7 +35,7 @@
 	label="Data access policy"
 	placeholder="Select an access policy..."
 	helpText="See [here] for an explanation of our policy and [here] for licence definitions"
-	bind:value={$generalInformation.accessPolicy}
+	bind:value={$generalInformation.dataset.accessPolicy}
 	options={[
 		'Open - CC0 1.0',
 		'Open - CC BY 4.0',
@@ -46,20 +46,20 @@
 	]}
 />
 
-{#if $generalInformation.accessPolicy === 'Temporary embargo'}
+{#if $generalInformation.dataset.accessPolicy === 'Temporary embargo'}
 	<TextInput
 		class="col-span-2"
 		label="Embargo end date"
 		placeholder="YYYY/MM/DD"
-		bind:value={$generalInformation.embargoEndDate}
+		bind:value={$generalInformation.dataset.embargoEndDate}
 	/>
 {/if}
 
-{#if $generalInformation.accessPolicy === 'Other'}
+{#if $generalInformation.dataset.accessPolicy === 'Other'}
 	<TextInput
 		class="col-span-2"
 		label="Licence"
 		placeholder="Please state licence..."
-		bind:value={$generalInformation.license}
+		bind:value={$generalInformation.dataset.license}
 	/>
 {/if}

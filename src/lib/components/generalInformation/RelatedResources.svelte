@@ -3,98 +3,128 @@
 	import Plus from '$lib/icons/Plus.svelte';
 	import Trash from '$lib/icons/Trash.svelte';
 	import { generalInformation } from '$lib/stores/generalInformation';
-	import type { Resource } from '$lib/types/schema';
+ import type	{ funderType, resourceType } from '$lib/schemas/generalInformation';
+ import { ResourceTypeEnum } from '$lib/schemas/generalInformation';
 	import { nanoid } from 'nanoid';
 	import Select from '../Select.svelte';
 	import TextInput from '../TextInput.svelte';
 	import { z } from 'zod';
 	import Collapsible from '../Collapsible.svelte';
 
-	let resourceTypes = [
-		'Journal article',
-		'Data paper',
-		'Preprint',
-		'Dataset',
-		'Code (statistical script, model, package, software)',
-		'Computational notebook',
-		'Workflow',
-		// '---',
-		'Audio',
-		'Audiovisual',
-		'Book',
-		'Book chapter',
-		'Conference proceeding',
-		'Dissertation',
-		'Image',
-		'Physical sample',
-		'Other'
-	];
 
-	let resources = $generalInformation.resources;
 
-	$: generalInformation.update((gi) => {
-		gi.resources = resources;
-		return gi;
-	});
+//10.13140/RG.2.2.25398.78400
+
+ interface localResourceType extends resourceType {
+			internalId: string;
+	}
+ // get list of options from enum
+	let resourceTypes:string[] = ResourceTypeEnum.options;
+
+	// init set resources from store
+	let resources:localResourceType[] = 	$generalInformation.resources.map((r) => {
+		// add internalId to object
+		return { ...r, internalId: nanoid() };
+	}).filter(e=>	e.doi !== '' && e.doi !== undefined);
+
+	// every change	in resources will update generalInformation
+	$:resources, updateResources()
+	
+	function updateResources(){
+		generalInformation.update((gi) => {
+				gi.resources = resources.map((s) => {
+						const d:resourceType = {...s};
+						delete	d.internalId;
+						return d;
+					}).filter(e=> e.doi !== '');
+					console.log("store:", gi.resources);
+					
+					return gi;
+			});
+	}
+
+
 
 	let formEl: HTMLFormElement;
 	let nameEl: HTMLInputElement;
 
 	let type = '';
 	let otherType = '';
-	let DOI = '';
+	let doi = '';
 
 	let isOpen = false;
-	let selectedResource: Resource | null = null;
+	let selectedResource: localResourceType | null = null;
 
 	let error: string | null = null;
 
 	const urlSchema = z.string().url();
 
 	async function addResource() {
-		let resourceType = type;
-		if (type === 'Other') {
-			resourceType = otherType;
-		}
 
-		const { success } = urlSchema.safeParse(DOI);
-		console.log(success);
+		//https://doi.pangaea.de/10.1594/PANGAEA.972890
 
-		try {
-			const res = await fetch(`https://doi.org/api/handles/${DOI}`);
-			const json = await res.json();
-			console.log(json);
-			if (json.responseCode === 100 || !success) {
-				if (!success) {
+  //check with urlSchema.safeParse if doi a	url or not
+		const isUrl = urlSchema.safeParse(doi).success;
+		if(isUrl) // it is a address
+		{
+				const urlParts = doi.split("/");
+				if(urlParts.length	< 2)
+				{
 					error = 'Please enter a valid DOI or URL';
 					return;
 				}
-			}
+				else
+				{
+					doi = urlParts[urlParts.length - 1]+"/"+urlParts[urlParts.length - 2];
+				}
+		}
+
+		const url = `https://doi.org/api/handles/${doi}`
+
+  // get enum of resourceType
+		let resourceType = ResourceTypeEnum.parse(type);
+
+
+		try {
+				const res = await fetch(url);
+				const json = await res.json();
+
+				if(res.status	!== 200 || json.responseCode !== 1)
+				{
+					error = 'Please enter a valid DOI or URL';
+					return;
+				}
+			
 		} catch (error) {
 			console.log(error);
 			error = 'Unexpected Error';
 			return;
 		}
 
-		resources = [...resources, { id: nanoid(), type: resourceType, DOI }];
+		resources = [...resources, { internalId: nanoid(), type: resourceType, otherType, doi }];
+		updateResources();
 		type = '';
 		formEl.reset();
 		nameEl.focus();
+
+		// console.log(resources);
+		// console.log($generalInformation.resources);
+		
 	}
 
-	function removeResource(id: string) {
-		resources = resources.filter((resource) => resource.id !== id);
+	function removeResource(internalId: string) {
+		resources = resources.filter((resource) => resource.internalId !== internalId);
 	}
 
-	function openEdit(resource: Resource) {
+	function openEdit(resource: localResourceType) {
 		selectedResource = resource;
 		isOpen = true;
 	}
 
-	function editResource(id: string, type: string, DOI: string) {
+	function editResource(internalId: string, type: string, doi: string) {
 		resources = resources.map((resource) => {
-			if (resource.id === id) {
-				return { ...resource, type, DOI };
+			if (resource.internalId === internalId) {
+				return { ...resource, type, doi };
 			}
 			return resource;
 		});
@@ -106,7 +136,7 @@
 <!-- <div class="bg-divider h-px col-span-2 my-4" /> -->
 {#if resources.length}
 	<div class="col-span-2 space-y-1">
-		{#each resources as resource (resource.id)}
+		{#each resources as resource (resource.internalId)}
 			<div
 				class="bg-secondary-white py-4 px-6 text-subtle-text border border-interactive-surface grid grid-cols-12 gap-4 items-center"
 			>
@@ -117,14 +147,14 @@
 					><span class="text-subtle-text">doi:</span><a
 						class="underline"
 						target="_blank"
-						href={`https://doi.org/${resource.DOI}`}>{resource.DOI}</a
+						href={`https://doi.org/${resource.doi}`}>{resource.doi}</a
 					></span
 				>
 				<div class="flex items-center gap-6 text-subtle-text justify-end">
 					<button type="button" on:click={() => openEdit(resource)}>
 						<Pen class="h-5 w-5" />
 					</button>
-					<button type="button" on:click={() => removeResource(resource.id)}>
+					<button type="button" on:click={() => removeResource(resource.internalId)}>
 						<Trash class="h-5 w-5" />
 					</button>
 				</div>
@@ -156,7 +186,7 @@
 				<TextInput label="" placeholder="Please specify resource type" bind:value={otherType} />
 			{/if}
 			<TextInput
-				bind:value={DOI}
+				bind:value={doi}
 				placeholder="E.g. 10.25829/x33q1z"
 				bind:el={nameEl}
 				required
@@ -173,8 +203,7 @@
 				<Plus />
 				Add
 			</button>
-		</form></Collapsible
-	>
+		</form></Collapsible>
 </div>
 <!-- {#if isOpen && selectedFunder}
 	<EditModal bind:isOpen author={selectedAuthor} {editAuthor} />

@@ -21,14 +21,34 @@
 	import Collapsible from '../Collapsible.svelte';
 	import PrimaryContactModal from './PrimaryContactModal.svelte';
 	import Ror from '../ROR.svelte';
+	import { convertToDataAuthor, convertToListAuthor } from '$lib/helper';
 
-	let authors = $generalInformation.authors;
+	let authors:ListAuthor[] = [];
+
+	// because of the different data structure of authors in the generalInformation store
+	//	we need to convert the data to the correct format
+	// authors for the form and authors for the generalInformation store
+	authors	= $generalInformation.authors.map((author) => {
+		return convertToListAuthor(author);
+	}).filter(a => a.firstName !== '' && a.familyName !== '');
+
+
+	$:authors,update()
+	
+	function update()
+	{
+	
+		generalInformation.update((gi) => {
+		//update the generalInformation store with the new authors
+		gi.authors = authors.map((author) => {
+			return convertToDataAuthor(author);})
+			return gi;});
+	}
+	
+
+		
+
 	export let importedAuthors: ImportAuthor[] | null;
-
-	$: generalInformation.update((gi) => {
-		gi.authors = authors;
-		return gi;
-	});
 
 	let formEl: HTMLFormElement;
 	let firstNameEl: HTMLInputElement;
@@ -37,6 +57,7 @@
 	let initials = '';
 	let familyName = '';
 	let orcId: string = '';
+	let noOrcId: boolean = false;
 	let isPrimaryContact: boolean = false;
 	let primaryContact: PrimaryContact = {
 		email: '',
@@ -56,7 +77,7 @@
 	function addAuthor() {
 		authors = [
 			...authors,
-			{ id: nanoid(), firstName, initials, familyName, orcId, isPrimaryContact, primaryContact }
+			{ id: nanoid(), firstName, initials, familyName, orcId,noOrcId, isPrimaryContact, primaryContact }
 		];
 		formEl.reset();
 		initials = '';
@@ -71,7 +92,7 @@
 			institutionCountry: '',
 			noRor: false,
 			ror: ''
-		};
+		};		
 	}
 
 	function addAuthors() {
@@ -90,10 +111,7 @@
 				}
 			];
 		});
-		// generalInformation.update((gi) => {
-		// 	gi.authors = authors;
-		// 	return gi;
-		// });
+
 	}
 
 	$: {
@@ -103,9 +121,6 @@
 	}
 
 	function removeAuthor(id: string) {
-		console.log(id);
-		console.log(authors);
-
 		authors = authors.filter((author) => author.id !== id);
 	}
 
@@ -119,14 +134,20 @@
 		firstName: string,
 		initials: string,
 		familyName: string,
-		orcId: string
+		orcId: string,
+		noOrcId: boolean
 	) {
+
+		
 		authors = authors.map((author) => {
 			if (author.id === id) {
-				return { ...author, firstName, initials, familyName, orcId, primaryContact };
+				
+				return { ...author, firstName, initials, familyName, orcId,noOrcId, primaryContact };
 			}
 			return author;
 		});
+
+
 		isEditModalOpen = false;
 		selectedAuthor = null;
 	}
@@ -144,6 +165,7 @@
 			if (author.id === id) {
 				return { ...author, isPrimaryContact, primaryContact };
 			}
+			//console.log("🚀 ~ authors=authors.map ~ author:", author)
 			return author;
 		});
 		isPrimaryContactModalOpen = false;
@@ -201,11 +223,17 @@
 		isPrimaryContactModalOpen = false;
 		selectedAuthor = null;
 	}
+
+	function isEmpty(author: ListAuthor) {
+		return !author.firstName && !author.initials && !author.familyName && !author.orcId;
+	}
+
 </script>
 
-{#if $generalInformation.authors.length}
+{#if authors?.length}
 	<div class="col-span-2 space-y-1">
-		{#each $generalInformation.authors as author, idx (author.id)}
+		{#each authors as author, idx (author.id)}
+
 			<div
 				on:mousedown={(e) => {
 					target = e.target;
@@ -223,6 +251,7 @@
 					hovering === idx && 'border-red-600'
 				)}
 			>
+			{#if !isEmpty(author)}
 				<div class="flex items-center gap-10">
 					<div id="handle">
 						<Handle />
@@ -248,7 +277,9 @@
 						<Trash class="h-5 w-5" />
 					</button>
 				</div>
+				{/if}
 			</div>
+
 		{/each}
 		<p class="text-subtle-text text-sm flex gap-1.5 items-center pt-2">
 			Select the <input
@@ -287,7 +318,7 @@
 				<TextInput
 					bind:value={initials}
 					placeholder="L."
-					label="Initial(s)"
+					label="initials(s)"
 					pattern={'^ *?[A-Z]\\.(\\s[A-Z]\\.)* *?$'}
 					errorMsg="Please enter initials in capitals separated \nby a dot and a space. Eg: E. G."
 				/>

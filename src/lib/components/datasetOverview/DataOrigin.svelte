@@ -1,111 +1,81 @@
 <script lang="ts">
 	import { datasetOverview } from '$lib/stores/datasetOverview';
+	import { OriginalOrCompiledDatasetEnum } from '$lib/schemas/datasetOverview';
 	import Radio from '../Radio.svelte';
 	import Question from '../formControls/Question.svelte';
 	import Checkbox from '../Checkbox.svelte';
 	import CheckboxGroup from '../CheckboxGroup.svelte';
 
+
 	let currentOrLegacy = [
 		{
 			label: "Own or collaborator's data",
-			value: 'ownOrCollaborator',
+			value: "Own or collaborator's data",
 			addition: 'extensive contextual information known to authors'
 		},
 		{
-			label: "Others' data",
-			value: 'others',
+			label: "Other´s data",
+			value: "Other´s data",
 			addition: 'full contextual information might not be available'
 		},
 		{
 			label: 'Legacy data',
-			value: 'legacy',
+			value: 'Legacy data',
 			addition: 'e.g. digitized from an older publication, grey literature, field notes'
 		},
 		{
 			label: 'Unsure',
-			value: 'unsure'
+			value: 'Unsure'
 		}
 	];
 
 	let sources = [
-		{ label: 'Field survey', value: 'fieldSurvey', addition: 'includes remote sensing, eDNA' },
-		{ label: 'Museum/herbarium specimens', value: 'museumCollection' },
-		{ label: 'Field experiment', value: 'fieldExperiment' },
-		{ label: 'Literature-based research', value: 'literatureBasedResearch' },
+		{ label: 'Field survey', value: 'Field survey', addition: 'includes remote sensing, eDNA' },
+		{ label: 'Museum/herbarium specimens', value: 'Museum/herbarium specimens' },
+		{ label: 'Field experiment', value: 'Field experiment' },
+		{ label: 'Literature-based research', value: 'Literature-based research' },
 		// { label: 'Sensor platform', value: 'sensorPlatform' },
-		{ label: 'Laboratory experiment', value: 'laboratoryExperiment' },
-		{ label: 'Expert knowledge', value: 'expertKnowledge' },
-		{ label: 'Other', value: 'other' }
+		{ label: 'Laboratory experiment', value: 'Laboratory experiment' },
+		{ label: 'Expert knowledge', value: 'Expert knowledge' },
+		{ label: 'Other', value: 'Other' }
 	];
 </script>
 
 <Question question="What type of dataset is involved?" direction="column">
 	<Radio
 		label="Single sampling design"
-		value="singleSource"
+		value="{OriginalOrCompiledDatasetEnum.enum["Single Source"]}"
 		addition="one unified methodology"
-		bind:group={$datasetOverview.originalOrCompiledDataset}
+		bind:group={$datasetOverview.dataOrigin.originalOrCompiledDataset}
 		name="originalOrCompiledDataset"
 	/>
 	<Radio
 		label="Compilation"
 		addition="single dataset, combining multiple different methodologies"
-		value="compilation"
-		bind:group={$datasetOverview.originalOrCompiledDataset}
+		value="{OriginalOrCompiledDatasetEnum.enum["Compilation"]}"
+		bind:group={$datasetOverview.dataOrigin.originalOrCompiledDataset}
 		name="originalOrCompiledDataset"
 	/>
 	<Radio
 		label="Synthesis study"
 		addition="aggregated from multiple source datasets"
-		value="synthesis"
-		bind:group={$datasetOverview.originalOrCompiledDataset}
+		value="{OriginalOrCompiledDatasetEnum.enum["Synthesis"]}"
+		bind:group={$datasetOverview.dataOrigin.originalOrCompiledDataset}
 		name="originalOrCompiledDataset"
 	/>
 </Question>
-<!--  -->
+
 <Question
 	question="Is the full context of the study known by the data provider or dataset creators? (Select all that apply)"
 	direction="column"
 >
 	<CheckboxGroup
 		name="dataSource"
-		bind:group={$datasetOverview.currentOrLegacyDataset}
+		bind:group={$datasetOverview.dataOrigin.currentOrLegacyDataset}
 		inputs={currentOrLegacy}
 	/>
-	<!-- <Radio
-		label="Current"
-		addition="E.g. recently collected, &/or original authors are contactable"
-		value="current"
-		bind:group={$datasetOverview.currentOrLegacyDataset}
-		name="currentOrLegacy"
-		layout="stacked"
-	/>
-	<Radio
-		label="Legacy"
-		addition="E.g. from an older publication, grey literature, field notes"
-		value="legacy"
-		bind:group={$datasetOverview.currentOrLegacyDataset}
-		name="currentOrLegacy"
-		layout="stacked"
-	/>
-	<Radio
-		label="Unsure"
-		value="unsure"
-		bind:group={$datasetOverview.currentOrLegacyDataset}
-		name="currentOrLegacy"
-		layout="stacked"
-	/> -->
+	
 </Question>
 <Question question="What is the source of the data? (Select all that apply)" direction="grid">
-	<CheckboxGroup name="dataSource" bind:group={$datasetOverview.dataSource} inputs={sources} />
-	<!-- {#each sources as { label, addition, value }}
-		<Checkbox
-			{label}
-			name="dataSource"
-			bind:group={$datasetOverview.dataSource}
-			addition={addition ?? ''}
-			{value}
-			custom={label === 'Other'}
-		/>
-	{/each} -->
+	<CheckboxGroup name="dataSource" bind:group={$datasetOverview.dataOrigin.dataSource} inputs={sources} />
 </Question>

@@ -11,7 +11,7 @@
 				"@partyid": "",
 				"#text": "Dan"
 			},
-			"initial": {
+			"initials": {
 				"@ref": "",
 				"@partyid": "",
 				"#text": ""
@@ -90,7 +90,7 @@
 					"@partyid": "",
 					"#text": ""
 				},
-				"initial": {
+				"initials": {
 					"@ref": "",
 					"@partyid": "",
 					"#text": ""

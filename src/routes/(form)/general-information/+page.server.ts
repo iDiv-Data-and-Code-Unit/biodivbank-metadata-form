@@ -1,7 +1,6 @@
-import * as fs from 'fs';
-import * as path from 'path';
 import { parse } from 'csv-parse/sync';
 import type { Actions } from '@sveltejs/kit';
+
 
 export const actions: Actions = {
 	importAuthors: async ({ request }) => {
@@ -19,7 +18,7 @@ export const actions: Actions = {
 
 		// const fileContent = fs.readFileSync(csvFilePath, { encoding: 'utf-8' });
 
-		console.log('content', fileContent);
+		// console.log('content', fileContent);
 
 		const authors = parse(
 			buffer,
@@ -34,8 +33,9 @@ export const actions: Actions = {
 			// 	console.log('Result', result);
 			// }
 		);
-		console.log(authors);
+		console.log("autheros",authors);
 
 		return { authors };
-	}
+	},
+
 };

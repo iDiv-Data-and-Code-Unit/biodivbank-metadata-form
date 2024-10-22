@@ -60,6 +60,18 @@
 </main>
 
 <div class="flex fixed bottom-5 justify-end inset-x-5 gap-3">
-	<StepButton direction="prev" />
-	<StepButton direction="next" />
+
+	<div class="w-10">
+	{#if $step >	1}
+		<StepButton direction="prev" />
+	{/if}
+</div>
+
+<div class="w-10">
+	{#if $step < 4}
+		<StepButton direction="next" />
+	{/if}
+</div>
+	<!-- <StepButton direction="prev" />
+	<StepButton direction="next" /> -->
 </div>

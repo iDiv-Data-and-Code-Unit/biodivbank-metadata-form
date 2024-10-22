@@ -1,9 +1,10 @@
 <script lang="ts">
 	import Cross from '$lib/icons/Cross.svelte';
 	import toast_, { type Toast as Toast_ } from 'svelte-french-toast';
+	import { type ZodIssue } from 'zod';
 
 	interface Toast extends Toast_ {
-		incompleteFields: string[];
+		incompleteIssues: ZodIssue[];
 		step: string;
 	}
 
@@ -22,17 +23,19 @@
 			Certain mandatory questions have not been answered on the previous screen. You can revise
 			these at the end of the form, or return to complete the section at any point in the process.
 		</p>
-		<!-- <ul class="flex flex-col gap-1">
-			{#each toast.incompleteFields as field}
+		{#if toast.incompleteIssues}
+		<ul class="flex flex-col gap-1">
+			{#each toast.incompleteIssues as {code, path, message } }
 				<li class="text-sm flex items-center gap-2">
 					<span>⚠️</span>
-					{field}
+					<div class="flex-col">
+						<div class="font-bold">{path.join(".")}</div>
+					 <div>{message}</div>
+					</div>
 				</li>
 			{/each}
-		</ul> -->
+		</ul>
+		{/if}
 	</section>
 </div>
-<!-- <span>
-	Custom and <b>bold</b> with props like {toast.text}!
-	<button on:click={() => toast_.dismiss(toast.id)}>Dismiss</button>
-</span> -->
+

@@ -12,26 +12,26 @@
 				<Point
 					label="Name"
 					value={[
-						$generalInformation.firstName,
-						$generalInformation.initials,
-						$generalInformation.familyName
+						$generalInformation.dataProvider.firstName,
+						$generalInformation.dataProvider.initials,
+						$generalInformation.dataProvider.familyName
 					].join(' ')}
 				/>
-				<Point label="Email address" value={$generalInformation.email} />
-				<Point label="ORCiD" value={$generalInformation.orcidId} />
-				<Point label="Insitution name" value={$generalInformation.institutionName} />
-				<Point label="Institution country" value={$generalInformation.institutionCountry} />
-				<Point label="ROR ID" value={$generalInformation.ror} />
+				<Point label="Email address" value={$generalInformation.dataProvider.email} />
+				<Point label="ORCiD" value={""+$generalInformation.dataProvider.orcId} />
+				<Point label="Insitution name" value={$generalInformation.dataProvider.institutionName} />
+				<Point label="Institution country" value={$generalInformation.dataProvider.institutionCountry} />
+				<Point label="ROR ID" value={""+$generalInformation.dataProvider.rorId} />
 			</div>
 		</section>
 		<section>
 			<h3 class="text-xl font-medium mb-4">Dataset</h3>
 			<div class="divide-y divide-placeholder divide-opacity-40 space-y-2">
-				<Point label="Title" value={$generalInformation.datasetTitle} />
-				<Point label="Abstract" value={$generalInformation.datasetAbstract} />
-				<Point label="Data access policy" value={$generalInformation.accessPolicy} />
-				{#if $generalInformation.accessPolicy === 'Temporary embargo'}
-					<Point label="Embargo end date" value={$generalInformation.embargoEndDate} />
+				<Point label="Title" value={$generalInformation.dataset.title} />
+				<Point label="Abstract" value={$generalInformation.dataset.abstract} />
+				<Point label="Data access policy" value={$generalInformation.dataset.accessPolicy} />
+				{#if $generalInformation.dataset.accessPolicy === 'Temporary embargo'}
+					<Point label="Embargo end date" value={""+$generalInformation.dataset.embargoEndDate} />
 				{/if}
 			</div>
 		</section>
@@ -56,7 +56,7 @@
 					{#each $generalInformation.funders as funder}
 						<div class="divide-y divide-placeholder divide-opacity-40 space-y-2">
 							<Point label="Funder name" value={funder.name} />
-							<Point label="Crossref Funder ID" value={funder.funderId} />
+							<Point label="Crossref Funder ID" value={""+funder.id} />
 							<Point label="Grant number" value={funder.grantNumber} />
 						</div>
 					{/each}
@@ -70,7 +70,7 @@
 					{#each $generalInformation.resources as resource}
 						<div class="divide-y divide-placeholder divide-opacity-40 space-y-2">
 							<Point label="Resource type" value={resource.type} />
-							<Point label="DOI" value={resource.DOI} />
+							<Point label="DOI" value={resource.doi} />
 						</div>
 					{/each}
 				</div>
