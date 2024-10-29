@@ -44,6 +44,7 @@
 <TextInput
 	class="col-start-1"
 	label="Email address"
+	pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
 	required
 	placeholder="E.g. name@organization.domain"
 	bind:value={$generalInformation.dataProvider.email}
