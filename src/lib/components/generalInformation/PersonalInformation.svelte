@@ -2,7 +2,6 @@
 	import TextInput from '../TextInput.svelte';
 	import { generalInformation } from '$lib/stores/generalInformation';
 	import OrcId from '../OrcId.svelte';
-
 </script>
 
 <div class="col-span-2 grid grid-cols-6 justify-between gap-3">
@@ -35,7 +34,7 @@
 	name="orcId-author-list"
 	label="ORCiD *"
 	maxLength={19}
-	pattern="\d\d\d\d[-]\d\d\d\d[-]\d\d\d\d[-]\d\d\d\d"
+	pattern={`\\d{4}-\\d{4}-\\d{4}-\\d{4}`}
 	placeholder="Eg: 0000-0000-0000-0000"
 	invalidInputErrorMsg="An ORCiD must contain four 4-digit numbers, separated by hyphens."
 	invalidatedErrorMsg="ORCiD does not exist, please check that you have typed it in correctly."
