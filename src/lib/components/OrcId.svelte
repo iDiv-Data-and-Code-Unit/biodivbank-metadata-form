@@ -21,48 +21,29 @@
 
 	let validityStatus: ValidityStatus = 'neutral';
 
-	// if(notAvailable ===	undefined || notAvailable === '') notAvailable = false;
-
-	const handleInput = (event: Event) => {
-		event.preventDefault();
-
-		let e = event as InputEvent;
+	const handleInput = async (event: Event) => {
 		let el = event.currentTarget as HTMLInputElement;
-
-		let foo = el.value.split('-').join('');
+		let digitsOnly = el.value.split('-').join('');
 
 		if (el.value.length === 19) {
 			el.classList.add('intermediary-validation');
-			validityStatus = 'valid';
 
-			// validate against api
 			validityStatus = 'loading';
-
-			let orcIdUserUrl = 'https://pub.orcid.org/v3.0/' + el.value;
-
-			const requestObj = new Request(orcIdUserUrl, {
-				method: 'GET',
+			const res = await fetch(`https://pub.orcid.org/v3.0/${el.value}`, {
 				headers: { Accept: 'application/json' },
 				redirect: 'follow'
 			});
-
-			fetch(requestObj).then(async (res) => {
-				if (res.status === 200) {
-					validityStatus = 'validated';
-					const json = await res.json();
-					console.log(json);
-					$generalInformation.dataProvider.firstName = json.person.name['given-names'].value;
-					$generalInformation.dataProvider.familyName = json.person.name['family-name'].value;
-					// console.log(
-					// 	json.person.name['given-names'].value + ' ' + json.person.name['family-name'].value
-					// );
-					// handleFormElChange(event, formElPath);
-					el.setCustomValidity('');
-				} else {
-					validityStatus = 'invalidated';
-					el.setCustomValidity('OrcId does not exist...');
-				}
-			});
+			if (res.ok) {
+				validityStatus = 'validated';
+				const json = await res.json();
+				$generalInformation.dataProvider.firstName = json.person.name['given-names'].value;
+				$generalInformation.dataProvider.familyName = json.person.name['family-name'].value;
+				// handleFormElChange(event, formElPath);
+				el.setCustomValidity('');
+			} else {
+				validityStatus = 'invalidated';
+				el.setCustomValidity('OrcId does not exist...');
+			}
 		} else {
 			el.classList.remove('intermediary-validation');
 			validityStatus = 'neutral';
@@ -70,11 +51,11 @@
 		}
 
 		//allows user to manually add hyphon to reduce confusion
-		if (e.data === '-') return;
+		if ((event as InputEvent).data === '-') return;
 
 		//automatically adds a hyphon while user is typing
-		if (foo.length > 0) {
-			el.value = foo.match(new RegExp('.{1,4}', 'g'))?.join('-') as string;
+		if (digitsOnly.length > 0) {
+			value = digitsOnly.match(new RegExp('.{1,4}', 'g'))?.join('-') as string;
 		}
 	};
 
@@ -136,7 +117,7 @@
 				disabled={notAvailable}
 				class="bg-input disabled:bg-input-disabled px-8 rounded-md py-3 border-none w-full placeholder:text-placeholder/50"
 				on:change={handleChange}
-				on:input={handleInput}
+				on:input|preventDefault={handleInput}
 			/>
 		</label>
 		<br />
