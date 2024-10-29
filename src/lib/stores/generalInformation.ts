@@ -30,8 +30,8 @@ import { browser } from '$app/environment';
 
 let storedValue: GeneralInformation | undefined;
 if (browser) {
-	storedValue = (JSON.parse(localStorage.getItem('generalInformation') as string) ||
-		undefined) as GeneralInformation;
+	const localStorageValue = localStorage.getItem('generalInformation') || '';
+	storedValue = localStorageValue.length ? JSON.parse(localStorageValue) as GeneralInformation : undefined;
 } else {
 	storedValue = undefined;
 }
@@ -40,6 +40,7 @@ export const generalInformation = writable<GeneralInformation>(storedValue);
 
 generalInformation.subscribe((value) => {
 	if (browser) {
-		localStorage.setItem('generalInformation', JSON.stringify(value));
+		// If null or undefined, don't convert to string
+		localStorage.setItem('generalInformation', value ? JSON.stringify(value) : '');
 	}
 });

@@ -4,8 +4,8 @@ import { browser } from '$app/environment';
 
 let storedValue: SamplingDesign | undefined;
 if (browser) {
-	storedValue = (JSON.parse(localStorage.getItem('samplingDesign') as string) ||
-	undefined) as SamplingDesign;
+	const localStorageValue = localStorage.getItem('samplingDesign') || '';
+	storedValue = localStorageValue.length ? JSON.parse(localStorageValue) as SamplingDesign : undefined;
 } else {
 	storedValue = undefined;
 }
@@ -14,6 +14,7 @@ export const samplingDesign = writable<SamplingDesign>(storedValue);
 
 samplingDesign.subscribe((value) => {
 	if (browser) {
-		localStorage.setItem('samplingDesign', JSON.stringify(value));
+		// If null or undefined, don't convert to string
+		localStorage.setItem('samplingDesign', value ? JSON.stringify(value) : '');
 	}
 });
