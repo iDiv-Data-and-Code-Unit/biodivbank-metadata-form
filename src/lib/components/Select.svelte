@@ -1,6 +1,5 @@
 <script lang="ts">
 	import clsx from 'clsx';
-	import Page from '../../routes/+page.svelte';
 
 	export let placeholder: string;
 	export let label: string;

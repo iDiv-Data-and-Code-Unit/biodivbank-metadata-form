@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { generalInformation } from '$lib/stores/generalInformation';
 	import CheckIcon from '$lib/icons/Check.svelte';
 	import CrossIcon from '$lib/icons/Cross.svelte';
 	import Spinner from '$lib/icons/Spinner.svelte';
+	import { generalInformation } from '$lib/stores/generalInformation';
 
 	type ValidityStatus = 'neutral' | 'invalid' | 'valid' | 'loading' | 'invalidated' | 'validated';
 
@@ -13,69 +13,44 @@
 	export let invalidatedErrorMsg: string;
 	export let invalidInputErrorMsg: string;
 	export let confirmCheckboxMsg: string;
-	export let value: string | undefined='';
-	export let notAvailable: boolean | null | undefined = false ;
+	export let value: string | undefined = '';
+	export let notAvailable: boolean | null | undefined = false;
 	export let name: string;
 	export let label: string;
 	export let required: boolean = false;
 
 	let validityStatus: ValidityStatus = 'neutral';
 
-
-	const handleInput = (event: Event) => {
-		event.preventDefault();
-
-		let e = event as InputEvent;
+	const handleInput = async (event: Event) => {
 		let el = event.currentTarget as HTMLInputElement;
-
-		// let foo = el.value.split('-').join('');
 
 		if (el.value.length === 9) {
 			el.classList.add('intermediary-validation');
-			validityStatus = 'valid';
 
-			// validate against api
 			validityStatus = 'loading';
-
-			let orcIdUserUrl = 'https://api.ror.org/organizations/' + el.value;
-
-			const requestObj = new Request(orcIdUserUrl, {
-				method: 'GET',
+			const res = await fetch(`https://api.ror.org/organizations/${el.value}`, {
 				headers: { Accept: 'application/json' },
 				redirect: 'follow'
 			});
 
-			fetch(requestObj).then(async (res) => {
-				if (res.status === 200) {
-					validityStatus = 'validated';
-					const json = await res.json();
-					console.log(json);
-					$generalInformation.dataProvider.institutionName = json.name;
-					console.log(json.country.country_name);
-					$generalInformation.dataProvider.institutionCountry = json.country.country_name;
-					// console.log(
-					// 	json.person.name['given-names'].value + ' ' + json.person.name['family-name'].value
-					// );
-					// handleFormElChange(event, formElPath);
-					el.setCustomValidity('');
-				} else {
-					validityStatus = 'invalidated';
-					el.setCustomValidity('OrcId does not exist...');
-				}
-			});
+			if (res.status === 200) {
+				validityStatus = 'validated';
+
+				const json = await res.json();
+				$generalInformation.dataProvider.institutionName = json.name;
+				$generalInformation.dataProvider.institutionCountry = json.country.country_name;
+
+				// handleFormElChange(event, formElPath);
+				el.setCustomValidity('');
+			} else {
+				validityStatus = 'invalidated';
+				el.setCustomValidity('ROR ID does not exist...');
+			}
 		} else {
 			el.classList.remove('intermediary-validation');
 			validityStatus = 'neutral';
 			el.setCustomValidity('');
 		}
-
-		//allows user to manually add hyphon to reduce confusion
-		if (e.data === '-') return;
-
-		//automatically adds a hyphon while user is typing
-		// if (foo.length > 0) {
-		// 	el.value = foo.match(new RegExp('.{1,4}', 'g'))?.join('-') as string;
-		// }
 	};
 
 	const handleChange = (event: Event) => {
@@ -136,7 +111,7 @@
 				disabled={notAvailable}
 				class="bg-input disabled:bg-input-disabled px-8 rounded-md py-3 pl-10 border-none w-full placeholder:text-placeholder/50"
 				on:change={handleChange}
-				on:input={handleInput}
+				on:input|preventDefault={handleInput}
 			/>
 		</label>
 		<br />
