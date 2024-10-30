@@ -1,52 +1,48 @@
 <!-- TODO: append new entry after important -->
 <script lang="ts">
+	import clsx from 'clsx';
+	import { nanoid } from 'nanoid';
+	import { flip } from 'svelte/animate';
+	import { enhance } from '$app/forms';
+
+	import countries from './countries.json';
 	import Pen from '$lib/icons/Pen.svelte';
 	import Trash from '$lib/icons/Trash.svelte';
-	import { nanoid } from 'nanoid';
-	import EditModal from './EditModal.svelte';
-	import TextInput from '../TextInput.svelte';
-	import { flip } from 'svelte/animate';
-	import clsx from 'clsx';
 	import Handle from '$lib/icons/Handle.svelte';
 	import Plus from '$lib/icons/Plus.svelte';
+	import EditModal from './EditModal.svelte';
+	import TextInput from '../TextInput.svelte';
 	import OrcId from '../OrcId.svelte';
-	import type { ListAuthor, Author, PrimaryContact } from '$lib/types/author';
-	import { generalInformation } from '$lib/stores/generalInformation';
-	import Star from '$lib/icons/Star.svelte';
-	import StarOutline from '$lib/icons/StarOutline.svelte';
 	import Select from '../Select.svelte';
-	import countries from './countries.json';
-	import type { ImportAuthor } from '$lib/types/author';
-	import { enhance } from '$app/forms';
 	import Collapsible from '../Collapsible.svelte';
 	import PrimaryContactModal from './PrimaryContactModal.svelte';
 	import Ror from '../ROR.svelte';
 	import { convertToDataAuthor, convertToListAuthor } from '$lib/helper';
+	import { generalInformation } from '$lib/stores/generalInformation';
+	import type { ListAuthor, Author, PrimaryContact, ImportAuthor } from '$lib/types/author';
 
-	let authors:ListAuthor[] = [];
+	let authors: ListAuthor[] = [];
 
 	// because of the different data structure of authors in the generalInformation store
 	//	we need to convert the data to the correct format
 	// authors for the form and authors for the generalInformation store
-	authors	= $generalInformation.authors.map((author) => {
-		return convertToListAuthor(author);
-	}).filter(a => a.firstName !== '' && a.familyName !== '');
+	authors = $generalInformation.authors
+		.map((author) => {
+			return convertToListAuthor(author);
+		})
+		.filter((a) => a.firstName !== '' && a.familyName !== '');
 
+	$: authors, update();
 
-	$:authors,update()
-	
-	function update()
-	{
-	
+	function update() {
 		generalInformation.update((gi) => {
-		//update the generalInformation store with the new authors
-		gi.authors = authors.map((author) => {
-			return convertToDataAuthor(author);})
-			return gi;});
+			//update the generalInformation store with the new authors
+			gi.authors = authors.map((author) => {
+				return convertToDataAuthor(author);
+			});
+			return gi;
+		});
 	}
-	
-
-		
 
 	export let importedAuthors: ImportAuthor[] | null;
 
@@ -56,9 +52,9 @@
 	let firstName = '';
 	let initials = '';
 	let familyName = '';
-	let orcId: string = '';
-	let noOrcId: boolean = false;
-	let isPrimaryContact: boolean = false;
+	let orcId = '';
+	let noOrcId = false;
+	let isPrimaryContact = false;
 	let primaryContact: PrimaryContact = {
 		email: '',
 		institutionName: '',
@@ -66,7 +62,7 @@
 		noRor: false,
 		ror: ''
 	};
-	let orcIdNotAvailable: boolean = false;
+	let orcIdNotAvailable = false;
 
 	let isEditModalOpen = false;
 	let isPrimaryContactModalOpen = false;
@@ -77,7 +73,16 @@
 	function addAuthor() {
 		authors = [
 			...authors,
-			{ id: nanoid(), firstName, initials, familyName, orcId,noOrcId, isPrimaryContact, primaryContact }
+			{
+				id: nanoid(),
+				firstName,
+				initials,
+				familyName,
+				orcId,
+				noOrcId,
+				isPrimaryContact,
+				primaryContact
+			}
 		];
 		formEl.reset();
 		initials = '';
@@ -92,26 +97,26 @@
 			institutionCountry: '',
 			noRor: false,
 			ror: ''
-		};		
+		};
 	}
 
 	function addAuthors() {
 		if (!importedAuthors) return;
 		importedAuthors.forEach((author) => {
-			$generalInformation.authors = [
-				...$generalInformation.authors,
+			authors = [
+				...authors,
 				{
 					id: nanoid(),
 					firstName: author.firstName,
 					initials: author.initials ?? '',
 					familyName: author.familyName,
 					orcId: author.orcId ?? '',
+					noOrcId: author.orcId ? false : true,
 					isPrimaryContact: false,
 					primaryContact: null
 				}
 			];
 		});
-
 	}
 
 	$: {
@@ -137,16 +142,12 @@
 		orcId: string,
 		noOrcId: boolean
 	) {
-
-		
 		authors = authors.map((author) => {
 			if (author.id === id) {
-				
-				return { ...author, firstName, initials, familyName, orcId,noOrcId, primaryContact };
+				return { ...author, firstName, initials, familyName, orcId, noOrcId, primaryContact };
 			}
 			return author;
 		});
-
 
 		isEditModalOpen = false;
 		selectedAuthor = null;
@@ -174,6 +175,7 @@
 
 	let target: EventTarget | null = null;
 	let hovering: number | null = null;
+	let grabbed = false;
 
 	function dragStart(event: DragEvent, idx: number, author: Author) {
 		if (target instanceof Element && target?.id.startsWith('handle')) {
@@ -181,9 +183,11 @@
 				event.dataTransfer.effectAllowed = 'move';
 				event.dataTransfer.dropEffect = 'move';
 				event.dataTransfer.setData('text/plain', idx.toString());
+				grabbed = true;
 			}
 		} else {
 			event.preventDefault();
+			grabbed = false;
 		}
 	}
 
@@ -202,6 +206,7 @@
 			}
 			authors = newAuthorList;
 			hovering = null;
+			grabbed = false;
 		}
 	}
 
@@ -227,13 +232,11 @@
 	function isEmpty(author: ListAuthor) {
 		return !author.firstName && !author.initials && !author.familyName && !author.orcId;
 	}
-
 </script>
 
 {#if authors?.length}
 	<div class="col-span-2 space-y-1">
 		{#each authors as author, idx (author.id)}
-
 			<div
 				on:mousedown={(e) => {
 					target = e.target;
@@ -250,36 +253,39 @@
 					'bg-interactive-surface py-4 px-6 text-subtle-text border border-interactive-surface grid grid-cols-8 items-center',
 					hovering === idx && 'border-red-600'
 				)}
+				role="button"
+				tabindex="0"
+				aria-grabbed={grabbed}
+				aria-roledescription="Authors list"
 			>
-			{#if !isEmpty(author)}
-				<div class="flex items-center gap-10">
-					<div id="handle">
-						<Handle />
+				{#if !isEmpty(author)}
+					<div class="flex items-center gap-10">
+						<div id="handle">
+							<Handle />
+						</div>
+						<span>
+							<input
+								type="checkbox"
+								bind:checked={author.isPrimaryContact}
+								on:click={() => openPrimaryContactDetails(author)}
+								aria-roledescription="Author's primary contact status"
+							/>
+						</span>
 					</div>
-					<span>
-						<input
-							type="checkbox"
-							bind:checked={author.isPrimaryContact}
-							on:click={() => openPrimaryContactDetails(author)}
-							aria-roledescription="Author's primary contact status"
-						/>
-					</span>
-				</div>
-				<span class="text-black-text col-span-4 text-start"
-					>{author.firstName} {author.initials} {author.familyName}</span
-				>
-				<span class="col-span-2">{!!author.orcId ? author.orcId : 'No ORCiD provided'}</span>
-				<div class="flex items-center gap-6 text-subtle-text justify-end">
-					<button type="button" on:click={() => openEdit(author)}>
-						<Pen class="h-5 w-5" />
-					</button>
-					<button type="button" on:click={() => removeAuthor(author.id)}>
-						<Trash class="h-5 w-5" />
-					</button>
-				</div>
+					<span class="text-black-text col-span-4 text-start"
+						>{author.firstName} {author.initials} {author.familyName}</span
+					>
+					<span class="col-span-2">{!!author.orcId ? author.orcId : 'No ORCiD provided'}</span>
+					<div class="flex items-center gap-6 text-subtle-text justify-end">
+						<button type="button" on:click={() => openEdit(author)}>
+							<Pen class="h-5 w-5" />
+						</button>
+						<button type="button" on:click={() => removeAuthor(author.id)}>
+							<Trash class="h-5 w-5" />
+						</button>
+					</div>
 				{/if}
 			</div>
-
 		{/each}
 		<p class="text-subtle-text text-sm flex gap-1.5 items-center pt-2">
 			Select the <input
@@ -337,7 +343,7 @@
 					name="orcId-author-list"
 					label="ORCiD *"
 					maxLength={19}
-					pattern="\d\d\d\d[-]\d\d\d\d[-]\d\d\d\d[-]\d\d\d\d"
+					pattern={`\\d{4}-\\d{4}-\\d{4}-\\d{4}`}
 					placeholder="Eg: 0000-0000-0000-0000"
 					invalidInputErrorMsg="An ORCiD must contain four 4-digit numbers, separated by hyphens."
 					invalidatedErrorMsg="ORCiD does not exist, please check that you have typed it in correctly."
@@ -355,6 +361,7 @@
 					class="col-start-1"
 					label="Email address"
 					required
+					pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
 					placeholder="E.g. name@organization.domain"
 					bind:value={primaryContact.email}
 				/>
@@ -374,33 +381,18 @@
 					/>
 				</div>
 				<div>
-					<!-- <TextInput
-						label="ROR ID"
-						placeholder="xxxxxxxxx"
-						pattern="'^0[a-z|0-9]{6}[0-9]{2}$"
-						errorMsg="Please enter a valid ROR ID."
-						disabled={notAvailable}
-						bind:value={primaryContact.ror}
-					/>
-					<div class="mt-1">
-						<label class="text-sm mr-1"
-							><span>No ROR ID available?</span>
-							<input type="checkbox" class="ml-1 !w-4 !h-4" bind:checked={primaryContact.noRor} />
-						</label>
-					</div> -->
-
 					<Ror
-							bind:value={primaryContact.ror}
-							bind:notAvailable={primaryContact.noRor}
-							name="ror-author-list"
-							label="Institution ROR ID"
-							maxLength={9}
-							placeholder="XXXXXXXXX"
-							invalidInputErrorMsg="A ROR ID must contain 9 alphanumeric characters."
-							invalidatedErrorMsg="ROR ID does not exist, please check that you have typed it in correctly."
-							confirmCheckboxMsg="No ROR ID available?"
-							validatedMsg="ROR ID found."
-						/>
+						bind:value={primaryContact.ror}
+						bind:notAvailable={primaryContact.noRor}
+						name="ror-author-list"
+						label="Institution ROR ID"
+						maxLength={9}
+						placeholder="XXXXXXXXX"
+						invalidInputErrorMsg="A ROR ID must contain 9 alphanumeric characters."
+						invalidatedErrorMsg="ROR ID does not exist, please check that you have typed it in correctly."
+						confirmCheckboxMsg="No ROR ID available?"
+						validatedMsg="ROR ID found."
+					/>
 				</div>
 			{/if}
 			<button
