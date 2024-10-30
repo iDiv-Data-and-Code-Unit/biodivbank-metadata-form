@@ -1,49 +1,50 @@
 <script lang="ts">
+	import { nanoid } from 'nanoid';
+	import { z } from 'zod';
+
+	import Collapsible from '../Collapsible.svelte';
+	import Select from '../Select.svelte';
+	import TextInput from '../TextInput.svelte';
 	import Pen from '$lib/icons/Pen.svelte';
 	import Plus from '$lib/icons/Plus.svelte';
 	import Trash from '$lib/icons/Trash.svelte';
 	import { generalInformation } from '$lib/stores/generalInformation';
- import type	{ funderType, resourceType } from '$lib/schemas/generalInformation';
- import { ResourceTypeEnum } from '$lib/schemas/generalInformation';
-	import { nanoid } from 'nanoid';
-	import Select from '../Select.svelte';
-	import TextInput from '../TextInput.svelte';
-	import { z } from 'zod';
-	import Collapsible from '../Collapsible.svelte';
+	import { ResourceTypeEnum } from '$lib/schemas/generalInformation';
+	import type { funderType, resourceType } from '$lib/schemas/generalInformation';
 
+	//10.13140/RG.2.2.25398.78400
 
-
-//10.13140/RG.2.2.25398.78400
-
- interface localResourceType extends resourceType {
-			internalId: string;
+	interface localResourceType extends resourceType {
+		internalId: string;
 	}
- // get list of options from enum
-	let resourceTypes:string[] = ResourceTypeEnum.options;
+	// get list of options from enum
+	let resourceTypes: string[] = ResourceTypeEnum.options;
 
 	// init set resources from store
-	let resources:localResourceType[] = 	$generalInformation.resources.map((r) => {
-		// add internalId to object
-		return { ...r, internalId: nanoid() };
-	}).filter(e=>	e.doi !== '' && e.doi !== undefined);
+	let resources: localResourceType[] = $generalInformation.resources
+		.map((r) => {
+			// add internalId to object
+			return { ...r, internalId: nanoid() };
+		})
+		.filter((e) => e.doi !== '' && e.doi !== undefined);
 
 	// every change	in resources will update generalInformation
-	$:resources, updateResources()
-	
-	function updateResources(){
+	$: resources, updateResources();
+
+	function updateResources() {
 		generalInformation.update((gi) => {
-				gi.resources = resources.map((s) => {
-						const d:resourceType = {...s};
-						delete	d.internalId;
-						return d;
-					}).filter(e=> e.doi !== '');
-					console.log("store:", gi.resources);
-					
-					return gi;
-			});
+			gi.resources = resources
+				.map((s) => {
+					const d: resourceType = { ...s };
+					// delete d.internalId;   // no internalId in resourceType
+					return d;
+				})
+				.filter((e) => e.doi !== '');
+			console.log('store:', gi.resources);
+
+			return gi;
+		});
 	}
-
-
 
 	let formEl: HTMLFormElement;
 	let nameEl: HTMLInputElement;
@@ -60,41 +61,32 @@
 	const urlSchema = z.string().url();
 
 	async function addResource() {
-
 		//https://doi.pangaea.de/10.1594/PANGAEA.972890
 
-  //check with urlSchema.safeParse if doi a	url or not
+		//check with urlSchema.safeParse if doi a	url or not
 		const isUrl = urlSchema.safeParse(doi).success;
-		if(isUrl) // it is a address
-		{
-				const urlParts = doi.split("/");
-				if(urlParts.length	< 2)
-				{
-					error = 'Please enter a valid DOI or URL';
-					return;
-				}
-				else
-				{
-					doi = urlParts[urlParts.length - 1]+"/"+urlParts[urlParts.length - 2];
-				}
+		if (isUrl) {
+			// it is a address
+			const urlParts = doi.split('/');
+			if (urlParts.length < 2) {
+				error = 'Please enter a valid DOI or URL';
+				return;
+			} else {
+				doi = urlParts[urlParts.length - 1] + '/' + urlParts[urlParts.length - 2];
+			}
 		}
 
-		const url = `https://doi.org/api/handles/${doi}`
-
-  // get enum of resourceType
+		// get enum of resourceType
 		let resourceType = ResourceTypeEnum.parse(type);
 
-
 		try {
-				const res = await fetch(url);
-				const json = await res.json();
+			const res = await fetch(`https://doi.org/api/handles/${doi}`);
+			const json = await res.json();
 
-				if(res.status	!== 200 || json.responseCode !== 1)
-				{
-					error = 'Please enter a valid DOI or URL';
-					return;
-				}
-			
+			if (res.status !== 200 || json.responseCode !== 1) {
+				error = 'Please enter a valid DOI or URL';
+				return;
+			}
 		} catch (error) {
 			console.log(error);
 			error = 'Unexpected Error';
@@ -109,7 +101,6 @@
 
 		// console.log(resources);
 		// console.log($generalInformation.resources);
-		
 	}
 
 	function removeResource(internalId: string) {
@@ -124,7 +115,7 @@
 	function editResource(internalId: string, type: string, doi: string) {
 		resources = resources.map((resource) => {
 			if (resource.internalId === internalId) {
-				return { ...resource, type, doi };
+				return { ...resource, type, doi } as localResourceType;
 			}
 			return resource;
 		});
@@ -203,8 +194,11 @@
 				<Plus />
 				Add
 			</button>
-		</form></Collapsible>
+		</form></Collapsible
+	>
 </div>
+
+<!-- TODO: Edit is not working right now -->
 <!-- {#if isOpen && selectedFunder}
 	<EditModal bind:isOpen author={selectedAuthor} {editAuthor} />
 {/if} -->

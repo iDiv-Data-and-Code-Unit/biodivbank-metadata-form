@@ -1,16 +1,16 @@
 <script lang="ts">
 	// TODO: validate crossref funder id
+	import { nanoid } from 'nanoid';
+
+	import TextInput from '../TextInput.svelte';
+	import Collapsible from '../Collapsible.svelte';
 	import Pen from '$lib/icons/Pen.svelte';
 	import Plus from '$lib/icons/Plus.svelte';
 	import Trash from '$lib/icons/Trash.svelte';
 	import { generalInformation } from '$lib/stores/generalInformation';
-	import { nanoid } from 'nanoid';
-	import TextInput from '../TextInput.svelte';
-	import Collapsible from '../Collapsible.svelte';
 	import type { funderType } from '$lib/schemas/generalInformation';
 
-	let funders:funderType[] = $generalInformation.funders.filter((funder) => !isEmpty(funder));
-
+	let funders: funderType[] = $generalInformation.funders.filter((funder) => !isEmpty(funder));
 
 	$: generalInformation.update((gi) => {
 		gi.funders = funders;
@@ -20,7 +20,7 @@
 	let formEl: HTMLFormElement;
 	let nameEl: HTMLInputElement;
 
-	let id	= '';
+	let id = '';
 	let name = '';
 	let noFunderId = false;
 	let grantNumber: string = '';
@@ -44,12 +44,7 @@
 		isOpen = true;
 	}
 
-	function editFunder(
-		id: string,
-		name: string,
-		noFunderId: boolean,
-		grantNumber: string
-	) {
+	function editFunder(id: string, name: string, noFunderId: boolean, grantNumber: string) {
 		funders = funders.map((funder) => {
 			if (funder.id === id) {
 				return { ...funder, name, noFunderId, grantNumber };
@@ -69,26 +64,24 @@
 {#if funders.length}
 	<div class="col-span-2 space-y-1">
 		{#each funders as funder (funder.id)}
-		{#if !isEmpty(funder)}
-			<div
-				class="bg-secondary-white py-4 px-6 text-subtle-text border border-interactive-surface grid grid-cols-11 items-center"
-			>
-				<div class="flex items-center gap-6 col-span-5">
-					<span class="text-black-text">{funder.name}</span>
-				</div>
-				<span class="col-span-3"
-					>{funder.id ? funder.id : 'No funder ID provided'}</span
+			{#if !isEmpty(funder)}
+				<div
+					class="bg-secondary-white py-4 px-6 text-subtle-text border border-interactive-surface grid grid-cols-11 items-center"
 				>
-				<span class="col-span-2">{funder.grantNumber}</span>
-				<div class="flex items-center gap-6 text-subtle-text justify-end">
-					<button type="button" on:click={() => openEdit(funder)}>
-						<Pen class="h-5 w-5" />
-					</button>
-					<button type="button" on:click={() => removeFunder(funder.id)}>
-						<Trash class="h-5 w-5" />
-					</button>
+					<div class="flex items-center gap-6 col-span-5">
+						<span class="text-black-text">{funder.name}</span>
+					</div>
+					<span class="col-span-3">{funder.id ? funder.id : 'No funder ID provided'}</span>
+					<span class="col-span-2">{funder.grantNumber}</span>
+					<div class="flex items-center gap-6 text-subtle-text justify-end">
+						<button type="button" on:click={() => openEdit(funder)}>
+							<Pen class="h-5 w-5" />
+						</button>
+						<button type="button" on:click={() => removeFunder(funder.id)}>
+							<Trash class="h-5 w-5" />
+						</button>
+					</div>
 				</div>
-			</div>
 			{/if}
 		{/each}
 	</div>
@@ -146,6 +139,9 @@
 		</form></Collapsible
 	>
 </div>
+
+<!-- TODO: Edit doesn't work right now -->
+ 
 <!-- {#if isOpen && selectedFunder}
-	<EditModal bind:isOpen author={selectedAuthor} {editAuthor} />
+	<EditModal bind:isOpen author={selectedFunder} {editAuthor} />
 {/if} -->
