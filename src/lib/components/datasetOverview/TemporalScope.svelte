@@ -1,9 +1,10 @@
 <script lang="ts">
-	import ArrowDown from '$lib/icons/ArrowDown.svelte';
 	import clsx from 'clsx';
-	import Question from '../formControls/Question.svelte';
-	import { datasetOverview } from '$lib/stores/datasetOverview';
 	import { onMount } from 'svelte';
+
+	import Question from '../formControls/Question.svelte';
+	import ArrowDown from '$lib/icons/ArrowDown.svelte';
+	import { datasetOverview } from '$lib/stores/datasetOverview';
 
 	let months = [
 		'January',
@@ -23,74 +24,66 @@
 	let startMonth = '';
 	let endMonth = '';
 
- type dateType	= {
-	year: number | undefined,
-	month: string,
-	day: number| undefined,
-	}
+	type dateType = {
+		year: number | undefined;
+		month: string;
+		day: number | undefined;
+	};
 
-	let start:dateType ={
+	let start: dateType = {
 		year: undefined,
 		month: '',
 		day: undefined
-	}
+	};
 
-	let end:dateType ={
+	let end: dateType = {
 		year: undefined,
 		month: '',
 		day: undefined
+	};
+
+	$: start, updateStart();
+	$: end, updateEnd();
+
+	function updateStart() {
+		console.log('🚀 ~ updateStart ~ start', start);
+		if (start.day != undefined && start.month != '' && start.year != undefined) {
+			const sm = months.indexOf(start.month) + 1;
+			$datasetOverview.temporalScope = {
+				...$datasetOverview.temporalScope!,
+				start: new Date(start.year, sm, start.day)
+			};
+		}
 	}
 
-	$:start, updateStart(start);
-	$:end, updateEnd(end)
+	function updateEnd() {
+		console.log('🚀 ~ updateEnd ~ start', end);
+		if (end.day != undefined && end.month != '' && end.year != undefined) {
+			const sm = months.indexOf(end.month) + 1;
+			$datasetOverview.temporalScope = {
+				...$datasetOverview.temporalScope!,
+				end: new Date(end.year, sm, end.day)
+			};
+		}
 
-	function updateStart(s)
-	{
-			console.log("🚀 ~ updateStart ~ start", start);
-			if(start.day	!= undefined && start.month != "" && start.year != undefined)
-			{
-				const sm = months.indexOf(start.month)+1;
-				$datasetOverview.temporalScope = {...$datasetOverview.temporalScope, start : new Date(start.year,sm, start.day)};
-			}
+		console.log($datasetOverview.temporalScope);
 	}
 
-	function updateEnd(e)
-	{
-			console.log("🚀 ~ updateEnd ~ start", end);
-			if(end.day	!= undefined && end.month != "" && end.year != undefined)
-			{
-				const sm = months.indexOf(end.month)+1;
-				$datasetOverview.temporalScope = {...$datasetOverview.temporalScope, end : new Date(end.year,sm, end.day)};
-
-			}
-
-			console.log($datasetOverview.temporalScope);
-			
-	}
-
-
-
-
- onMount(() => {
-
-		console.log("🚀 ~ initDates ~ newDate:", $datasetOverview.temporalScope);
+	onMount(() => {
+		console.log('🚀 ~ initDates ~ newDate:', $datasetOverview.temporalScope);
 		//initDates();
-		const s = new Date($datasetOverview.temporalScope.start);
+		const s = new Date($datasetOverview.temporalScope!.start);
 		start.month = months[s.getMonth()]; // Months are zero-indexed
-  start.year = s.getFullYear();
-  start.day	= s.getDate();
+		start.year = s.getFullYear();
+		start.day = s.getDate();
 
-		const e = new Date($datasetOverview.temporalScope.end);
+		const e = new Date($datasetOverview.temporalScope!.end);
 		end.month = months[e.getMonth()]; // Months are zero-indexed
-  end.year = e.getFullYear();
-  end.day	= e.getDate();
+		end.year = e.getFullYear();
+		end.day = e.getDate();
 
-		// const newDate = new Date($datasetOverview.temporalScope.start.getFullYear, $datasetOverview.temporalScope.start.getMonth, $datasetOverview.temporalScope.start.getDay);	
-		
+		// const newDate = new Date($datasetOverview.temporalScope.start.getFullYear, $datasetOverview.temporalScope.start.getMonth, $datasetOverview.temporalScope.start.getDay);
 	});
-
-
-
 </script>
 
 <Question question="What is the temporal extent of the dataset?" direction="column">

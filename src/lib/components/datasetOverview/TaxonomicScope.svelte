@@ -1,45 +1,12 @@
 <script lang="ts">
-	import { datasetOverview } from '$lib/stores/datasetOverview';
+	import Multistep from '../Multistep.svelte';
 	import Kingdoms from './Kingdoms.svelte';
 	import Phylum from './Phylum.svelte';
-
-	const maxStep: number = 3;
-	let step: number = 1;
-
-	console.log('TaxonomicScope',	$datasetOverview.taxonomicScope);
-	
-
 </script>
-{#if $datasetOverview.taxonomicScope}
 
-<div class="w-full grid grid-cols-2 gap-8">
-	<!-- {#if step === 2}
-		<button class="justify-self-start underline" on:click={() => (step = 1)}>Kingdoms</button>
-	{:else if step === 3}
-		<div class="flex gap-3">
-			<button class="justify-self-start underline" on:click={() => (step = 1)}>Kingdoms</button>
-			<span>&gt;</span>
-			<button class="justify-self-start underline" on:click={() => (step = 2)}>Phylum</button>
-		</div>
-	{/if} -->
-	<!-- {#if step === 1} -->
+<Multistep question="Which kingdoms are involved?" steps={2} step2Title="Sub-kingdom">
 	<Kingdoms />
-	<!-- {:else if step === 2} -->
-	<div class="grid col-start-2 gap-8">
-		<!-- <h3>Indicate the subcategories of taxa represente</h3> -->
+	<div slot="step-2" class="grid gap-8">
 		<Phylum />
 	</div>
-	<!-- {:else if step === 3} -->
-	<!-- <div class="col-start-1">
-		<p>Class</p>
-	</div> -->
-	<!-- {/if} -->
-
-	<!-- {#if step < maxStep}
-		<button
-			class="col-start-1 justify-self-start text-center text-sm shadow-md text-white bg-secondary p-2 px-4 col-span-1 rounded-md flex items-center gap-5"
-			on:click={() => (step = Math.min(step + 1, maxStep))}>Next</button
-		>
-	{/if} -->
-</div>
-{/if}
+</Multistep>

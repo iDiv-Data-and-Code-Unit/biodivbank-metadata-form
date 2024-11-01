@@ -1,66 +1,13 @@
 <script lang="ts">
 	import { datasetOverview } from '$lib/stores/datasetOverview';
-	import {  
+	import {
 		FreshWaterMarineBiomeEnum,
 		TerrestrialFreshWaterBiomeEnum,
-		 MarineTerrestrialBiomeEnum, 
-			SubterraneanFreshWaterBiomeEnum, 
-			SubterraneanMarineBiomeEnum,
-		MarineFreshWaterTerrestrialBiomeEnum } from '$lib/schemas/datasetOverview';
-
-	// let freshwaterMarineBiomes = [
-	// 	{
-	// 		label: 'Semi-confined transitional waters',
-	// 		value: 'semiConfinedTransitionalWaters'
-	// 	}
-	// ];
-
-	// let terrestrialFreshwaterBiomes = [
-	// 	{
-	// 		label: 'Palustrine wetlands',
-	// 		value: 'palustrineWetlands'
-	// 	}
-	// ];
-
-	// let marineTerrestrial = [
-	// 	{
-	// 		label: 'Shorelines',
-	// 		value: 'shorelines'
-	// 	},
-	// 	{
-	// 		label: 'Supralittoral coastal',
-	// 		value: 'supralittoralCoastal'
-	// 	},
-	// 	{
-	// 		label: 'Anthropogenic shorelines',
-	// 		value: 'anthropogenicShorelines'
-	// 	}
-	// ];
-
-	// let marineFreshwaterTerrestrialBiomes = [
-	// 	{
-	// 		label: 'Brackish Tidal',
-	// 		value: 'brackishTidal'
-	// 	}
-	// ];
-
-	// let subterraneanFreshwaterBiomes = [
-	// 	{
-	// 		label: 'Subterranean freshwaters',
-	// 		value: 'subterraneanFreshwaters'
-	// 	},
-	// 	{
-	// 		label: 'Anthropogenic subterranean freshwaters',
-	// 		value: 'anthropogenicSubterraneanFreshwaters'
-	// 	}
-	// ];
-
-	// let subterraneanMarineBiomes = [
-	// 	{
-	// 		label: 'Subterranean tidal',
-	// 		value: 'subterraneanTidal'
-	// 	}
-	// ];
+		MarineTerrestrialBiomeEnum,
+		SubterraneanFreshWaterBiomeEnum,
+		SubterraneanMarineBiomeEnum,
+		MarineFreshWaterTerrestrialBiomeEnum
+	} from '$lib/schemas/datasetOverview';
 </script>
 
 <div>

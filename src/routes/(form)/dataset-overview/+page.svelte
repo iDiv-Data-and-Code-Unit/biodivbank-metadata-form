@@ -1,46 +1,45 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import toast from 'svelte-french-toast';
+
 	import Biome from '$lib/components/datasetOverview/Biome.svelte';
 	import DataOrigin from '$lib/components/datasetOverview/DataOrigin.svelte';
 	import GeographicScope from '$lib/components/datasetOverview/GeographicScope.svelte';
 	import Realm from '$lib/components/datasetOverview/Realm.svelte';
 	import TaxonomicScope from '$lib/components/datasetOverview/TaxonomicScope.svelte';
-	import TaxonomicScope2 from '$lib/components/datasetOverview/TaxonomicScope2.svelte';
 	import TemporalScope from '$lib/components/datasetOverview/TemporalScope.svelte';
 	import Question from '$lib/components/formControls/Question.svelte';
 	import Section from '$lib/components/formControls/Section.svelte';
 	import StepTitle from '$lib/components/formControls/StepTitle.svelte';
+	import CustomToast from '$lib/components/CustomToast.svelte';
 	import { datasetOverview } from '$lib/stores/datasetOverview';
 	import { step } from '$lib/stores/steps';
-	import { onMount } from 'svelte';
-	import toast from 'svelte-french-toast';
-	import CustomToast from '$lib/components/CustomToast.svelte';
 	import { geoStore } from '$lib/stores/geo';
-	import { datasetOverviewSchema } from '$lib/schemas/datasetOverview';
 	import { datasetIdStore, metadataStructureIdStore } from '$lib/stores/datasetStore';
 	import { generalInformation } from '$lib/stores/generalInformation';
 	import { samplingDesign } from '$lib/stores/samplingDesign';
+	import { datasetOverviewSchema } from '$lib/schemas/datasetOverview';
 
 	onMount(() => {
-
-		console.log("********** DATASETOVERVIEW *************************************");
+		console.log('********** DATASETOVERVIEW *************************************');
 		console.log($datasetOverview);
 		console.log($geoStore);
-		console.log("🚀 ~ 2:", 
-					$datasetIdStore,
-					$metadataStructureIdStore,
-					$generalInformation,
-					$datasetOverview,
-					$samplingDesign
-				)
+		console.log(
+			'🚀 ~ 2:',
+			$datasetIdStore,
+			$metadataStructureIdStore,
+			$generalInformation,
+			$datasetOverview,
+			$samplingDesign
+		);
 
-		console.log("************************************************************");
+		console.log('************************************************************');
 
 		step.set(2);
 
 		return () => {
-	
 			const result = datasetOverviewSchema.safeParse($datasetOverview);
-			console.log("🚀 ~ return ~ result:", result)
+			console.log('🚀 ~ return ~ result:', result);
 
 			if (!result.success) {
 				toast(CustomToast, {
@@ -50,7 +49,6 @@
 					incompleteIssues: result.error?.errors,
 					position: 'bottom-center',
 					duration: 10000
-					
 				});
 				return;
 			}
@@ -104,8 +102,8 @@
 
 	<Section
 		title="Taxonomic scope"
-		description="Which taxonomic groups are represented in the dataset? (Select all that apply)">
-
-		<div class="col-span-2"><TaxonomicScope2 /></div>
+		description="Which taxonomic groups are represented in the dataset? (Select all that apply)"
+	>
+		<div class="col-span-2"><TaxonomicScope /></div>
 	</Section>
 </div>

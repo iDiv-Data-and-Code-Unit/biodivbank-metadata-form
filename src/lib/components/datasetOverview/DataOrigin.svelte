@@ -1,11 +1,9 @@
 <script lang="ts">
-	import { datasetOverview } from '$lib/stores/datasetOverview';
-	import { OriginalOrCompiledDatasetEnum } from '$lib/schemas/datasetOverview';
 	import Radio from '../Radio.svelte';
 	import Question from '../formControls/Question.svelte';
-	import Checkbox from '../Checkbox.svelte';
 	import CheckboxGroup from '../CheckboxGroup.svelte';
-
+	import { datasetOverview } from '$lib/stores/datasetOverview';
+	import { OriginalOrCompiledDatasetEnum } from '$lib/schemas/datasetOverview';
 
 	let currentOrLegacy = [
 		{
@@ -14,8 +12,8 @@
 			addition: 'extensive contextual information known to authors'
 		},
 		{
-			label: "Other´s data",
-			value: "Other´s data",
+			label: 'Other´s data',
+			value: 'Other´s data',
 			addition: 'full contextual information might not be available'
 		},
 		{
@@ -44,7 +42,7 @@
 <Question question="What type of dataset is involved?" direction="column">
 	<Radio
 		label="Single sampling design"
-		value="{OriginalOrCompiledDatasetEnum.enum["Single Source"]}"
+		value={OriginalOrCompiledDatasetEnum.enum['Single Source']}
 		addition="one unified methodology"
 		bind:group={$datasetOverview.dataOrigin.originalOrCompiledDataset}
 		name="originalOrCompiledDataset"
@@ -52,14 +50,14 @@
 	<Radio
 		label="Compilation"
 		addition="single dataset, combining multiple different methodologies"
-		value="{OriginalOrCompiledDatasetEnum.enum["Compilation"]}"
+		value={OriginalOrCompiledDatasetEnum.enum['Compilation']}
 		bind:group={$datasetOverview.dataOrigin.originalOrCompiledDataset}
 		name="originalOrCompiledDataset"
 	/>
 	<Radio
 		label="Synthesis study"
 		addition="aggregated from multiple source datasets"
-		value="{OriginalOrCompiledDatasetEnum.enum["Synthesis"]}"
+		value={OriginalOrCompiledDatasetEnum.enum['Synthesis']}
 		bind:group={$datasetOverview.dataOrigin.originalOrCompiledDataset}
 		name="originalOrCompiledDataset"
 	/>
@@ -74,8 +72,11 @@
 		bind:group={$datasetOverview.dataOrigin.currentOrLegacyDataset}
 		inputs={currentOrLegacy}
 	/>
-	
 </Question>
 <Question question="What is the source of the data? (Select all that apply)" direction="grid">
-	<CheckboxGroup name="dataSource" bind:group={$datasetOverview.dataOrigin.dataSource} inputs={sources} />
+	<CheckboxGroup
+		name="dataSource"
+		bind:group={$datasetOverview.dataOrigin.dataSource}
+		inputs={sources}
+	/>
 </Question>
