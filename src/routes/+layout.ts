@@ -10,8 +10,8 @@ export async function load({ url, fetch }) {
 
 
 	if (import.meta.env.DEV) {
-		setApiConfig('http://localhost:44345', 'admin', '123456', auth?auth:'' );
-		//setApiConfig('https://rc.bexis2.uni-jena.de/', 'admin', '12345', auth?auth:'' );
+		// setApiConfig('http://localhost:44345', 'admin', '123456', auth?auth:'' );
+		setApiConfig('https://rc.bexis2.uni-jena.de/', 'admin', '123456', auth?auth:'' );
 	}
 	else
 	{
@@ -19,4 +19,3 @@ export async function load({ url, fetch }) {
 	}
 	return {};
 }
-
