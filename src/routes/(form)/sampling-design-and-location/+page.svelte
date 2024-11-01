@@ -11,11 +11,15 @@
 	import RiverZone from '$lib/components/sampling-design/RiverZone.svelte';
 	import StreamOrder from '$lib/components/sampling-design/StreamOrder.svelte';
 	import TargetedAndExcludedTaxa from '$lib/components/sampling-design/TargetedAndExcludedTaxa.svelte';
-	import UnderRepresented2 from '$lib/components/sampling-design/UnderRepresented2.svelte';
+	import UnderRepresented from '$lib/components/sampling-design/UnderRepresented.svelte';
 	import VegetationLayer from '$lib/components/sampling-design/VegetationLayer.svelte';
 	import Textarea from '$lib/components/Textarea.svelte';
 	import { datasetOverview } from '$lib/stores/datasetOverview';
-	import { EffortIdenticalEnum, multipleEventsEnum, samplingDesignAndLocationSchema } from '$lib/schemas/samplingDesignAndLocation';
+	import {
+		EffortIdenticalEnum,
+		multipleEventsEnum,
+		samplingDesignAndLocationSchema
+	} from '$lib/schemas/samplingDesignAndLocation';
 	import { params } from '$lib/stores/paramsStore';
 	import { samplingDesign } from '$lib/stores/samplingDesign';
 	import { step } from '$lib/stores/steps';
@@ -25,16 +29,19 @@
 	import { generalInformation } from '$lib/stores/generalInformation';
 
 	// $: console.log($params);
-	console.log("********** SAMPLEDESIGN *************************************");
+	console.log('********** SAMPLEDESIGN *************************************');
 
-	console.log("🚀 ~ 3:", 
-					$datasetIdStore,
-					$metadataStructureIdStore,
-					$generalInformation,
-					$datasetOverview,
-					$samplingDesign
-				)
-	console.log("************************************************************");
+	console.log(
+		'🚀 ~ 3:',
+		$datasetIdStore,
+		$metadataStructureIdStore,
+		$generalInformation,
+		$datasetOverview,
+		$samplingDesign
+	);
+	console.log('************************************************************');
+
+	console.log($samplingDesign);
 
 	let multipleEventsInputs = [
 		{ label: 'Multiple sites', value: 'multipleSites' },
@@ -43,26 +50,24 @@
 	];
 
 	onMount(() => {
-
 		step.set(3);
 
 		return () => {
-	
-		const result = samplingDesignAndLocationSchema.safeParse($samplingDesign);
-		console.log("🚀 ~ return ~ result:", result)
-		if (!result.success) {
-			toast(CustomToast, {
-				// @ts-ignore
-				step: 'Dataset overview',
-				// @ts-ignore
-				incompleteIssues: result.error.errors,
-				position: 'bottom-center',
-				duration: 10000,
-				className:	'w-1/2'
-			});
-			return;
-		}
-	};
+			const result = samplingDesignAndLocationSchema.safeParse($samplingDesign);
+			console.log('🚀 ~ return ~ result:', result);
+			if (!result.success) {
+				toast(CustomToast, {
+					// @ts-ignore
+					step: 'Dataset overview',
+					// @ts-ignore
+					incompleteIssues: result.error.errors,
+					position: 'bottom-center',
+					duration: 10000,
+					className: 'w-1/2'
+				});
+				return;
+			}
+		};
 	});
 
 	// $: {
@@ -71,8 +76,7 @@
 	// 	}
 	// }
 
-	const no	= multipleEventsEnum.enum['No'];
-
+	const no = multipleEventsEnum.enum['No'];
 </script>
 
 <StepTitle title="Sampling design" />
@@ -97,11 +101,11 @@
 				</label>
 			{/each}
 		</Question>
- {#if $samplingDesign.studyDesign.multipleEvents.length && !$samplingDesign.studyDesign.multipleEvents.includes(no)}
+		{#if $samplingDesign.studyDesign.multipleEvents.length && !$samplingDesign.studyDesign.multipleEvents.includes(no)}
 			<Question
 				question="Did environmental characteristics (e.g. habitat types, disturbance types) or methods (e.g. devices or effort) vary across sampling events?"
 				direction="column"
-			><b>not existing in zod schema: envCharacteristics</b>
+				><b>not existing in zod schema: envCharacteristics</b>
 				<!-- <Radio
 					label="Identical"
 					value="identical"
@@ -131,15 +135,14 @@
 		</div>
 	</Section>
 
-<Section
+	<Section
 		title="Sampling scope"
 		description="If a specific checklist of target taxa was used in the survey, please upload it [here]."
 	>
 		<div class="grid gap-20 col-span-2">
 			<div class="col-span-2 gap-8 grid"><TargetedAndExcludedTaxa /></div>
 			<div class="col-span-2 gap-8 grid"><SpecificCategory /></div>
-			 <!-- <div class="col-span-2 gap-8 grid"><UnderRepresented2 /></div> -->
-				<b>not refactored: UnderRepresented </b>
+			<div class="col-span-2 gap-8 grid"><UnderRepresented /></div>
 		</div>
 	</Section>
 
@@ -157,30 +160,30 @@ E.g. A single baited camera trap station with motion sensor trigger, deployed fo
 		<Question question="Was sampling effort identical for all sampling events?" direction="column">
 			<Radio
 				label="Yes"
-				value="{EffortIdenticalEnum.enum["Yes"]}"
+				value={EffortIdenticalEnum.enum['Yes']}
 				bind:group={$samplingDesign.samplingEffort.effortIdentical}
 				name="effortIdentical"
 			/>
 			<Radio
 				label="No"
-				value="{EffortIdenticalEnum.enum["No"]}"
+				value={EffortIdenticalEnum.enum['No']}
 				bind:group={$samplingDesign.samplingEffort.effortIdentical}
 				name="effortIdentical"
 			/>
 			<Radio
 				label="Unsure"
-				value="{EffortIdenticalEnum.enum["Unsure"]}"
+				value={EffortIdenticalEnum.enum['Unsure']}
 				bind:group={$samplingDesign.samplingEffort.effortIdentical}
 				name="effortIdentical"
 			/>
 			<Radio
 				label="Not applicable"
 				addition="only 1 sampling event"
-				value="{EffortIdenticalEnum.enum["Not applicable (only 1 sampling event)"]}"
+				value={EffortIdenticalEnum.enum['Not applicable (only 1 sampling event)']}
 				bind:group={$samplingDesign.samplingEffort.effortIdentical}
 				name="effortIdentical"
 			/>
-			{#if $samplingDesign.samplingEffort.effortIdentical === EffortIdenticalEnum.enum["No"]}
+			{#if $samplingDesign.samplingEffort.effortIdentical === EffortIdenticalEnum.enum['No']}
 				<Textarea
 					bind:value={$samplingDesign.samplingEffort.description}
 					class="col-start-1 col-span-2"
@@ -191,15 +194,15 @@ E.g. A single baited camera trap station with motion sensor trigger, deployed fo
 			{/if}
 		</Question>
 	</Section>
-	<b>not refactored: riversAndStreams </b>
-<!-- 
-	{#if $datasetOverview.biome.core.includes('riversAndStreams') || $datasetOverview.biome.core.includes('terrestrial') || $datasetOverview.transitionalRealms.some( (realm) => realm
+
+	<!-- TODO: riverCrossSection should be an Object, not an Array. It comes in Array form from the server -->
+	{#if $datasetOverview.biome.core.freshWater.includes('Rivers and Streams') || $datasetOverview.realm.core.includes('Terrestrial') || $datasetOverview.realm.transitional.some( (realm) => realm
 					.toLowerCase()
-					.includes('terrestrial') ) || $samplingDesign.riverCrossSection.riparianZone}
+					.includes('terrestrial') ) || $samplingDesign.samplingLocation.riverCrossSection[0].type.includes('Riparian Zone')}
 		<Section title="Sampling location">
 			<div class="grid gap-32 col-span-2">
 				<div class="grid gap-24">
-					{#if $datasetOverview.coreRealmBiomes.includes('riversAndStreams')}
+					{#if $datasetOverview.biome.core.freshWater.includes('Rivers and Streams')}
 						<div><RiverZone /></div>
 						<div><StreamOrder /></div>
 						<div><RiverCrossSection /></div>
@@ -207,16 +210,16 @@ E.g. A single baited camera trap station with motion sensor trigger, deployed fo
 				</div>
 
 				<div>
-					{#if $datasetOverview.realm.core.includes('terrestrial') || $datasetOverview.transitionalRealms.some( (realm) => realm
+					{#if $datasetOverview.realm.core.includes('Terrestrial') || $datasetOverview.realm.transitional.some( (realm) => realm
 									.toLowerCase()
-									.includes('terrestrial') ) || $samplingDesign.riverCrossSection.riparianZone}
+									.includes('terrestrial') ) || $samplingDesign.samplingLocation.riverCrossSection[0].type.includes('Riparian Zone')}
 						<VegetationLayer />
 					{/if}
 				</div>
 			</div>
 		</Section>
 	{/if}
--->
+
 	<!-- <Section
 		title="Further information"
 		description={[

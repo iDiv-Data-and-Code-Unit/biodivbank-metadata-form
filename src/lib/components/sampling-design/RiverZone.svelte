@@ -32,7 +32,7 @@
 			<input
 				type="checkbox"
 				value="sourceZone"
-				bind:group={$samplingDesign.riverZone}
+				bind:group={$samplingDesign.samplingLocation.riverZone}
 				name="riverZone"
 			/>
 			<span class="text-sm shrink-0">
@@ -45,7 +45,7 @@
 			<input
 				type="checkbox"
 				value="upstream"
-				bind:group={$samplingDesign.riverZone}
+				bind:group={$samplingDesign.samplingLocation.riverZone}
 				name="riverZone"
 			/>
 			<span class="text-sm shrink-0">
@@ -58,7 +58,7 @@
 			<input
 				type="checkbox"
 				value="downstream"
-				bind:group={$samplingDesign.riverZone}
+				bind:group={$samplingDesign.samplingLocation.riverZone}
 				name="riverZone"
 			/>
 			<span class="text-sm shrink-0">
@@ -71,7 +71,7 @@
 			<input
 				type="checkbox"
 				value="mouth"
-				bind:group={$samplingDesign.riverZone}
+				bind:group={$samplingDesign.samplingLocation.riverZone}
 				name="riverZone"
 			/>
 			<span class="text-sm shrink-0"> Mouth </span>
@@ -83,7 +83,7 @@
 			<input
 				type="checkbox"
 				value="other"
-				bind:group={$samplingDesign.riverZone}
+				bind:group={$samplingDesign.samplingLocation.riverZone}
 				name="riverZone"
 			/>
 			<span class="text-sm shrink-0"> Other </span>

@@ -34,7 +34,7 @@
 						<input
 							type="checkbox"
 							value={layer.value}
-							bind:group={$samplingDesign.vegetationLayer}
+							bind:group={$samplingDesign.samplingLocation.vegetationLayer.layer}
 							name="vegetationLayer"
 						/>
 						{layer.label}
@@ -49,7 +49,7 @@
 				<input
 					type="checkbox"
 					{value}
-					bind:group={$samplingDesign.vegetationLayer}
+					bind:group={$samplingDesign.samplingLocation.vegetationLayer.layer}
 					name="vegetationLayer"
 				/>
 				{label}
