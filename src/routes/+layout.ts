@@ -1,6 +1,6 @@
 import {setApiConfig} from '$lib/stores/apiStores';
 
-export const prerender = true;
+export const prerender = false;
 export const ssr = false;
 
 
