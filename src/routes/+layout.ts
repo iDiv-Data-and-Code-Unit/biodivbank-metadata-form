@@ -15,7 +15,7 @@ export async function load({ url, fetch }) {
 	}
 	else
 	{
-		setApiConfig('https://idiv-biodivbank.inf-bb.uni-jena.de/', '', '', auth?auth:'' );
+		setApiConfig('https://idiv-biodivbank.uni-jena.de/', '', '', auth?auth:'' );
 	}
 	return {};
 }
