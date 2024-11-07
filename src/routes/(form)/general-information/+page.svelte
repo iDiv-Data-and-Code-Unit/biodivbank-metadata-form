@@ -35,8 +35,8 @@
 		auth: url.searchParams.get('auth') || ''
 	}));
 
-	console.log(url.searchParams.get('id'));
-	console.log(url.searchParams.get('auth'));
+	// console.log(url.searchParams.get('id'));
+	// console.log(url.searchParams.get('auth'));
 
 	let loaded: boolean = false;
 	export let form: ActionData;
@@ -59,6 +59,7 @@
 			if ($generalInformation === undefined) {
 				try {
 					const res = await getMetadata(id);
+					console.log("🚀 ~ load ~ res:", res)
 					const data = convertToModel(res);
 
 					metadataStructureIdStore.set(res['@id']);

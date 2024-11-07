@@ -13,7 +13,7 @@ const apiRequest = (method, url, request) => {
 	});
 
  // const token = url.searchParams.get('auth')
-console.log("🚀 ~ apiRequest ~ auth:", auth)
+ //console.log("🚀 ~ apiRequest ~ auth:", auth)
  let authorization
  if(auth!==''){
 		authorization = 'Bearer ' + auth

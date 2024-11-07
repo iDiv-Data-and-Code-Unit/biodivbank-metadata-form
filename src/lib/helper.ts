@@ -111,7 +111,7 @@ function transformJSONToApi(data) {
 					}
 				}
 				else {
-					console.log("Object, key:", key, value, typeof value);
+					//console.log("Object, key:", key, value, typeof value);
 
 					result[key] = {
 						'@ref': '',
@@ -121,7 +121,7 @@ function transformJSONToApi(data) {
 				}
 
 			} else {
-				console.log("simple, key:", key, value, typeof value);
+				//console.log("simple, key:", key, value, typeof value);
 				result[key] = formatData(value);
 
 			}

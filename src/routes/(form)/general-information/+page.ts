@@ -10,7 +10,7 @@ export async function load({ url, fetch }) {
  if(!auth && authUrlParam)
  {
    if (import.meta.env.DEV) {
-    setApiConfig('http://localhost:44345', '', '', authUrlParam?authUrlParam:'' );
+    setApiConfig('https://idiv-biodivbank.uni-jena.de/', '', '', authUrlParam?authUrlParam:'' );
    }
    else
    {
