@@ -49,7 +49,7 @@
 			</h2>
 			<form
 				target="_blank"
-				action="http://idiv-biodivbank.inf-bb.uni-jena.de/ddm/publicsearch"
+				action="https://idiv-biodivbank.uni-jena.de/ddm/publicsearch"
 				method="post"
 				class="w-5/12 flex items-center border broder-transparent focus-within:ring-2 ring-secondary bg-input px-5 py-2 rounded-md border-min-contrast-gray"
 			>
@@ -74,7 +74,7 @@
 		>
 			<p class="text-2xl font-semibold">Data Repository</p>
 			<a
-				href="http://idiv-biodivbank.inf-bb.uni-jena.de/ddm/PublicSearch"
+				href="https://idiv-biodivbank.uni-jena.de/ddm/PublicSearch"
 				class="text-secondary underline text-2xl font-medium">Explore</a
 			>
 		</div>
@@ -86,7 +86,7 @@
 		>
 			<p class="text-2xl font-semibold">Submission Portal</p>
 			<a
-				href="http://idiv-biodivbank.inf-bb.uni-jena.de/Account/Login"
+				href="https://idiv-biodivbank.uni-jena.de/Account/Login"
 				class="text-primary underline text-2xl font-medium">Contribute</a
 			>
 		</div>
