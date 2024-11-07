@@ -41,9 +41,6 @@ export function setApiConfig(_host: string, _user: string, _pw: string,	_auth: s
 	}
 	
 	authStore.update((a) => (a = _auth));
-
-	console.log('overwrite host',_host,_auth);
+	console.log('overwrite host',_host);
 }
 
-// import { getToastStore  } from '@skeletonlabs/skeleton';
-// const x = getToastStore();

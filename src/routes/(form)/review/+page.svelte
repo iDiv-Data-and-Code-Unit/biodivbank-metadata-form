@@ -15,6 +15,7 @@
 	import { metadataStore } from '$lib/stores/datasetStore';
 	import { convertToApiModel } from '$lib/helper';
 	import { get } from 'svelte/store';
+	import { setApiConfig } from '$lib/stores/apiStores';
 
 	let disabled = false;
 	let promise = Promise.resolve();
@@ -52,6 +53,7 @@
 			localStorage.removeItem("generalInformation");
 			localStorage.removeItem("datasetOverview");
 			localStorage.removeItem("samplingDesign");
+			setApiConfig('https://idiv-biodivbank.uni-jena.de/', '', '', '' );
 		}
 
 		window.parent.postMessage('saved', '*');

@@ -31,6 +31,7 @@ export const saveMetadata = async (id:number, metadata:any) => {
 		const response = await Api.put('api/metadata/'+id, metadata);
 
 		return response.data;
+		
 	} catch (error) {
 		console.error(error);
 		throw error;

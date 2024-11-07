@@ -1,20 +1,21 @@
-// export const prerender = false;
+import {setApiConfig, auth} from '$lib/stores/apiStores';
 
-// export async function load({ url, fetch }) {
-// 	const response = await fetch(
-// 		`https://rc.bexis2.uni-jena.de/api/metadata/${url.searchParams.get('id')}`,
-// 		{
-// 			method: 'GET',
-// 			headers: {
-// 				Accept: 'application/json',
-// 				Authorization: 'Bearer ' + url.searchParams.get('auth')
-// 			}
-// 		}
-// 	);
-// 	console.log(response);
+export const prerender = false;
+export const ssr = false;
 
-// 	const data = await response.json();
-// 	console.log(data);
+export async function load({ url, fetch }) {
 
-// 	return {};
-// }
+	const authUrlParam = url?.searchParams?.get('auth')
+
+ if(!auth && authUrlParam)
+ {
+   if (import.meta.env.DEV) {
+    setApiConfig('http://localhost:44345', '', '', authUrlParam?authUrlParam:'' );
+   }
+   else
+   {
+    setApiConfig('https://idiv-biodivbank.uni-jena.de/', '', '', authUrlParam?authUrlParam:'' );
+   }
+  }
+	return {};
+}
