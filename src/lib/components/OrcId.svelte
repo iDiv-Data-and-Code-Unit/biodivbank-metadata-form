@@ -81,7 +81,7 @@
 	<label for={name} class="text-sm">
 		{label}
 		{#if required}
-			<span class="text-error">*</span>
+			<span class="">*</span>
 		{/if}
 	</label>
 	<section>
@@ -118,6 +118,7 @@
 				class="bg-input disabled:bg-input-disabled px-8 rounded-md py-3 border-none w-full placeholder:text-placeholder/50"
 				on:change={handleChange}
 				on:input|preventDefault={handleInput}
+				{required}
 			/>
 		</label>
 		<br />
