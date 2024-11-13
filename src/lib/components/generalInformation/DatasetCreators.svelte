@@ -62,7 +62,6 @@
 		noRor: false,
 		ror: ''
 	};
-	let orcIdNotAvailable = false;
 
 	let isEditModalOpen = false;
 	let isPrimaryContactModalOpen = false;
@@ -88,7 +87,6 @@
 		initials = '';
 		firstNameEl.focus();
 		selectedAuthor = null;
-		orcIdNotAvailable = false;
 		notAvailable = false;
 		isPrimaryContact = false;
 		primaryContact = {
@@ -339,7 +337,7 @@
 			<div class="w-1/2 grid gap-5">
 				<OrcId
 					bind:value={orcId}
-					bind:notAvailable={orcIdNotAvailable}
+					bind:notAvailable={noOrcId}
 					name="orcId-author-list"
 					label="ORCiD *"
 					maxLength={19}
