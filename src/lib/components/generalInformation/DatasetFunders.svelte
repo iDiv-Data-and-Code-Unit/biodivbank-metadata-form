@@ -29,7 +29,7 @@
 	let selectedFunder: funderType | null = null;
 
 	function addFunder() {
-		funders = [...funders, { id: nanoid(), name, noFunderId, grantNumber }];
+		funders = [...funders, { id: id.length === 12 && !noFunderId ? id : nanoid(), name, noFunderId, grantNumber }];
 		formEl.reset();
 		nameEl.focus();
 		noFunderId = false;
@@ -71,7 +71,7 @@
 					<div class="flex items-center gap-6 col-span-5">
 						<span class="text-black-text">{funder.name}</span>
 					</div>
-					<span class="col-span-3">{funder.id ? funder.id : 'No funder ID provided'}</span>
+					<span class="col-span-3">{!funder.noFunderId ? funder.id : 'No funder ID provided'}</span>
 					<span class="col-span-2">{funder.grantNumber}</span>
 					<div class="flex items-center gap-6 text-subtle-text justify-end">
 						<button type="button" on:click={() => openEdit(funder)}>
@@ -111,11 +111,12 @@
 				<TextInput
 					bind:value={id}
 					placeholder="E.g. 501100001659"
-					label="Crossref Funder ID *"
+					label="Crossref Funder ID"
 					pattern="[0-9]&lbrace;12&rbrace;"
 					disabled={noFunderId}
 					maxlength={12}
 					errorMsg="Please enter a valid Crossref Funder ID (12 digits)"
+					required={!noFunderId}
 				/>
 				<label class="flex items-center gap-3">
 					<span class="text-sm shrink-0">No Crossref Funder ID available?</span>
