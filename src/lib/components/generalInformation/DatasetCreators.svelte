@@ -88,6 +88,7 @@
 		firstNameEl.focus();
 		selectedAuthor = null;
 		notAvailable = false;
+		noOrcId = false;
 		isPrimaryContact = false;
 		primaryContact = {
 			email: '',
@@ -339,7 +340,7 @@
 					bind:value={orcId}
 					bind:notAvailable={noOrcId}
 					name="orcId-author-list"
-					label="ORCiD *"
+					label="ORCiD"
 					maxLength={19}
 					pattern={`\\d{4}-\\d{4}-\\d{4}-\\d{4}`}
 					placeholder="Eg: 0000-0000-0000-0000"
@@ -347,6 +348,7 @@
 					invalidatedErrorMsg="ORCiD does not exist, please check that you have typed it in correctly."
 					confirmCheckboxMsg="No ORCiD available?"
 					validatedMsg="ORCiD found."
+					required={!noOrcId}
 				/>
 				<label class="flex items-center gap-3"
 					><span class="text-sm shrink-0">Primary contact?</span>
