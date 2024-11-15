@@ -1,12 +1,12 @@
 <script lang="ts">
 	// TODO: validate crossref funder id
+	import toast from 'svelte-french-toast';
 	import { nanoid } from 'nanoid';
 
 	import TextInput from '../TextInput.svelte';
 	import Collapsible from '../Collapsible.svelte';
-	import Pen from '$lib/icons/Pen.svelte';
 	import Plus from '$lib/icons/Plus.svelte';
-	import Trash from '$lib/icons/Trash.svelte';
+	import DnDList from '../DnDList.svelte';
 	import { generalInformation } from '$lib/stores/generalInformation';
 	import type { funderType } from '$lib/schemas/generalInformation';
 
@@ -29,7 +29,14 @@
 	let selectedFunder: funderType | null = null;
 
 	function addFunder() {
-		funders = [...funders, { id: id.length === 12 && !noFunderId ? id : nanoid(), name, noFunderId, grantNumber }];
+		if (funders.some((funder) => funder.id === id)) {
+			toast.error('Funder already added');
+			return;
+		}
+		funders = [
+			...funders,
+			{ id: id.length === 12 && !noFunderId ? id : nanoid(), name, noFunderId, grantNumber }
+		];
 		formEl.reset();
 		nameEl.focus();
 		noFunderId = false;
@@ -60,38 +67,22 @@
 	}
 </script>
 
-<!-- <div class="bg-divider h-px col-span-2 my-4" /> -->
-{#if funders.length}
-	<div class="col-span-2 space-y-1">
-		{#each funders as funder (funder.id)}
-			{#if !isEmpty(funder)}
-				<div
-					class="bg-secondary-white py-4 px-6 text-subtle-text border border-interactive-surface grid grid-cols-11 items-center"
-				>
-					<div class="flex items-center gap-6 col-span-5">
-						<span class="text-black-text">{funder.name}</span>
-					</div>
-					<span class="col-span-3">{!funder.noFunderId ? funder.id : 'No funder ID provided'}</span>
-					<span class="col-span-2">{funder.grantNumber}</span>
-					<div class="flex items-center gap-6 text-subtle-text justify-end">
-						<button type="button" on:click={() => openEdit(funder)}>
-							<Pen class="h-5 w-5" />
-						</button>
-						<button type="button" on:click={() => removeFunder(funder.id)}>
-							<Trash class="h-5 w-5" />
-						</button>
-					</div>
-				</div>
-			{/if}
-		{/each}
-	</div>
-{:else}
-	<div
-		class="flex items-center justify-center p-4 col-span-2 bg-secondary-white border border-dashed border-secondary-light text-secondary-light"
-	>
-		No funders added yet
-	</div>
-{/if}
+<DnDList
+	title="Funders list"
+	emptyText="No funders added yet"
+	bind:list={funders}
+	{isEmpty}
+	{openEdit}
+>
+	<svelte:fragment slot="content" let:item>
+		<div class="flex items-center gap-6">
+			<span class="text-black-text">{item.name}</span>
+		</div>
+		<span class="col-span-3">{!item.noitemId ? item.id : 'No funder ID provided'}</span>
+		<span class="col-span-2">{item.grantNumber}</span>
+	</svelte:fragment>
+</DnDList>
+
 <div class="col-span-2">
 	<Collapsible open={true} title="Add a funder"
 		><form
@@ -142,7 +133,7 @@
 </div>
 
 <!-- TODO: Edit doesn't work right now -->
- 
+
 <!-- {#if isOpen && selectedFunder}
 	<EditModal bind:isOpen author={selectedFunder} {editAuthor} />
 {/if} -->
