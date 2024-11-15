@@ -5,12 +5,11 @@
 	import Collapsible from '../Collapsible.svelte';
 	import Select from '../Select.svelte';
 	import TextInput from '../TextInput.svelte';
-	import Pen from '$lib/icons/Pen.svelte';
 	import Plus from '$lib/icons/Plus.svelte';
-	import Trash from '$lib/icons/Trash.svelte';
+	import DnDList from '../DnDList.svelte';
 	import { generalInformation } from '$lib/stores/generalInformation';
 	import { ResourceTypeEnum } from '$lib/schemas/generalInformation';
-	import type { funderType, resourceType } from '$lib/schemas/generalInformation';
+	import type { resourceType } from '$lib/schemas/generalInformation';
 
 	//10.13140/RG.2.2.25398.78400
 
@@ -124,41 +123,28 @@
 	}
 </script>
 
-<!-- <div class="bg-divider h-px col-span-2 my-4" /> -->
-{#if resources.length}
-	<div class="col-span-2 space-y-1">
-		{#each resources as resource (resource.internalId)}
-			<div
-				class="bg-secondary-white py-4 px-6 text-subtle-text border border-interactive-surface grid grid-cols-12 gap-4 items-center"
-			>
-				<div class="flex items-center gap-6 font-medium col-span-6">
-					<span class="text-black-text">{resource.type}</span>
-				</div>
-				<span class="text-black-text col-span-5"
-					><span class="text-subtle-text">doi:</span><a
-						class="underline"
-						target="_blank"
-						href={`https://doi.org/${resource.doi}`}>{resource.doi}</a
-					></span
-				>
-				<div class="flex items-center gap-6 text-subtle-text justify-end">
-					<button type="button" on:click={() => openEdit(resource)}>
-						<Pen class="h-5 w-5" />
-					</button>
-					<button type="button" on:click={() => removeResource(resource.internalId)}>
-						<Trash class="h-5 w-5" />
-					</button>
-				</div>
-			</div>
-		{/each}
+<DnDList
+	title="Resources list"
+	emptyText="No resource identifiers added yet"
+	idKey="internalId"
+	bind:list={resources}
+	{openEdit}
+	isEmpty={(resource) => resource.doi === ''}
+>
+	<div class="grid grid-cols-6 w-full col-span-6 gap-3 items-center" slot="content" let:item>
+		<div class="flex items-center gap-6 font-medium col-span-3">
+			<span class="text-black-text">{item.type}</span>
+		</div>
+		<span class="text-black-text col-span-3"
+			><span class="text-subtle-text">doi:</span><a
+				class="underline"
+				target="_blank"
+				href={`https://doi.org/${item.doi}`}>{item.doi}</a
+			></span
+		>
 	</div>
-{:else}
-	<div
-		class="flex items-center justify-center p-4 col-span-2 bg-secondary-white border border-dashed border-secondary-light text-secondary-light"
-	>
-		No resource identifiers added yet
-	</div>
-{/if}
+</DnDList>
+
 <div class="col-span-2">
 	<Collapsible open={true} title="Add a resource"
 		><form
@@ -174,7 +160,12 @@
 				options={resourceTypes}
 			/>
 			{#if type === 'Other'}
-				<TextInput label="" placeholder="Please specify resource type" bind:value={otherType} />
+				<TextInput
+					label="Type"
+					placeholder="Please specify resource type"
+					bind:value={otherType}
+					required
+				/>
 			{/if}
 			<TextInput
 				bind:value={doi}
