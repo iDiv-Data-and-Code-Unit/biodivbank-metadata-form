@@ -1,14 +1,9 @@
 <!-- TODO: append new entry after important -->
 <script lang="ts">
-	import clsx from 'clsx';
 	import { nanoid } from 'nanoid';
-	import { flip } from 'svelte/animate';
 	import { enhance } from '$app/forms';
 
 	import countries from './countries.json';
-	import Pen from '$lib/icons/Pen.svelte';
-	import Trash from '$lib/icons/Trash.svelte';
-	import Handle from '$lib/icons/Handle.svelte';
 	import Plus from '$lib/icons/Plus.svelte';
 	import EditModal from './EditModal.svelte';
 	import TextInput from '../TextInput.svelte';
@@ -17,9 +12,10 @@
 	import Collapsible from '../Collapsible.svelte';
 	import PrimaryContactModal from './PrimaryContactModal.svelte';
 	import Ror from '../ROR.svelte';
+	import DnDList from '../DnDList.svelte';
 	import { convertToDataAuthor, convertToListAuthor } from '$lib/helper';
 	import { generalInformation } from '$lib/stores/generalInformation';
-	import type { ListAuthor, Author, PrimaryContact, ImportAuthor } from '$lib/types/author';
+	import type { ListAuthor, PrimaryContact, ImportAuthor } from '$lib/types/author';
 
 	let authors: ListAuthor[] = [];
 
@@ -67,8 +63,6 @@
 	let isPrimaryContactModalOpen = false;
 	let selectedAuthor: ListAuthor | null = null;
 
-	let notAvailable = false;
-
 	function addAuthor() {
 		authors = [
 			...authors,
@@ -87,7 +81,6 @@
 		initials = '';
 		firstNameEl.focus();
 		selectedAuthor = null;
-		notAvailable = false;
 		noOrcId = false;
 		isPrimaryContact = false;
 		primaryContact = {
@@ -122,10 +115,6 @@
 		if (importedAuthors) {
 			addAuthors();
 		}
-	}
-
-	function removeAuthor(id: string) {
-		authors = authors.filter((author) => author.id !== id);
 	}
 
 	function openEdit(author: ListAuthor) {
@@ -172,43 +161,6 @@
 		selectedAuthor = null;
 	}
 
-	let target: EventTarget | null = null;
-	let hovering: number | null = null;
-	let grabbed = false;
-
-	function dragStart(event: DragEvent, idx: number, author: Author) {
-		if (target instanceof Element && target?.id.startsWith('handle')) {
-			if (event.dataTransfer) {
-				event.dataTransfer.effectAllowed = 'move';
-				event.dataTransfer.dropEffect = 'move';
-				event.dataTransfer.setData('text/plain', idx.toString());
-				grabbed = true;
-			}
-		} else {
-			event.preventDefault();
-			grabbed = false;
-		}
-	}
-
-	function drop(event: DragEvent, idx: number) {
-		if (event.dataTransfer) {
-			event.dataTransfer.dropEffect = 'move';
-			const start = parseInt(event.dataTransfer.getData('text/plain'));
-			const newAuthorList = authors;
-
-			if (start < idx) {
-				newAuthorList.splice(idx + 1, 0, newAuthorList[start]);
-				newAuthorList.splice(start, 1);
-			} else {
-				newAuthorList.splice(idx, 0, newAuthorList[start]);
-				newAuthorList.splice(start + 1, 1);
-			}
-			authors = newAuthorList;
-			hovering = null;
-			grabbed = false;
-		}
-	}
-
 	function changePrimaryContactStatus(id: string) {
 		authors = authors.map((author) => {
 			if (author.id === id) {
@@ -233,59 +185,28 @@
 	}
 </script>
 
-{#if authors?.length}
-	<div class="col-span-2 space-y-1">
-		{#each authors as author, idx (author.id)}
-			<div
-				on:mousedown={(e) => {
-					target = e.target;
-				}}
-				animate:flip
-				draggable={true}
-				on:dragstart={(e) => dragStart(e, idx, author)}
-				on:dragover|preventDefault
-				on:dragenter={(e) => {
-					hovering = idx;
-				}}
-				on:drop|preventDefault={(e) => drop(e, idx)}
-				class={clsx(
-					'bg-interactive-surface py-4 px-6 text-subtle-text border border-interactive-surface grid grid-cols-8 items-center',
-					hovering === idx && 'border-red-600'
-				)}
-				role="button"
-				tabindex="0"
-				aria-grabbed={grabbed}
-				aria-roledescription="Authors list"
-			>
-				{#if !isEmpty(author)}
-					<div class="flex items-center gap-10">
-						<div id="handle">
-							<Handle />
-						</div>
-						<span>
-							<input
-								type="checkbox"
-								bind:checked={author.isPrimaryContact}
-								on:click={() => openPrimaryContactDetails(author)}
-								aria-roledescription="Author's primary contact status"
-							/>
-						</span>
-					</div>
-					<span class="text-black-text col-span-4 text-start"
-						>{author.firstName} {author.initials} {author.familyName}</span
-					>
-					<span class="col-span-2">{!!author.orcId ? author.orcId : 'No ORCiD provided'}</span>
-					<div class="flex items-center gap-6 text-subtle-text justify-end">
-						<button type="button" on:click={() => openEdit(author)}>
-							<Pen class="h-5 w-5" />
-						</button>
-						<button type="button" on:click={() => removeAuthor(author.id)}>
-							<Trash class="h-5 w-5" />
-						</button>
-					</div>
-				{/if}
-			</div>
-		{/each}
+<DnDList
+	title="Authors list"
+	emptyText="No creators added yet"
+	bind:list={authors}
+	{isEmpty}
+	{openEdit}
+>
+	<span slot="lead" let:item>
+		<input
+			type="checkbox"
+			checked={item.isPrimaryContact}
+			on:click={() => openPrimaryContactDetails(item)}
+			aria-roledescription="Author's primary contact status"
+		/>
+	</span>
+	<svelte:fragment slot="content" let:item>
+		<span class="text-black-text col-span-4 text-start"
+			>{item.firstName} {item.initials} {item.familyName}</span
+		>
+		<span class="col-span-2">{!!item.orcId ? item.orcId : 'No ORCiD provided'}</span>
+	</svelte:fragment>
+	<svelte:fragment slot="description">
 		<p class="text-subtle-text text-sm flex gap-1.5 items-center pt-2">
 			Select the <input
 				type="checkbox"
@@ -295,14 +216,9 @@
 			/> to indicate which authors are primary contacts. At least one author must be a primary contact
 			for the dataset.
 		</p>
-	</div>
-{:else}
-	<div
-		class="flex items-center justify-center p-4 col-span-2 bg-secondary-white border border-dashed border-secondary-light text-secondary-light"
-	>
-		No creators added yet
-	</div>
-{/if}
+	</svelte:fragment>
+</DnDList>
+
 <div class="h-px col-span-2 my-2" />
 <div class="col-span-2">
 	<Collapsible title="Add an author *" open={true}>
