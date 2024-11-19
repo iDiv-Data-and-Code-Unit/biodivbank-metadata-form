@@ -9,7 +9,8 @@
 	export let title: string = '';
 	export let list: any[] = [];
 	export let emptyText: string = 'No items added yet';
-  export let idKey: string = 'id';
+	export let idKey: string = 'id';
+	export let disableDnD: boolean = false;
 	export let openEdit: (item: any) => void;
 	export let isEmpty: (item: any) => boolean;
 
@@ -80,13 +81,17 @@
 				aria-roledescription={title}
 			>
 				{#if !isEmpty(item)}
-					<div class="flex items-center gap-10">
-						<div id="handle" class="cursor-grab">
-							<Handle />
-						</div>
-						<slot name="lead" {item} />
-					</div>
+					{#if !disableDnD || $$slots.lead}
+						<div class="flex items-center gap-10">
+							{#if !disableDnD}
+								<div id="handle" class="cursor-grab">
+									<Handle />
+								</div>
+							{/if}
 
+							<slot name="lead" {item} />
+						</div>
+					{/if}
 					<slot name="content" {item} />
 					<slot name="end" {item}>
 						<div class="flex items-center gap-6 text-subtle-text justify-end">
