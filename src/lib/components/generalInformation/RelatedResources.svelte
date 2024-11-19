@@ -129,10 +129,11 @@
 	idKey="internalId"
 	bind:list={resources}
 	{openEdit}
+	disableDnD
 	isEmpty={(resource) => resource.doi === ''}
 >
-	<div class="grid grid-cols-6 w-full col-span-6 gap-3 items-center" slot="content" let:item>
-		<div class="flex items-center gap-6 font-medium col-span-3">
+	<svelte:fragment slot="content" let:item>
+		<div class="flex items-center font-medium col-span-4">
 			<span class="text-black-text">{item.type}</span>
 		</div>
 		<span class="text-black-text col-span-3"
@@ -142,7 +143,7 @@
 				href={`https://doi.org/${item.doi}`}>{item.doi}</a
 			></span
 		>
-	</div>
+	</svelte:fragment>
 </DnDList>
 
 <div class="col-span-2">

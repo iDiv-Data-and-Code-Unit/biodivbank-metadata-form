@@ -71,14 +71,15 @@
 	title="Funders list"
 	emptyText="No funders added yet"
 	bind:list={funders}
+	disableDnD
 	{isEmpty}
 	{openEdit}
 >
 	<svelte:fragment slot="content" let:item>
-		<div class="flex items-center gap-6">
+		<div class="flex items-center gap-6 col-span-2">
 			<span class="text-black-text">{item.name}</span>
 		</div>
-		<span class="col-span-3">{!item.noitemId ? item.id : 'No funder ID provided'}</span>
+		<span class="col-span-3">{!item.noFunderId ? item.id : 'No funder ID provided'}</span>
 		<span class="col-span-2">{item.grantNumber}</span>
 	</svelte:fragment>
 </DnDList>
