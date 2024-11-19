@@ -19,7 +19,7 @@
 		'October',
 		'November',
 		'December'
-	];
+	] as const;
 
 	let startMonth = '';
 	let endMonth = '';
@@ -42,33 +42,6 @@
 		day: undefined
 	};
 
-	$: start, updateStart();
-	$: end, updateEnd();
-
-	function updateStart() {
-		console.log('🚀 ~ updateStart ~ start', start);
-		if (start.day != undefined && start.month != '' && start.year != undefined) {
-			const sm = months.indexOf(start.month) + 1;
-			$datasetOverview.temporalScope = {
-				...$datasetOverview.temporalScope!,
-				start: new Date(start.year, sm, start.day)
-			};
-		}
-	}
-
-	function updateEnd() {
-		console.log('🚀 ~ updateEnd ~ start', end);
-		if (end.day != undefined && end.month != '' && end.year != undefined) {
-			const sm = months.indexOf(end.month) + 1;
-			$datasetOverview.temporalScope = {
-				...$datasetOverview.temporalScope!,
-				end: new Date(end.year, sm, end.day)
-			};
-		}
-
-		console.log($datasetOverview.temporalScope);
-	}
-
 	onMount(() => {
 		console.log('🚀 ~ initDates ~ newDate:', $datasetOverview.temporalScope);
 		//initDates();
@@ -84,6 +57,54 @@
 
 		// const newDate = new Date($datasetOverview.temporalScope.start.getFullYear, $datasetOverview.temporalScope.start.getMonth, $datasetOverview.temporalScope.start.getDay);
 	});
+
+	const maxDays = (date: dateType) =>
+		months.reduce(
+			(acc, month) => {
+				const year = date.year || currentYear;
+				const monthIndex = months.indexOf(month);
+				const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+
+				acc[month] = daysInMonth;
+				return acc;
+			},
+			months.map((month) => ({ [month]: 0 })).reduce((acc, curr) => ({ ...acc, ...curr }), {})
+		);
+
+	const updateDate = (type: 'start' | 'end', date: dateType) => {
+		if (date.day != undefined && date.month != '' && date.year != undefined) {
+			const m = months.indexOf(date.month as (typeof months)[number]);
+			$datasetOverview.temporalScope = {
+				...$datasetOverview.temporalScope!,
+				[type]: new Date(date.year, m, date.day)
+			};
+		}
+	};
+
+	const onMonthChange = (type: 'start' | 'end') => {
+		if (type === 'start') {
+			start.day = start.day
+				? start.day > maxDaysStartMonth[start.month]
+					? maxDaysStartMonth[start.month]
+					: start.day
+				: 1;
+			maxDaysStartMonth = maxDays(start);
+		} else {
+			end.day = end.day
+				? end.day > maxDaysEndMonth[end.month]
+					? maxDaysEndMonth[end.month]
+					: end.day
+				: 1;
+		}
+	};
+
+	$: currentYear = new Date().getFullYear();
+	$: maxDaysStartMonth = maxDays(start);
+	$: maxDaysEndMonth = maxDays(end);
+	$: start, updateDate('start', start);
+	$: end, updateDate('end', end);
+	$: start.year, onMonthChange('start');
+	$: end.year, onMonthChange('end');
 </script>
 
 <Question question="What is the temporal extent of the dataset?" direction="column">
@@ -94,8 +115,11 @@
 			<input
 				class="bg-input rounded-md px-4 py-3 border-none w-full placeholder:text-placeholder"
 				placeholder="Year"
-				type="text"
+				type="number"
 				bind:value={start.year}
+				required
+				min={1}
+				max={currentYear}
 			/>
 			<select
 				class={clsx(
@@ -103,6 +127,7 @@
 					!startMonth && 'text-placeholder'
 				)}
 				bind:value={start.month}
+				on:change={() => onMonthChange('start')}
 			>
 				<option value="" disabled class="text-placeholder">Month</option>
 				{#each months as month}
@@ -114,6 +139,8 @@
 				placeholder="Day"
 				type="number"
 				bind:value={start.day}
+				min={1}
+				max={maxDaysStartMonth[start.month]}
 			/>
 		</div>
 	</div>
@@ -126,6 +153,9 @@
 				placeholder="Year"
 				type="number"
 				bind:value={end.year}
+				min={1}
+				max={currentYear}
+				required
 			/>
 			<select
 				class={clsx(
@@ -133,6 +163,7 @@
 					!endMonth && 'text-placeholder'
 				)}
 				bind:value={end.month}
+				on:change={() => onMonthChange('end')}
 			>
 				<option value="" disabled class="text-placeholder">Month</option>
 				{#each months as month}
@@ -144,6 +175,8 @@
 				placeholder="Day"
 				type="number"
 				bind:value={end.day}
+				min={1}
+				max={maxDaysEndMonth[end.month]}
 			/>
 		</div>
 	</div>
