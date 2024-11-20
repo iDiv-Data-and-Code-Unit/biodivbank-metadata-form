@@ -1,20 +1,24 @@
 <script lang="ts">
-	import { onMount, onDestroy, setContext } from 'svelte';
 	import L from 'leaflet';
+	import * as topojson from 'topojson-client';
+	import { onMount, onDestroy, setContext } from 'svelte';
+
 	import 'leaflet/dist/leaflet.css';
 	import geoJson from '$lib/geo.json';
-	import * as topojson from 'topojson-client';
 	import { geoStore } from '$lib/stores/geo';
 	import { datasetOverview } from '$lib/stores/datasetOverview';
+
+	export let bounds: L.LatLngBoundsExpression | undefined = undefined;
+	export let view: L.LatLngExpression | undefined = undefined;
+	export let zoom: number | undefined = undefined;
 
 	let map: L.Map | undefined;
 	let mapElement: HTMLDivElement;
 
 	let geoJsonData: any;
 
-	export let bounds: L.LatLngBoundsExpression | undefined = undefined;
-	export let view: L.LatLngExpression | undefined = undefined;
-	export let zoom: number | undefined = undefined;
+	let countries: string[] = $datasetOverview.geographicScope.countries;
+	let marineRegions: string[] = $datasetOverview.geographicScope.marineRegions;
 
 	// @ts-ignore
 	L.TopoJSON = L.GeoJSON.extend({
@@ -35,12 +39,12 @@
 	});
 
 	// @ts-ignore
-	L.topoJson = function (data: any, options: any) {
+	L.topoJson = (data: any, options: any) => {
 		// @ts-ignore
 		return new L.TopoJSON(data, options);
 	};
 
-	function initializeMap() {
+	const initializeMap = () => {
 		if (!bounds && (!view || !zoom)) {
 			throw new Error('Must set either bounds, or view and zoom');
 		}
@@ -70,7 +74,9 @@
 							? $datasetOverview.geographicScope.countries.includes(feature.properties['title_EN'])
 								? '#0f9d38'
 								: '#B4F8C8'
-							: $datasetOverview.geographicScope.marineRegions.includes(feature.properties['title_EN'])
+							: $datasetOverview.geographicScope.marineRegions.includes(
+									feature.properties['title_EN']
+							  )
 							? '#289f9c'
 							: '#A0E7E5',
 					fillOpacity:
@@ -111,15 +117,19 @@
 			const regionType: string = e.layer.feature.properties['regiontype'];
 			if (regionType === 'ADM') {
 				if ($datasetOverview.geographicScope.countries.includes(region)) {
-					$datasetOverview.geographicScope.countries = $datasetOverview.geographicScope.countries.filter(
-						(country: string) => country !== region
-					);
+					$datasetOverview.geographicScope.countries =
+						$datasetOverview.geographicScope.countries.filter(
+							(country: string) => country !== region
+						);
 					e.layer.setStyle({
 						fillColor: '#B4F8C8',
 						fillOpacity: 0.2
 					});
 				} else {
-					$datasetOverview.geographicScope.countries = [...$datasetOverview.geographicScope.countries, region];
+					$datasetOverview.geographicScope.countries = [
+						...$datasetOverview.geographicScope.countries,
+						region
+					];
 					e.layer.setStyle({
 						fillColor: '#0f9d38',
 						fillOpacity: 0.5
@@ -127,15 +137,19 @@
 				}
 			} else {
 				if ($datasetOverview.geographicScope.marineRegions.includes(region)) {
-					$datasetOverview.geographicScope.marineRegions = $datasetOverview.geographicScope.marineRegions.filter(
-						(country: string) => country !== region
-					);
+					$datasetOverview.geographicScope.marineRegions =
+						$datasetOverview.geographicScope.marineRegions.filter(
+							(country: string) => country !== region
+						);
 					e.layer.setStyle({
 						fillColor: '#A0E7E5',
 						fillOpacity: 0.2
 					});
 				} else {
-					$datasetOverview.geographicScope.marineRegions = [...$datasetOverview.geographicScope.marineRegions, region];
+					$datasetOverview.geographicScope.marineRegions = [
+						...$datasetOverview.geographicScope.marineRegions,
+						region
+					];
 					e.layer.setStyle({
 						fillColor: '#289f9c',
 						fillOpacity: 0.5
@@ -144,17 +158,45 @@
 			}
 		});
 		geoJsonData.addData(geoJson);
-	}
+	};
+
+	const toggleRegion = (region: string) => {
+		const layerIndex = geoJsonData
+			.getLayers()
+			.findIndex((layer: any) => layer.feature.properties['title_EN'] === region);
+		const layer = geoJsonData.getLayers()[layerIndex];
+		const regionType = layer.feature.properties['regiontype'];
+
+		if (regionType === 'ADM') {
+			if (!$datasetOverview.geographicScope.countries.includes(region)) {
+				layer.setStyle({
+					fillColor: '#B4F8C8',
+					fillOpacity: 0.2
+				});
+			} else {
+				layer.setStyle({
+					fillColor: '#0f9d38',
+					fillOpacity: 0.5
+				});
+			}
+		} else {
+			if (!$datasetOverview.geographicScope.marineRegions.includes(region)) {
+				layer.setStyle({
+					fillColor: '#A0E7E5',
+					fillOpacity: 0.2
+				});
+			} else {
+				layer.setStyle({
+					fillColor: '#289f9c',
+					fillOpacity: 0.5
+				});
+			}
+		}
+
+		geoJsonData.getLayers()[layerIndex] = layer;
+	};
 
 	onMount(initializeMap);
-
-	$: if (map) {
-		if (bounds) {
-			map.fitBounds(bounds);
-		} else if (view && zoom) {
-			map.setView(view, zoom);
-		}
-	}
 
 	onDestroy(() => {
 		map?.remove();
@@ -164,6 +206,48 @@
 	setContext('map', {
 		getMap: () => map
 	});
+
+	datasetOverview.subscribe((value) => {
+		const changedCountries = [
+			...value.geographicScope.countries.filter((country: string) => !countries.includes(country)),
+			...countries.filter((country: string) => !value.geographicScope.countries.includes(country))
+		];
+
+		const changedMarineRegions = [
+			...value.geographicScope.marineRegions.filter(
+				(region: string) => !marineRegions.includes(region)
+			),
+			...marineRegions.filter(
+				(region: string) => !value.geographicScope.marineRegions.includes(region)
+			)
+		];
+
+		console.log(changedCountries, changedMarineRegions);
+
+		changedCountries.forEach((country: string) => {
+			toggleRegion(country);
+		});
+
+		changedMarineRegions.forEach((region: string) => {
+			toggleRegion(region);
+		});
+
+		if (changedCountries.length > 0) {
+			countries = [...value.geographicScope.countries];
+		}
+
+		if (changedMarineRegions.length > 0) {
+			marineRegions = [...value.geographicScope.marineRegions];
+		}
+	});
+
+	$: if (map) {
+		if (bounds) {
+			map.fitBounds(bounds);
+		} else if (view && zoom) {
+			map.setView(view, zoom);
+		}
+	}
 </script>
 
 <div class="w-full h-full" bind:this={mapElement}>
