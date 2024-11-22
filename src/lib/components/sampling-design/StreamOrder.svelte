@@ -1,7 +1,9 @@
 <script lang="ts">
+	import MultiSelect from 'svelte-multiselect';
+
 	import Question from '../formControls/Question.svelte';
 	import Select from '../Select.svelte';
-	import MultiSelect from 'svelte-multiselect';
+	import { samplingDesign } from '$lib/stores/samplingDesign';
 
 	let classificationSystem = [
 		'Strahler',
@@ -30,15 +32,15 @@
 		<Select
 			label="Classification system used"
 			placeholder="Select a framework..."
-			value=""
 			options={classificationSystem}
+			bind:value={$samplingDesign.samplingLocation.streamOrder.classificationSystem}
 		/>
 		<MultiSelect
 			id="stream-order"
 			outerDivClass="!w-full !bg-input !rounded-md !px-4 !py-3 !border-none !text-base !text-placeholder"
 			options={streamOrder}
 			placeholder="Select all values that apply..."
-			bind:selected
+			bind:selected={$samplingDesign.samplingLocation.streamOrder.value}
 		/>
 	</div>
 </Question>
