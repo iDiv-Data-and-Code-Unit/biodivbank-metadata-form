@@ -40,6 +40,7 @@
 		formEl.reset();
 		nameEl.focus();
 		noFunderId = false;
+		id = '';
 	}
 
 	function removeFunder(id: any) {
