@@ -30,14 +30,16 @@
 		day: number | undefined;
 	};
 
+	const currentYear = new Date().getFullYear();
+
 	let start: dateType = {
-		year: undefined,
+		year: currentYear,
 		month: '',
 		day: undefined
 	};
 
 	let end: dateType = {
-		year: undefined,
+		year: currentYear,
 		month: '',
 		day: undefined
 	};
@@ -98,7 +100,6 @@
 		}
 	};
 
-	$: currentYear = new Date().getFullYear();
 	$: maxDaysStartMonth = maxDays(start);
 	$: maxDaysEndMonth = maxDays(end);
 	$: start, updateDate('start', start);
@@ -118,8 +119,8 @@
 				type="number"
 				bind:value={start.year}
 				required
-				min={1}
-				max={currentYear}
+				min={1000}
+				max={currentYear + 1}
 			/>
 			<select
 				class={clsx(
@@ -153,8 +154,8 @@
 				placeholder="Year"
 				type="number"
 				bind:value={end.year}
-				min={1}
-				max={currentYear}
+				min={1000}
+				max={currentYear + 1}
 				required
 			/>
 			<select
