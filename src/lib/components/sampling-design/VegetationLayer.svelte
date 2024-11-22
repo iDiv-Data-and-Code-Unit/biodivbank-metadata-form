@@ -55,7 +55,11 @@
 				{label}
 			</label>
 			{#if value === 'other'}
-				<TextInput placeholder="Please tell us more..." label="" />
+				<TextInput
+					placeholder="Please tell us more..."
+					label=""
+					bind:value={$samplingDesign.samplingLocation.vegetationLayer.other}
+				/>
 			{/if}
 		{/each}
 	</div>
