@@ -26,7 +26,9 @@
 	import { onMount } from 'svelte';
 	import toast from 'svelte-french-toast';
 	import { datasetIdStore, metadataStructureIdStore } from '$lib/stores/datasetStore';
+	import { localDatasetsStore } from '$lib/stores/localDatasets';
 	import { generalInformation } from '$lib/stores/generalInformation';
+	import type { LocalDataset } from '$lib/types/schema';
 
 	// $: console.log($params);
 	console.log('********** SAMPLEDESIGN *************************************');
@@ -68,6 +70,33 @@
 				return;
 			}
 		};
+	});
+
+	samplingDesign.subscribe((value) => {
+		if (localStorage) {
+			localDatasetsStore.update((current) => {
+				if (!current) {
+					return [];
+				}
+				const index = current.findIndex((d: LocalDataset) => d.id === $datasetIdStore);
+				if (index === -1) {
+					current.push({
+						id: $datasetIdStore,
+						generalInformation: $generalInformation,
+						datasetOverview: $datasetOverview,
+						samplingDesign: value
+					});
+				} else {
+					current[index] = {
+						id: $datasetIdStore,
+						generalInformation: $generalInformation,
+						datasetOverview: $datasetOverview,
+						samplingDesign: value
+					};
+				}
+				return current;
+			});
+		}
 	});
 
 	// $: {
@@ -220,7 +249,7 @@ E.g. A single baited camera trap station with motion sensor trigger, deployed fo
 		</Section>
 	{/if}
 
-	<!-- <Section
+	<Section
 		title="Further information"
 		description={[
 			'For example, could another person re-run your field study, or fully interpret and reuse this dataset, without additional information? If not, please use the textbox to add further detail.',
@@ -230,12 +259,13 @@ E.g. A single baited camera trap station with motion sensor trigger, deployed fo
 		<Question
 			question="Are there any details of your sampling methodology that have not been captured by this form?"
 		>
-			<Textarea
+			<b>not existing in zod schema: furtherInformation</b>
+			<!-- <Textarea
 				bind:value={$samplingDesign.furtherInformation.details}
 				placeholder="Describe any aspect of the study design, scheduling or spatial distribution of sampling, methodology or equipment used, pre-processing of raw data, environmental conditions during a survey or unforeseen events, that are not covered by this metadata form. Be as specific as possible."
 				label=""
 				rows={10}
-			/>
+			/> -->
 		</Question>
-	</Section> -->
+	</Section>
 </div>

@@ -2,18 +2,7 @@ import type { DatasetOverview } from '$lib/types/schema';
 import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
 
-
-// const initialStore: DatasetOverview = undefined;
-
-let storedValue: DatasetOverview | undefined;
-if (browser) {
-	const localStorageValue = localStorage.getItem('datasetOverview') || '';
-	storedValue = localStorageValue.length ? JSON.parse(localStorageValue) as DatasetOverview : undefined;
-} else {
-	storedValue = undefined;
-}
-
-export const datasetOverview = writable<DatasetOverview>(storedValue);
+export const datasetOverview = writable<DatasetOverview>();
 
 datasetOverview.subscribe((value) => {
 	if (browser) {

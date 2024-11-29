@@ -15,10 +15,15 @@
 	import { datasetOverview } from '$lib/stores/datasetOverview';
 	import { step } from '$lib/stores/steps';
 	import { geoStore } from '$lib/stores/geo';
-	import { datasetIdStore, metadataStructureIdStore } from '$lib/stores/datasetStore';
+	import {
+		datasetIdStore,
+		metadataStructureIdStore
+	} from '$lib/stores/datasetStore';
 	import { generalInformation } from '$lib/stores/generalInformation';
 	import { samplingDesign } from '$lib/stores/samplingDesign';
 	import { datasetOverviewSchema } from '$lib/schemas/datasetOverview';
+	import { localDatasetsStore } from '$lib/stores/localDatasets';
+	import type { LocalDataset } from '$lib/types/schema';
 
 	onMount(() => {
 		console.log('********** DATASETOVERVIEW *************************************');
@@ -53,6 +58,33 @@
 				return;
 			}
 		};
+	});
+
+	datasetOverview.subscribe((value) => {
+		if (localStorage) {
+			localDatasetsStore.update((current) => {
+				if (!current) {
+					return [];
+				}
+				const index = current.findIndex((d: LocalDataset) => d.id === $datasetIdStore);
+				if (index === -1) {
+					current.push({
+						id: $datasetIdStore,
+						generalInformation: $generalInformation,
+						datasetOverview: value,
+						samplingDesign: $samplingDesign
+					});
+				} else {
+					current[index] = {
+						id: $datasetIdStore,
+						generalInformation: $generalInformation,
+						datasetOverview: value,
+						samplingDesign: $samplingDesign
+					};
+				}
+				return current;
+			});
+		}
 	});
 </script>
 

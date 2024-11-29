@@ -12,6 +12,7 @@
 	import RelatedResources from '$lib/components/generalInformation/RelatedResources.svelte';
 	import CustomToast from '$lib/components/CustomToast.svelte';
 	import { generalInformation } from '$lib/stores/generalInformation';
+	import { localDatasetsStore } from '$lib/stores/localDatasets';
 	import { step } from '$lib/stores/steps';
 	import {
 		datasetIdStore,
@@ -25,7 +26,8 @@
 	import { getMetadata, saveMetadata } from '../services';
 	import { convertToModel } from '$lib/helper';
 	import { generalInformationSchema } from '$lib/schemas/generalInformation';
-	import type { ActionData, PageData } from '../../(form)/general-information/$types';
+	import type { ActionData } from './$types';
+	import type { LocalDataset } from '$lib/types/schema';
 
 	const url = $page.url;
 
@@ -46,20 +48,33 @@
 			let id = 2;
 
 			if ($params?.id) {
-				id = JSON.parse($params.id);
+				id = +JSON.parse($params.id);
 			}
 
 			datasetIdStore.set(id);
+
+			if (localStorage) {
+				const localDatasets = localStorage.getItem('localDatasets');
+				const initialValue = localDatasets ? JSON.parse(localDatasets) : [];
+				localDatasetsStore.set(initialValue);
+
+				const localDataset = initialValue.find((d: LocalDataset) => d.id === id);
+				if (localDataset) {
+					generalInformation.set(localDataset.generalInformation);
+					datasetOverview.set(localDataset.datasetOverview);
+					samplingDesign.set(localDataset.samplingDesignAndLocation);
+				}
+			}
 
 			// ATTENTION
 			// if go back to this stepp currently means reload metadata from  bexis2
 			// need to change	this to load from store but with a reset option from the beginning
 			// or start with a other page as entry	point
 
-			if ($generalInformation === undefined) {
+			if (localStorage && $generalInformation === undefined) {
 				try {
 					const res = await getMetadata(id);
-					console.log("🚀 ~ load ~ res:", res)
+					console.log('🚀 ~ load ~ res:', res);
 					const data = convertToModel(res);
 
 					metadataStructureIdStore.set(res['@id']);
@@ -102,6 +117,33 @@
 				return;
 			}
 		};
+	});
+
+	generalInformation.subscribe((value) => {
+		if (localStorage) {
+			localDatasetsStore.update((current) => {
+				if (!current) {
+					return [];
+				}
+				const index = current.findIndex((d: LocalDataset) => d.id === $datasetIdStore);
+				if (index === -1) {
+					current.push({
+						id: $datasetIdStore,
+						generalInformation: value,
+						datasetOverview: $datasetOverview,
+						samplingDesign: $samplingDesign
+					});
+				} else {
+					current[index] = {
+						id: $datasetIdStore,
+						generalInformation: value,
+						datasetOverview: $datasetOverview,
+						samplingDesign: $samplingDesign
+					};
+				}
+				return current;
+			});
+		}
 	});
 </script>
 

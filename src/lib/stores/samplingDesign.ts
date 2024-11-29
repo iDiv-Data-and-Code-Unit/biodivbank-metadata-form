@@ -2,15 +2,7 @@ import type { SamplingDesign } from '$lib/types/schema';
 import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
 
-let storedValue: SamplingDesign | undefined;
-if (browser) {
-	const localStorageValue = localStorage.getItem('samplingDesign') || '';
-	storedValue = localStorageValue.length ? JSON.parse(localStorageValue) as SamplingDesign : undefined;
-} else {
-	storedValue = undefined;
-}
-
-export const samplingDesign = writable<SamplingDesign>(storedValue);
+export const samplingDesign = writable<SamplingDesign>();
 
 samplingDesign.subscribe((value) => {
 	if (browser) {

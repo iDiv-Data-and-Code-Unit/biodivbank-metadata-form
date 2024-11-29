@@ -28,15 +28,7 @@ import { browser } from '$app/environment';
 // 	resources: []
 // };
 
-let storedValue: GeneralInformation | undefined;
-if (browser) {
-	const localStorageValue = localStorage.getItem('generalInformation') || '';
-	storedValue = localStorageValue.length ? JSON.parse(localStorageValue) as GeneralInformation : undefined;
-} else {
-	storedValue = undefined;
-}
-
-export const generalInformation = writable<GeneralInformation>(storedValue);
+export const generalInformation = writable<GeneralInformation>();
 
 generalInformation.subscribe((value) => {
 	if (browser) {
