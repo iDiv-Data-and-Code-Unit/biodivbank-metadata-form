@@ -8,6 +8,12 @@ import { datasetOverviewSchema } from '$lib/schemas/datasetOverview';
 export type SamplingDesign = z.infer<typeof samplingDesignAndLocationSchema>
 export type GeneralInformation = z.infer<typeof generalInformationSchema>
 export type DatasetOverview = z.infer<typeof datasetOverviewSchema>
+export type LocalDataset = {
+	id: number;
+	generalInformation: GeneralInformation;
+	datasetOverview: DatasetOverview;
+	samplingDesign: SamplingDesign;
+}
 
 // export type Funder = {
 // 	id: string;
