@@ -58,11 +58,11 @@
 				const initialValue = localDatasets ? JSON.parse(localDatasets) : [];
 				localDatasetsStore.set(initialValue);
 
-				const localDataset = initialValue.find((d: LocalDataset) => d.id === id);
+				const localDataset: LocalDataset = initialValue.find((d: LocalDataset) => d.id === id);
 				if (localDataset) {
 					generalInformation.set(localDataset.generalInformation);
 					datasetOverview.set(localDataset.datasetOverview);
-					samplingDesign.set(localDataset.samplingDesignAndLocation);
+					samplingDesign.set(localDataset.samplingDesign);
 				}
 			}
 

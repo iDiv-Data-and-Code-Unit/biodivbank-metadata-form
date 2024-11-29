@@ -6,7 +6,7 @@ import type { LocalDataset } from '$lib/types/schema';
 let storedValue: LocalDataset[] | undefined;
 if (browser) {
 	const localStorageValue = localStorage.getItem('localDatasets') || '';
-	console.log(localStorageValue)
+
 	storedValue = localStorageValue.length ? JSON.parse(localStorageValue) as LocalDataset[] : undefined;
 } else {
 	storedValue = undefined;
