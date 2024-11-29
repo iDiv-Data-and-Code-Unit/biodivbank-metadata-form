@@ -29,7 +29,10 @@
 					label="What type of inventory process was involved?"
 					value={$samplingDesign.methods.inventoryProcess.stageOne.join(', ')}
 				/>
-				<Point label="How were the data obtained?" value={""+$samplingDesign.methods.methodType} />
+				<Point
+					label="How were the data obtained?"
+					value={$samplingDesign.methods.methodType.stageOne.join(', ')}
+				/>
 			</div>
 		</section>
 		<section>
