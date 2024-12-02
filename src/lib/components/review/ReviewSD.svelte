@@ -1,6 +1,5 @@
 <script>
 	import { samplingDesign } from '$lib/stores/samplingDesign';
-	import OtherTargetedCategories from '../sampling-design/OtherTargetedCategories.svelte';
 	import Point from './Point.svelte';
 </script>
 

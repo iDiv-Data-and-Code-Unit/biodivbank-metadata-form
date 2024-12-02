@@ -637,16 +637,17 @@ export const streamOrderSchema = z
     classificationSystem: ClassificationSystemEnum,
     values: z.array(StreamOrderValueEnum),
     other: z.string().optional()
-  })
-  .superRefine(({ classificationSystem, other }, streamOrderCtx) => {
-    if (classificationSystem === 'Other' && !other) {
-      streamOrderCtx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: 'Other is required when selected',
-        path: ['other']
-      });
-    }
   });
+  // ! I don't think there needs to be a check for "Other" type
+  // .superRefine(({ classificationSystem, other }, streamOrderCtx) => {
+  //   if (classificationSystem === 'Other' && !other) {
+  //     streamOrderCtx.addIssue({
+  //       code: z.ZodIssueCode.custom,
+  //       message: 'Other is required when selected',
+  //       path: ['other']
+  //     });
+  //   }
+  // });
 
 export const riverCrossSectionSchema = z
   .object({
