@@ -26,7 +26,7 @@
 >
 	<div class="relative h-96">
 		<img src="/riverzone.svg" alt="" class="absolute h-80 bottom-0" />
-		<label class={clsx('flex items-center gap-3 absolute top-20 left-52')}>
+		<label class={clsx('flex items-center gap-3 absolute top-16 left-32')}>
 			<input
 				type="checkbox"
 				value="Source Zone (crenon)"
