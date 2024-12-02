@@ -8,7 +8,7 @@
 	import Multistep from '../Multistep.svelte';
 	import MethodType from './MethodType.svelte';
 
-	import { 
+	import {
 		samplingDesignAndLocationSchema,
 		stageOneMethodTypeEnum,
 		stageThreeChemicalIntentEnum,
@@ -21,8 +21,8 @@
 		stageTwoEnvironmentalSampleEnum,
 		stageTwoHumanDirectObservationEnum,
 		stageTwoMachineObservationEnum,
-		stageTwoPhysicalEvidenceEnum,
-		} from '$lib/schemas/samplingDesignAndLocation';
+		stageTwoPhysicalEvidenceEnum
+	} from '$lib/schemas/samplingDesignAndLocation';
 
 	let stage1Inputs = stageOneMethodTypeEnum.options;
 	let humanInputs = stageTwoHumanDirectObservationEnum.options;
@@ -44,14 +44,13 @@
 	const machineObservation = stageOneMethodTypeEnum.enum['Machine observation'];
 	const capture = stageOneMethodTypeEnum.enum['Capture'];
 	const environmentalSample = stageOneMethodTypeEnum.enum['Environmental sample'];
- const physicalEvidence = stageOneMethodTypeEnum.enum['Physical evidence'];
- const net = stageTwoCaptureEnum.enum['Net'];
- const trap = stageTwoCaptureEnum.enum['Trap'];
- const trawl = stageTwoCaptureEnum.enum['Trawl'];
-const chemicalIntent	= stageTwoCaptureEnum.enum['Chemical intent'];
-const chemicalKnockDown	= stageTwoCaptureEnum.enum['Chemical knockdown'];
-const markrecapture	= stageTwoCaptureEnum.enum['Mark-recapture'];
-
+	const physicalEvidence = stageOneMethodTypeEnum.enum['Physical evidence'];
+	const net = stageTwoCaptureEnum.enum['Net'];
+	const trap = stageTwoCaptureEnum.enum['Trap'];
+	const trawl = stageTwoCaptureEnum.enum['Trawl'];
+	const chemicalIntent = stageTwoCaptureEnum.enum['Chemical intent'];
+	const chemicalKnockDown = stageTwoCaptureEnum.enum['Chemical knockdown'];
+	const markrecapture = stageTwoCaptureEnum.enum['Mark-recapture'];
 </script>
 
 <div class="col-span-2">
@@ -81,7 +80,7 @@ const markrecapture	= stageTwoCaptureEnum.enum['Mark-recapture'];
 					inputs={machineObservationInputs}
 				/>
 			{/if}
-			{#if  $samplingDesign.methods.methodType.stageOne.includes(capture)}
+			{#if $samplingDesign.methods.methodType.stageOne.includes(capture)}
 				<h3 class="col-span-2 text-sm text-min-contrast-gray">Capture</h3>
 				<CheckboxGroupValue
 					bind:group={$samplingDesign.methods.methodType.stageTwo.capture}
@@ -89,18 +88,20 @@ const markrecapture	= stageTwoCaptureEnum.enum['Mark-recapture'];
 					inputs={captureInputs}
 				/>
 			{/if}
-			{#if  $samplingDesign.methods.methodType.stageOne.includes(environmentalSample)}
+			{#if $samplingDesign.methods.methodType.stageOne.includes(environmentalSample)}
 				<h3 class="col-span-2 text-sm text-min-contrast-gray">Environmental sample</h3>
 				<CheckboxGroupValue
-					bind:group={$samplingDesign.methods.methodType.stageTwo.environmentalSample}
+					bind:group={$samplingDesign.methods.methodType.stageTwo.environmentalSample.values}
+					bind:other={$samplingDesign.methods.methodType.stageTwo.environmentalSample.other}
 					name="stage-2"
 					inputs={environmentalSampleInputs}
 				/>
 			{/if}
-			{#if  $samplingDesign.methods.methodType.stageOne.includes(physicalEvidence)}
+			{#if $samplingDesign.methods.methodType.stageOne.includes(physicalEvidence)}
 				<h3 class="col-span-2 text-sm text-min-contrast-gray">Physical evidence</h3>
 				<CheckboxGroupValue
-					bind:group={$samplingDesign.methods.methodType.stageTwo.physicalEvidence}
+					bind:group={$samplingDesign.methods.methodType.stageTwo.physicalEvidence.values}
+					bind:other={$samplingDesign.methods.methodType.stageTwo.physicalEvidence.other}
 					name="stage-2"
 					inputs={physicalEvidenceInputs}
 				/>
@@ -108,11 +109,12 @@ const markrecapture	= stageTwoCaptureEnum.enum['Mark-recapture'];
 		</div>
 
 		<div class="grid gap-8" slot="step-3">
-			{#if $samplingDesign.methods.methodType.stageTwo.capture.length &&  $samplingDesign.methods.methodType.stageOne.length}
+			{#if $samplingDesign.methods.methodType.stageTwo.capture.length && $samplingDesign.methods.methodType.stageOne.length}
 				{#if $samplingDesign.methods.methodType.stageTwo.capture.includes(net)}
 					<h3 class="col-span-2 text-sm text-min-contrast-gray">Net</h3>
 					<CheckboxGroupValue
-						bind:group={$samplingDesign.methods.methodType.stageThree.net}
+						bind:group={$samplingDesign.methods.methodType.stageThree.net.values}
+						bind:other={$samplingDesign.methods.methodType.stageThree.net.other}
 						name="stage-3-plot"
 						inputs={netInputs}
 					/>
@@ -120,7 +122,8 @@ const markrecapture	= stageTwoCaptureEnum.enum['Mark-recapture'];
 				{#if $samplingDesign.methods.methodType.stageTwo.capture.includes(trap)}
 					<h3 class="col-span-2 text-sm text-min-contrast-gray">Trap</h3>
 					<CheckboxGroupValue
-						bind:group={$samplingDesign.methods.methodType.stageThree.trap}
+						bind:group={$samplingDesign.methods.methodType.stageThree.trap.values}
+						bind:other={$samplingDesign.methods.methodType.stageThree.trap.other}
 						name="stage-3-plot"
 						inputs={trapInputs}
 					/>
@@ -128,7 +131,8 @@ const markrecapture	= stageTwoCaptureEnum.enum['Mark-recapture'];
 				{#if $samplingDesign.methods.methodType.stageTwo.capture.includes(trawl)}
 					<h3 class="col-span-2 text-sm text-min-contrast-gray">Trawl</h3>
 					<CheckboxGroupValue
-						bind:group={$samplingDesign.methods.methodType.stageThree.trawl}
+						bind:group={$samplingDesign.methods.methodType.stageThree.trawl.values}
+						bind:other={$samplingDesign.methods.methodType.stageThree.trawl.other}
 						name="stage-3-plot"
 						inputs={trawlInputs}
 					/>
@@ -137,7 +141,8 @@ const markrecapture	= stageTwoCaptureEnum.enum['Mark-recapture'];
 				{#if $samplingDesign.methods.methodType.stageTwo.capture.includes(chemicalIntent)}
 					<h3 class="col-span-2 text-sm text-min-contrast-gray">Chemical intent</h3>
 					<CheckboxGroupValue
-						bind:group={$samplingDesign.methods.methodType.stageThree.chemicalIntent}
+						bind:group={$samplingDesign.methods.methodType.stageThree.chemicalIntent.values}
+						bind:other={$samplingDesign.methods.methodType.stageThree.chemicalIntent.other}
 						name="stage-3-plot"
 						inputs={chemicalIntentInputs}
 					/>
@@ -145,7 +150,8 @@ const markrecapture	= stageTwoCaptureEnum.enum['Mark-recapture'];
 				{#if $samplingDesign.methods.methodType.stageTwo.capture.includes(chemicalKnockDown)}
 					<h3 class="col-span-2 text-sm text-min-contrast-gray">Chemical knockdown</h3>
 					<CheckboxGroupValue
-						bind:group={$samplingDesign.methods.methodType.stageThree.chemicalKnockdown}
+						bind:group={$samplingDesign.methods.methodType.stageThree.chemicalKnockdown.values}
+						bind:other={$samplingDesign.methods.methodType.stageThree.chemicalKnockdown.other}
 						name="stage-3-plot"
 						inputs={chemicalKnockdownInputs}
 					/>
@@ -153,7 +159,8 @@ const markrecapture	= stageTwoCaptureEnum.enum['Mark-recapture'];
 				{#if $samplingDesign.methods.methodType.stageTwo.capture.includes(markrecapture)}
 					<h3 class="col-span-2 text-sm text-min-contrast-gray">Mark-recapture</h3>
 					<CheckboxGroupValue
-						bind:group={$samplingDesign.methods.methodType.stageThree.markRecapture}
+						bind:group={$samplingDesign.methods.methodType.stageThree.markRecapture.values}
+						bind:other={$samplingDesign.methods.methodType.stageThree.markRecapture.other}
 						name="stage-3-plot"
 						inputs={markRecaptureInputs}
 					/>

@@ -76,7 +76,8 @@
 <Question question="What is the source of the data? (Select all that apply)" direction="grid">
 	<CheckboxGroup
 		name="dataSource"
-		bind:group={$datasetOverview.dataOrigin.dataSource}
+		bind:group={$datasetOverview.dataOrigin.dataSource.sources}
+		bind:other={$datasetOverview.dataOrigin.dataSource.other}
 		inputs={sources}
 	/>
 </Question>
