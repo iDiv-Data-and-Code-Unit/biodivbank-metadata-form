@@ -7,9 +7,9 @@
 		otherPlaceholder?: string;
 	} | null)[];
 	export let name: string;
+	export let other: string | undefined = '';
 
-	let otherValue: string = '';
-	let checkboxRef: HTMLInputElement | null = null;
+	let otherChecked: boolean = false;
 </script>
 
 {#each inputs as input}
@@ -18,7 +18,7 @@
 			{#if input.label !== 'Other'}
 				<input type="checkbox" value={input.value} bind:group {name} />
 			{:else}
-				<input type="checkbox" value={otherValue} bind:this={checkboxRef} bind:group {name} />
+				<input type="checkbox" value={input.value} bind:checked={otherChecked} bind:group {name} />
 			{/if}
 			<span class="text-sm shrink-0">
 				{input.label}&nbsp;
@@ -30,7 +30,9 @@
 				<input
 					type="text"
 					placeholder={input.otherPlaceholder || 'Tell us more...'}
-					bind:value={otherValue}
+					bind:value={other}
+					required={otherChecked}
+					disabled={!otherChecked}
 					class="bg-input rounded-md text-sm px-3 py-2 border-none w-full placeholder:text-placeholder"
 				/>
 			{/if}
