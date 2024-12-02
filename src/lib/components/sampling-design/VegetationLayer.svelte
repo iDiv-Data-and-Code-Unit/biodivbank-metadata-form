@@ -5,17 +5,17 @@
 	import TextInput from '../TextInput.svelte';
 
 	const vegetationLayers = [
-		{ label: 'Tree layer', value: 'treeLayer', row: 'row-start-1' },
-		{ label: 'Shrub layer', value: 'shrubLayer', row: 'row-start-3' },
-		{ label: 'Herb layer', value: 'herbLayer', row: 'row-start-4' },
-		{ label: 'Moss layer', value: 'mossLayer', row: 'row-start-5' },
-		{ label: 'Ground layer', value: 'groundLayer', row: 'row-start-6' }
+		{ label: 'Tree layer', value: 'Tree layer', row: 'row-start-1' },
+		{ label: 'Shrub layer', value: 'Shrub layer', row: 'row-start-3' },
+		{ label: 'Herb layer', value: 'Herb layer', row: 'row-start-4' },
+		{ label: 'Moss layer', value: 'Moss layer', row: 'row-start-5' },
+		{ label: 'Ground layer', value: 'Ground layer', row: 'row-start-6' }
 	];
 
 	const otherOptions = [
-		{ label: 'Did not sample in/on vegetation', value: 'noVegetation' },
-		{ label: 'Unsure', value: 'unsure' },
-		{ label: 'Other', value: 'other' }
+		{ label: 'Did not sample in/on vegetation', value: 'Did not sample in/on vegetation' },
+		{ label: 'Unsure', value: 'Unsure' },
+		{ label: 'Other', value: 'Other' }
 	];
 </script>
 
@@ -54,7 +54,7 @@
 				/>
 				{label}
 			</label>
-			{#if value === 'other'}
+			{#if value === 'Other'}
 				<TextInput
 					placeholder="Please tell us more..."
 					label=""

@@ -39,8 +39,8 @@
 				bind:value={$samplingDesign.samplingLocation.riverCrossSection.bank}
 			>
 				<option value="" disabled />
-				<option value="onBank">On bank</option>
-				<option value="inSubstrate">In substrate</option>
+				<option value="On bank">On bank</option>
+				<option value="In substrate">In substrate</option>
 			</select>
 		</label>
 		<label
@@ -57,8 +57,8 @@
 				bind:value={$samplingDesign.samplingLocation.riverCrossSection.surface}
 			>
 				<option value="" disabled />
-				<option value="onSurface">On surface</option>
-				<option value="belowSurface">Below surface</option>
+				<option value="On surface">On surface</option>
+				<option value="Below surface">Below surface</option>
 			</select>
 		</label>
 		<label class="flex items-center gap-3 absolute -top-10 right-10">
@@ -96,8 +96,8 @@
 			>
 				<option value="" disabled />
 				<option value="BenthicWaterLayer">Benthic water layer</option>
-				<option value="onSubstrate">On substrate</option>
-				<option value="inSubstrate">In substrate</option>
+				<option value="On substrate">On substrate</option>
+				<option value="In substrate">In substrate</option>
 			</select>
 		</label>
 	</div>
