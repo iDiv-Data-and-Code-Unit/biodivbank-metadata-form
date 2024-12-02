@@ -7,12 +7,11 @@
 	import { samplingDesign } from '../../stores/samplingDesign';
 	import CheckboxWithInput from './CheckboxWithInput.svelte';
 	import Multistep from '../Multistep.svelte';
-	import { CategoryEnum, specificCategorySchema } from '$lib/schemas/samplingDesignAndLocation';
+	import { CategoryEnum, CategoryKeys } from '$lib/schemas/samplingDesignAndLocation';
 	import CheckboxGroupValue from '../CheckboxGroupValue.svelte';
+	import { z } from 'zod';
 
-	// $: console.log($samplingDesign.otherTargetedSelectedCategories);
-
-	const mapping = {
+	const mapping: { [key in z.infer<typeof CategoryEnum>]: z.infer<typeof CategoryKeys> } = {
 		Sex: 'sex',
 		'Life stage / age class': 'lifeStageAgeClass',
 		'Reproductive condition': 'reproductiveCondition',
@@ -42,8 +41,6 @@
 			excluded: ''
 		}
 	};
-
-	$: console.log($samplingDesign.samplingScope.specificCategory.category);
 </script>
 
 <!-- <Question
@@ -79,7 +76,7 @@
 						{category}
 					</h4>
 
-					{#if category === 'other'}
+					{#if category === 'Other category'}
 						<TextInput
 							bind:value={$samplingDesign.samplingScope.specificCategory.other.category}
 							label="Category"
