@@ -46,9 +46,9 @@
 	console.log($samplingDesign);
 
 	let multipleEventsInputs = [
-		{ label: 'Multiple sites', value: 'multipleSites' },
-		{ label: 'Multiple time points', value: 'multipleTimePoints' },
-		{ label: 'No', value: 'no' }
+		{ label: 'Multiple locations', value: 'Multiple locations' },
+		{ label: 'Multiple time points', value: 'Multiple time points' },
+		{ label: 'No', value: 'No' }
 	];
 
 	onMount(() => {
