@@ -224,10 +224,9 @@ E.g. A single baited camera trap station with motion sensor trigger, deployed fo
 		</Question>
 	</Section>
 
-	<!-- TODO: riverCrossSection should be an Object, not an Array. It comes in Array form from the server -->
 	{#if $datasetOverview.biome.core.freshWater.includes('Rivers and Streams') || $datasetOverview.realm.core.includes('Terrestrial') || $datasetOverview.realm.transitional.some( (realm) => realm
 					.toLowerCase()
-					.includes('terrestrial') ) || $samplingDesign.samplingLocation.riverCrossSection[0].type.includes('Riparian Zone')}
+					.includes('terrestrial') ) || $samplingDesign.samplingLocation.riverCrossSection.type.includes('Riparian Zone')}
 		<Section title="Sampling location">
 			<div class="grid gap-32 col-span-2">
 				<div class="grid gap-24">
@@ -241,7 +240,7 @@ E.g. A single baited camera trap station with motion sensor trigger, deployed fo
 				<div>
 					{#if $datasetOverview.realm.core.includes('Terrestrial') || $datasetOverview.realm.transitional.some( (realm) => realm
 									.toLowerCase()
-									.includes('terrestrial') ) || $samplingDesign.samplingLocation.riverCrossSection[0].type.includes('Riparian Zone')}
+									.includes('terrestrial') ) || $samplingDesign.samplingLocation.riverCrossSection.type.includes('Riparian Zone')}
 						<VegetationLayer />
 					{/if}
 				</div>
