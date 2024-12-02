@@ -40,7 +40,7 @@
 			outerDivClass="!w-full !bg-input !rounded-md !px-4 !py-3 !border-none !text-base !text-placeholder"
 			options={streamOrder}
 			placeholder="Select all values that apply..."
-			bind:selected={$samplingDesign.samplingLocation.streamOrder.value}
+			bind:selected={$samplingDesign.samplingLocation.streamOrder.values}
 		/>
 	</div>
 </Question>
