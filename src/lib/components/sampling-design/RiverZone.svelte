@@ -26,10 +26,22 @@
 >
 	<div class="relative h-96">
 		<img src="/riverzone.svg" alt="" class="absolute h-80 bottom-0" />
+		<label class={clsx('flex items-center gap-3 absolute top-20 left-52')}>
+			<input
+				type="checkbox"
+				value="Source Zone (crenon)"
+				bind:group={$samplingDesign.samplingLocation.riverZone.zone}
+				name="riverZone"
+			/>
+			<span class="text-sm shrink-0">
+				Source Zone&nbsp;
+				<span class="text-description text-xs">(crenon)</span>
+			</span>
+		</label>
 		<label class={clsx('flex items-center gap-3 absolute top-40 left-52')}>
 			<input
 				type="checkbox"
-				value="upstream"
+				value="Upstream / transition zone (rhithron)"
 				bind:group={$samplingDesign.samplingLocation.riverZone.zone}
 				name="riverZone"
 			/>
@@ -42,7 +54,7 @@
 		<label class={clsx('flex items-center gap-3 absolute bottom-28 right-40')}>
 			<input
 				type="checkbox"
-				value="downstream"
+				value="Downstream / floodplain zone (potamon)"
 				bind:group={$samplingDesign.samplingLocation.riverZone.zone}
 				name="riverZone"
 			/>
@@ -55,7 +67,7 @@
 		<label class={clsx('flex items-center gap-3 absolute bottom-0 right-80')}>
 			<input
 				type="checkbox"
-				value="mouth"
+				value="Mouth"
 				bind:group={$samplingDesign.samplingLocation.riverZone.zone}
 				name="riverZone"
 			/>
@@ -66,7 +78,7 @@
 		<label class="flex items-center gap-3">
 			<input
 				type="checkbox"
-				value="other"
+				value="Other"
 				bind:group={$samplingDesign.samplingLocation.riverZone.zone}
 				name="riverZone"
 			/>
@@ -77,7 +89,7 @@
 			placeholder="Tell us more..."
 			class="bg-input rounded-md text-sm px-3 py-2 border-none w-1/2 placeholder:text-placeholder"
 			bind:value={$samplingDesign.samplingLocation.riverZone.other}
-			disabled={!$samplingDesign.samplingLocation.riverZone.zone.includes('other')}
+			disabled={!$samplingDesign.samplingLocation.riverZone.zone.includes('Other')}
 		/>
 	</div>
 </Question>
