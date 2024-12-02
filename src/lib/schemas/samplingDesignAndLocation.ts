@@ -220,10 +220,16 @@ export const CategoryEnum = z.enum([
   'Reproductive condition',
   'Growth form',
   'Other category',
-  'Other'
+  // 'Other'
 ]);
 
-
+export const CategoryKeys = z.enum([
+  'sex',
+  'lifeStageAgeClass',
+  'reproductiveCondition',
+  'growthForm',
+  'other'
+])
 
 export const studyDesignSchema = z.object({
   multipleEvents: z.array(multipleEventsEnum)
@@ -294,16 +300,104 @@ export const stageOneMethodType = z.object({
     humanDirectObservation: z.array(stageTwoHumanDirectObservationEnum),
     machineObservation: z.array(stageTwoMachineObservationEnum),
     capture: z.array(stageTwoCaptureEnum),
-    environmentalSample: z.array(stageTwoEnvironmentalSampleEnum),
-    physicalEvidence: z.array(stageTwoPhysicalEvidenceEnum)
+    environmentalSample: z.object({
+      values: z.array(stageTwoEnvironmentalSampleEnum),
+      other: z.string().optional()
+    }).superRefine(({ values, other }, environmentalSampleCtx) => {
+      if (values.includes('Other') && !other) {
+        environmentalSampleCtx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'Other is required when selected',
+          path: ['other']
+        });
+      }
+    }),
+    physicalEvidence: z.object({
+      values: z.array(stageTwoPhysicalEvidenceEnum),
+      other: z.string().optional()
+    }).superRefine(({ values, other }, physicalEvidenceCtx) => {
+      if (values.includes('Other') && !other) {
+        physicalEvidenceCtx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'Other is required when selected',
+          path: ['other']
+        });
+      }
+    }),
   }),
   stageThree: z.object({
-    net: z.array(stageThreeNetEnum),
-    trap: z.array(stageThreeTrapEnum),
-    trawl: z.array(stageThreeTrawlEnum),
-    chemicalIntent: z.array(stageThreeChemicalIntentEnum),
-    chemicalKnockdown: z.array(stageThreeChemicalKnockdownEnum),
-    markRecapture: z.array(stageThreeMarkRecaptureEnum),
+    net: z.object({
+      values: z.array(stageThreeNetEnum),
+      other: z.string().optional(),
+    }).superRefine(({ values, other }, netCtx) => {
+      if (values.includes('Other') && !other) {
+        netCtx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'Other is required when selected',
+          path: ['other']
+        });
+      }
+    }),
+    trap: z.object({
+      values: z.array(stageThreeTrapEnum),
+      other: z.string().optional(),
+    }).superRefine(({ values, other }, trapCtx) => {
+      if (values.includes('Other') && !other) {
+        trapCtx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'Other is required when selected',
+          path: ['other']
+        });
+      }
+    }),
+    trawl: z.object({
+      values: z.array(stageThreeTrawlEnum),
+      other: z.string().optional(),
+    }).superRefine(({ values, other }, trawlCtx) => {
+      if (values.includes('Other') && !other) {
+        trawlCtx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'Other is required when selected',
+          path: ['other']
+        });
+      }
+    }),
+    chemicalIntent: z.object({
+      values: z.array(stageThreeChemicalIntentEnum),
+      other: z.string().optional(),
+    }).superRefine(({ values, other }, chemicalIntentCtx) => {
+      if (values.includes('Other') && !other) {
+        chemicalIntentCtx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'Other is required when selected',
+          path: ['other']
+        });
+      }
+    }),
+    chemicalKnockdown: z.object({
+      values: z.array(stageThreeChemicalKnockdownEnum),
+      other: z.string().optional(),
+    }).superRefine(({ values, other }, chemicalKnockdownCtx) => {
+      if (values.includes('Other') && !other) {
+        chemicalKnockdownCtx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'Other is required when selected',
+          path: ['other']
+        });
+      }
+    }),
+    markRecapture: z.object({
+      values: z.array(stageThreeMarkRecaptureEnum),
+      other: z.string().optional(),
+    }).superRefine(({ values, other }, markRecaptureCtx) => {
+      if (values.includes('Other') && !other) {
+        markRecaptureCtx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'Other is required when selected',
+          path: ['other']
+        });
+      }
+    }),
     corer: z.never(),
     grab: z.never(),
     tullgrenFunnel: z.never(),
@@ -317,7 +411,7 @@ export const stageOneMethodType = z.object({
       path: ['capture']
     });
   }
-  if (!stageOne.includes('Environmental sample') && stageTwo.environmentalSample.length > 0) {
+  if (!stageOne.includes('Environmental sample') && stageTwo.environmentalSample.values.length > 0) {
     methodTypeCtx.addIssue({
       code: z.ZodIssueCode.custom,
       message:
@@ -325,7 +419,7 @@ export const stageOneMethodType = z.object({
       path: ['environmentalSample']
     });
   }
-  if (!stageOne.includes('Physical evidence') && stageTwo.physicalEvidence.length > 0) {
+  if (!stageOne.includes('Physical evidence') && stageTwo.physicalEvidence.values.length > 0) {
     methodTypeCtx.addIssue({
       code: z.ZodIssueCode.custom,
       message: 'Physical evidence stage two is only allowed if physical evidence is selected',
@@ -351,28 +445,28 @@ export const stageOneMethodType = z.object({
     });
   }
 
-  if (!stageTwo.capture.includes('Net') && stageThree.net.length > 0) {
+  if (!stageTwo.capture.includes('Net') && stageThree.net.values.length > 0) {
     methodTypeCtx.addIssue({
       code: z.ZodIssueCode.custom,
       message: 'Net stage three is only allowed if net is selected',
       path: ['net']
     });
   }
-  if (!stageTwo.capture.includes('Trap') && stageThree.trap.length > 0) {
+  if (!stageTwo.capture.includes('Trap') && stageThree.trap.values.length > 0) {
     methodTypeCtx.addIssue({
       code: z.ZodIssueCode.custom,
       message: 'Trap stage three is only allowed if trap is selected',
       path: ['trap']
     });
   }
-  if (!stageTwo.capture.includes('Trawl') && stageThree.trawl.length > 0) {
+  if (!stageTwo.capture.includes('Trawl') && stageThree.trawl.values.length > 0) {
     methodTypeCtx.addIssue({
       code: z.ZodIssueCode.custom,
       message: 'Trawl stage three is only allowed if trawl is selected',
       path: ['trawl']
     });
   }
-  if (!stageTwo.capture.includes('Chemical intent') && stageThree.chemicalIntent.length > 0) {
+  if (!stageTwo.capture.includes('Chemical intent') && stageThree.chemicalIntent.values.length > 0) {
     methodTypeCtx.addIssue({
       code: z.ZodIssueCode.custom,
       message: 'Chemical intent stage three is only allowed if chemical intent is selected',
@@ -381,7 +475,7 @@ export const stageOneMethodType = z.object({
   }
   if (
     !stageTwo.capture.includes('Chemical knockdown') &&
-    stageThree.chemicalKnockdown.length > 0
+    stageThree.chemicalKnockdown.values.length > 0
   ) {
     methodTypeCtx.addIssue({
       code: z.ZodIssueCode.custom,
@@ -390,7 +484,7 @@ export const stageOneMethodType = z.object({
       path: ['chemicalKnockdown']
     });
   }
-  if (!stageTwo.capture.includes('Mark-recapture') && stageThree.markRecapture.length > 0) {
+  if (!stageTwo.capture.includes('Mark-recapture') && stageThree.markRecapture.values.length > 0) {
     methodTypeCtx.addIssue({
       code: z.ZodIssueCode.custom,
       message: 'Mark-recapture stage three is only allowed if mark-recapture is selected',
@@ -484,7 +578,7 @@ export const otherSchema = z.object({
 });
 
 export const specificCategorySchema = z.object({
-  category: z.array(z.string()),
+  category: z.array(CategoryEnum),
   sex: sexSchema,
   lifeStageAgeClass: lifeStageAgeClassSchema,
   reproductiveCondition: reproductiveConditionSchema,
@@ -541,7 +635,7 @@ export const riverZoneSchema = z
 export const streamOrderSchema = z
   .object({
     classificationSystem: ClassificationSystemEnum,
-    value: StreamOrderValueEnum,
+    values: z.array(StreamOrderValueEnum),
     other: z.string().optional()
   })
   .superRefine(({ classificationSystem, other }, streamOrderCtx) => {

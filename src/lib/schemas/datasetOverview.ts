@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 // Enums
-export const OriginalOrCompiledDatasetEnum= z.enum(['Single Source', 'Compilation', 'Synthesis'])
+export const OriginalOrCompiledDatasetEnum = z.enum(['Single Source', 'Compilation', 'Synthesis'])
 
 // const OriginalOrCompiledDatasetCheck= z.preprocess(
 // 	(val) => val === "" ? undefined : val,
@@ -81,7 +81,18 @@ export const PlantaeSubdivisionEnum = z.enum([
 export const DataOriginSchema = z.object({
 	originalOrCompiledDataset: OriginalOrCompiledDatasetEnum,
 	currentOrLegacyDataset: z.array(z.string()).min(1, { message: 'Current or legacy dataset is required' }),
-	dataSource: z.array(z.string()).min(1, { message: 'Data source is required' })
+	dataSource: z.object({
+		sources: z.array(z.string()).min(1, { message: 'Data source is required' }),
+		other: z.string().optional()
+	}).superRefine(({ sources, other }, dataOriginCtx) => {
+		if (sources.includes('Other') && !other) {
+			dataOriginCtx.addIssue({
+				code: z.ZodIssueCode.custom,
+				message: 'Other is required when selected',
+				path: ['other']
+			});
+		}
+	})
 });
 
 export const TemporalScopeSchema = z.object({
