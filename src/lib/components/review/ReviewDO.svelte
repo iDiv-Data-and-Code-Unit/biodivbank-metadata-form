@@ -19,7 +19,7 @@
 				/>
 				<Point
 					label="What is the source of the data?"
-					value={$datasetOverview.dataOrigin.dataSource.join(', ')}
+					value={$datasetOverview.dataOrigin.dataSource.sources.join(', ')}
 				/>
 			</div>
 		</section>
