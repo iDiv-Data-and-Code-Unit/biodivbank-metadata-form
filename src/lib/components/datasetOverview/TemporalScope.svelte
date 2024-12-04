@@ -33,13 +33,13 @@
 	const currentYear = new Date().getFullYear();
 
 	let start: dateType = {
-		year: currentYear,
+		year: undefined,
 		month: '',
 		day: undefined
 	};
 
 	let end: dateType = {
-		year: currentYear,
+		year: undefined,
 		month: '',
 		day: undefined
 	};
@@ -89,14 +89,14 @@
 				? start.day > maxDaysStartMonth[start.month]
 					? maxDaysStartMonth[start.month]
 					: start.day
-				: 1;
+				: undefined;
 			maxDaysStartMonth = maxDays(start);
 		} else {
 			end.day = end.day
 				? end.day > maxDaysEndMonth[end.month]
 					? maxDaysEndMonth[end.month]
 					: end.day
-				: 1;
+				: undefined;
 		}
 	};
 
@@ -130,7 +130,7 @@
 				bind:value={start.month}
 				on:change={() => onMonthChange('start')}
 			>
-				<option value="" disabled class="text-placeholder">Month</option>
+				<option value="" selected class="text-placeholder">Month</option>
 				{#each months as month}
 					<option>{month}</option>
 				{/each}
@@ -166,7 +166,7 @@
 				bind:value={end.month}
 				on:change={() => onMonthChange('end')}
 			>
-				<option value="" disabled class="text-placeholder">Month</option>
+				<option value="" selected class="text-placeholder">Month</option>
 				{#each months as month}
 					<option>{month}</option>
 				{/each}
