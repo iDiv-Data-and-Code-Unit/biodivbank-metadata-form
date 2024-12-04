@@ -13,7 +13,7 @@ const initialStore: GeoStore = {
 	marineRegions: ['nothing'],
 	layer: null,
 	georef:{
-		coordinateType: 'Custom shape',
+		coordinateType: '',
 		longitude: '',
 		latitude: ''
 	}
