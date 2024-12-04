@@ -3,6 +3,8 @@
 	export let inputs: (string | null)[];
 	export let name: string;
 	export let other: string | undefined = '';
+	export let otherKey: string | undefined = 'Other';
+	export let otherPlaceholder: string | undefined = 'Tell us more...';
 
 	let otherChecked: boolean = false;
 </script>
@@ -10,7 +12,7 @@
 {#each inputs as input}
 	{#if input}
 		<label class="flex items-center gap-3">
-			{#if input !== 'Other'}
+			{#if input !== otherKey}
 				<input type="checkbox" value={input} bind:group {name} />
 			{:else}
 				<input type="checkbox" value={input} bind:checked={otherChecked} bind:group {name} />
@@ -21,10 +23,10 @@
 					<!-- <span class="text-description text-xs">({input})</span> -->
 				{/if}
 			</span>
-			{#if input === 'Other'}
+			{#if input === otherKey}
 				<input
 					type="text"
-					placeholder={'Tell us more...'}
+					placeholder={otherPlaceholder}
 					bind:value={other}
 					required={otherChecked}
 					disabled={!otherChecked}
