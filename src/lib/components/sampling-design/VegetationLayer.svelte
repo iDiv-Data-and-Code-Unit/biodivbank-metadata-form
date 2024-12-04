@@ -24,7 +24,7 @@
 	question="Did sampling take place in/on vegetation, and if so in which layer? (Select all that apply)"
 	direction="column"
 >
-	<div class="flex">
+	<div class="flex mt-16">
 		<img src="/vegetation.svg" alt="" />
 		<div class="w-full grid grid-rows-6">
 			{#each vegetationLayers as layer}
@@ -45,22 +45,24 @@
 	</div>
 	<div class="flex flex-col gap-8 col-span-1">
 		{#each otherOptions as { label, value }}
-			<label class="flex items-center gap-3">
-				<input
-					type="checkbox"
-					{value}
-					bind:group={$samplingDesign.samplingLocation.vegetationLayer.layer}
-					name="vegetationLayer"
-				/>
-				{label}
-			</label>
-			{#if value === 'Other'}
-				<TextInput
-					placeholder="Please tell us more..."
-					label=""
-					bind:value={$samplingDesign.samplingLocation.vegetationLayer.other}
-				/>
-			{/if}
+			<div class="grid" class:gap-4={value === 'Other'}>
+				<label class="flex items-center gap-3">
+					<input
+						type="checkbox"
+						{value}
+						bind:group={$samplingDesign.samplingLocation.vegetationLayer.layer}
+						name="vegetationLayer"
+					/>
+					{label}
+				</label>
+				{#if value === 'Other'}
+					<TextInput
+						placeholder="Please tell us more..."
+						label=""
+						bind:value={$samplingDesign.samplingLocation.vegetationLayer.other}
+					/>
+				{/if}
+			</div>
 		{/each}
 	</div>
 </Question>

@@ -74,7 +74,7 @@
 			<span class="text-sm shrink-0"> Mouth </span>
 		</label>
 	</div>
-	<div class="flex flex-col gap-2">
+	<div class="flex flex-col gap-4">
 		<label class="flex items-center gap-3">
 			<input
 				type="checkbox"
@@ -82,7 +82,7 @@
 				bind:group={$samplingDesign.samplingLocation.riverZone.zone}
 				name="riverZone"
 			/>
-			<span class="text-sm shrink-0">Other </span>
+			<span class="text-sm shrink-0">Other zone</span>
 		</label>
 		<input
 			type="text"

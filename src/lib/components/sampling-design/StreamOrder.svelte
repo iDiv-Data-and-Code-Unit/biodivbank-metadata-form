@@ -24,7 +24,7 @@
 	question="Where was sampling conducted within the stream hierarchy? (Select all levels that apply)"
 	direction="grid"
 >
-	<div class="flex flex-col gap-5">
+	<div class="flex flex-col gap-5 mt-16">
 		<img src="/streamorder.svg" alt="Stream order" />
 		<p class="text-description">This illustration uses the Strahler system</p>
 	</div>
