@@ -71,11 +71,10 @@ export const PlantaeSubdivisionEnum = z.enum([
 	'Hornworts',
 	'Liverworts',
 	'Mosses',
-	'Charophyta',
-	'Chlorophyta',
-	'Glaucophyta',
-	'Rhodophyta (red algae)'
 ]);
+export const GreenAlgaeSubdivisionEnum = z.enum(['Charophyta', 'Chlorophyta']);
+export const OtherAlgaeSubdivisionEnum = z.enum(['Glaucophyta', 'Rhodophyta (red algae)']);
+export const PlantaeSubdivisionsEnum = z.enum([...PlantaeSubdivisionEnum.options, ...GreenAlgaeSubdivisionEnum.options, ...OtherAlgaeSubdivisionEnum.options]);
 
 // Objects
 export const DataOriginSchema = z.object({
@@ -150,7 +149,7 @@ export const BiomeSchema = z.object({
 export const SubDivisionsSchema = z.object({
 	animalia: z.array(AnimaliaSubdivisionEnum),
 	fungi: z.array(FungiSubdivisionEnum),
-	plantae: z.array(PlantaeSubdivisionEnum),
+	plantae: z.array(PlantaeSubdivisionsEnum),
 	chromista: z.array(z.string()),
 	protozoa: z.array(z.string()),
 	archaea: z.array(z.string()),
