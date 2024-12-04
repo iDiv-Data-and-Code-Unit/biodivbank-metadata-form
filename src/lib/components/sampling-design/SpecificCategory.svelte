@@ -58,6 +58,9 @@
 			<CheckboxGroupValue
 				name="Category"
 				bind:group={$samplingDesign.samplingScope.specificCategory.category}
+				bind:other={$samplingDesign.samplingScope.specificCategory.other.category}
+				otherKey="Other category"
+				otherPlaceholder="Provide the name for your category"
 				inputs={CategoryEnum.options}
 			/>
 		</div>
@@ -72,17 +75,17 @@
 
 			{#each $samplingDesign.samplingScope.specificCategory.category as category}
 				<div class="grid gap-8 col-span-2">
-					<h4 class="col-span-2 font-medium -mb-3">
-						{category}
-					</h4>
-
 					{#if category === 'Other category'}
-						<TextInput
-							bind:value={$samplingDesign.samplingScope.specificCategory.other.category}
-							label="Category"
-							placeholder="Please specify the type of category"
-							class="col-span-2"
-						/>
+						<h4 class="col-span-2 -mb-3">
+							<span class="text-description">{category}:</span>
+							<span class="font-medium"
+								>{$samplingDesign.samplingScope.specificCategory.other.category}</span
+							>
+						</h4>
+					{:else}
+						<h4 class="col-span-2 font-medium -mb-3">
+							{category}
+						</h4>
 					{/if}
 					<TextInput
 						bind:value={$samplingDesign.samplingScope.specificCategory[mapping[category]].targeted}
