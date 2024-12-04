@@ -134,25 +134,26 @@
 			<Question
 				question="Did environmental characteristics (e.g. habitat types, disturbance types) or methods (e.g. devices or effort) vary across sampling events?"
 				direction="column"
-				><b>not existing in zod schema: envCharacteristics</b>
-				<!-- <Radio
+			>
+				<!-- <b>not existing in zod schema: envCharacteristics</b> -->
+				<Radio
 					label="Identical"
-					value="identical"
-					bind:group={$samplingDesign.envCharacteristics}
+					value="Identical"
+					bind:group={$samplingDesign.studyDesign.envCharacteristics}
 					name="envCharacteristics"
 				/>
 				<Radio
 					label="Largely similar"
-					value="largelySimilar"
-					bind:group={$samplingDesign.envCharacteristics}
+					value="Largely similar"
+					bind:group={$samplingDesign.studyDesign.envCharacteristics}
 					name="envCharacteristics"
 				/>
 				<Radio
 					label="Variable"
-					value="variable"
-					bind:group={$samplingDesign.envCharacteristics}
+					value="Variable"
+					bind:group={$samplingDesign.studyDesign.envCharacteristics}
 					name="envCharacteristics"
-				/> -->
+				/>
 			</Question>
 		{/if}
 	</Section>
@@ -258,7 +259,7 @@ E.g. A single baited camera trap station with motion sensor trigger, deployed fo
 		<Question
 			question="Are there any details of your sampling methodology that have not been captured by this form?"
 		>
-			<b>not existing in zod schema: furtherInformation</b>
+		<b>TODO: fix</b>
 			<!-- <Textarea
 				bind:value={$samplingDesign.furtherInformation.details}
 				placeholder="Describe any aspect of the study design, scheduling or spatial distribution of sampling, methodology or equipment used, pre-processing of raw data, environmental conditions during a survey or unforeseen events, that are not covered by this metadata form. Be as specific as possible."

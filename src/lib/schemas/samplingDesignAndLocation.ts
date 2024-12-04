@@ -232,7 +232,8 @@ export const CategoryKeys = z.enum([
 ])
 
 export const studyDesignSchema = z.object({
-  multipleEvents: z.array(multipleEventsEnum)
+  multipleEvents: z.array(multipleEventsEnum),
+  envCharacteristics: envCharacteristicsEnum,
 });
 
 
@@ -638,16 +639,16 @@ export const streamOrderSchema = z
     values: z.array(StreamOrderValueEnum),
     other: z.string().optional()
   });
-  // ! I don't think there needs to be a check for "Other" type
-  // .superRefine(({ classificationSystem, other }, streamOrderCtx) => {
-  //   if (classificationSystem === 'Other' && !other) {
-  //     streamOrderCtx.addIssue({
-  //       code: z.ZodIssueCode.custom,
-  //       message: 'Other is required when selected',
-  //       path: ['other']
-  //     });
-  //   }
-  // });
+// ! I don't think there needs to be a check for "Other" type
+// .superRefine(({ classificationSystem, other }, streamOrderCtx) => {
+//   if (classificationSystem === 'Other' && !other) {
+//     streamOrderCtx.addIssue({
+//       code: z.ZodIssueCode.custom,
+//       message: 'Other is required when selected',
+//       path: ['other']
+//     });
+//   }
+// });
 
 export const riverCrossSectionSchema = z
   .object({
@@ -753,7 +754,7 @@ export const vegetationLayerSchema = z
   });
 
 export const furtherInformationSchema = z.object({
-  details: z.string()
+  details: z.string().optional()
 });
 
 export const samplingLocationSchema = z.object({
