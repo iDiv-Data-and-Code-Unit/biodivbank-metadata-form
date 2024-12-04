@@ -129,9 +129,9 @@
 			</div>
 		</div>
 		<Select
-			label="Coordiantes"
+			label="Coordinates"
 			class="col-start-1"
-			placeholder="Select a coordiante input format..."
+			placeholder="Select a coordinate input format..."
 			bind:value={$geoStore.georef.coordinateType}
 			options={['Custom shape', 'Bounding box', 'Point']}
 		/>

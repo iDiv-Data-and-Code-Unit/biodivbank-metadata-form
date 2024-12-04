@@ -80,7 +80,7 @@
 						<TextInput
 							bind:value={$samplingDesign.samplingScope.specificCategory.other.category}
 							label="Category"
-							placeholder="Please specify"
+							placeholder="Please specify the type of category"
 							class="col-span-2"
 						/>
 					{/if}

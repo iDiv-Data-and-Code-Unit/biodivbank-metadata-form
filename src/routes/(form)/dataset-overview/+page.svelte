@@ -97,7 +97,7 @@
 
 	<Section
 		title="Temporal scope"
-		description="Please provide dates to the highest resolution possible"
+		description="Please provide dates to the highest resolution possible. A minimum of start and end year is required."
 	>
 		<TemporalScope />
 	</Section>

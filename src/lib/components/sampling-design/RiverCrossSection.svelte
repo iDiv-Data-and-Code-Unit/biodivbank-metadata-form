@@ -25,7 +25,7 @@
 	question="Indicate where sampling took place in the river or stream"
 	direction="grid"
 >
-	<div class="relative h-80 col-span-2 mt-8">
+	<div class="relative h-80 col-span-2 mt-24">
 		<img src="/crosssection.svg" alt="" class="absolute w-3/4" />
 		<label
 			class={clsx(
@@ -38,7 +38,7 @@
 				class="text-sm py-1 px-2 bg-white w-full rounded-md border border-description"
 				bind:value={$samplingDesign.samplingLocation.riverCrossSection.bank}
 			>
-				<option value="" disabled />
+				<option value="Select..." disabled />
 				<option value="On bank">On bank</option>
 				<option value="In substrate">In substrate</option>
 			</select>
