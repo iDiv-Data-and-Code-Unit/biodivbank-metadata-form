@@ -79,6 +79,7 @@
 		let resourceType = ResourceTypeEnum.parse(type);
 
 		try {
+			// TODO: check if doi is valid if it is not URL
 			const res = await fetch(`https://doi.org/api/handles/${doi}`);
 			const json = await res.json();
 
@@ -132,18 +133,18 @@
 	disableDnD
 	isEmpty={(resource) => resource.doi === ''}
 >
-	<svelte:fragment slot="content" let:item>
+	<div class="col-span-7 grid gap-1" slot="content" let:item>
 		<div class="flex items-center font-medium col-span-4">
 			<span class="text-black-text">{item.type}</span>
 		</div>
 		<span class="text-black-text col-span-3"
-			><span class="text-subtle-text">doi:</span><a
+			><a
 				class="underline"
 				target="_blank"
-				href={`https://doi.org/${item.doi}`}>{item.doi}</a
+				href={`https://doi.org/${item.doi}`}>{`https://doi.org/${item.doi}`}</a
 			></span
 		>
-	</svelte:fragment>
+	</div>
 </DnDList>
 
 <div class="col-span-2">
@@ -170,10 +171,10 @@
 			{/if}
 			<TextInput
 				bind:value={doi}
-				placeholder="E.g. 10.25829/x33q1z"
+				placeholder="E.g. https://doi.org/10.25829/x33q1z"
 				bind:el={nameEl}
 				required
-				label="DOI (or URL)"
+				label="DOI, other permanent identifier, or URL"
 			/>
 			{#if error}
 				<p class="text-error text-sm">{error}</p>

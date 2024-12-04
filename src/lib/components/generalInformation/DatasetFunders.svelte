@@ -77,11 +77,11 @@
 	{openEdit}
 >
 	<svelte:fragment slot="content" let:item>
-		<div class="flex items-center gap-6 col-span-2">
+		<div class="flex items-center gap-6 col-span-4">
 			<span class="text-black-text">{item.name}</span>
 		</div>
-		<span class="col-span-3">{!item.noFunderId ? item.id : 'No funder ID provided'}</span>
-		<span class="col-span-2">{item.grantNumber}</span>
+		<span class="col-span-2">{!item.noFunderId ? item.id : 'No funder ID provided'}</span>
+		<span class="col-span-1">{item.grantNumber}</span>
 	</svelte:fragment>
 </DnDList>
 
