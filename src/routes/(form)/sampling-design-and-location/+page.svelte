@@ -259,13 +259,12 @@ E.g. A single baited camera trap station with motion sensor trigger, deployed fo
 		<Question
 			question="Are there any details of your sampling methodology that have not been captured by this form?"
 		>
-		<b>TODO: fix</b>
-			<!-- <Textarea
+			<Textarea
 				bind:value={$samplingDesign.furtherInformation.details}
 				placeholder="Describe any aspect of the study design, scheduling or spatial distribution of sampling, methodology or equipment used, pre-processing of raw data, environmental conditions during a survey or unforeseen events, that are not covered by this metadata form. Be as specific as possible."
 				label=""
 				rows={10}
-			/> -->
+			/>
 		</Question>
 	</Section>
 </div>
