@@ -231,6 +231,7 @@ export const CategoryKeys = z.enum([
   'other'
 ])
 
+
 export const studyDesignSchema = z.object({
   multipleEvents: z.array(multipleEventsEnum),
   envCharacteristics: envCharacteristicsEnum,
