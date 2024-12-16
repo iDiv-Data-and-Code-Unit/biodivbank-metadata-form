@@ -87,18 +87,35 @@
 							{category}
 						</h4>
 					{/if}
-					<TextInput
-						bind:value={$samplingDesign.samplingScope.specificCategory[mapping[category]].targeted}
-						label="Targeted"
-						placeholder={placeholders[mapping[category]].targeted}
-						class="col-span-2"
-					/>
-					<TextInput
-						bind:value={$samplingDesign.samplingScope.specificCategory[mapping[category]].excluded}
-						label="Excluded"
-						placeholder={placeholders[mapping[category]].excluded}
-						class="col-span-2"
-					/>
+					{#if category === 'Other category'}
+						<TextInput
+							bind:value={$samplingDesign.samplingScope.specificCategory.other.targeted}
+							label="Targeted"
+							placeholder={placeholders[mapping[category]].targeted}
+							class="col-span-2"
+						/>
+						<TextInput
+							bind:value={$samplingDesign.samplingScope.specificCategory.other.excluded}
+							label="Excluded"
+							placeholder={placeholders[mapping[category]].excluded}
+							class="col-span-2"
+						/>
+					{:else}
+						<TextInput
+							bind:value={$samplingDesign.samplingScope.specificCategory[mapping[category]]
+								.targeted}
+							label="Targeted"
+							placeholder={placeholders[mapping[category]].targeted}
+							class="col-span-2"
+						/>
+						<TextInput
+							bind:value={$samplingDesign.samplingScope.specificCategory[mapping[category]]
+								.excluded}
+							label="Excluded"
+							placeholder={placeholders[mapping[category]].excluded}
+							class="col-span-2"
+						/>
+					{/if}
 				</div>
 			{/each}
 		</div>

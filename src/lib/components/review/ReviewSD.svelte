@@ -51,7 +51,7 @@
 							<li>
 								<p class="font-medium">
 									{#if category === 'Other category'}
-										{category}: {$samplingDesign.samplingScope.specificCategory.other}
+										{category}: {$samplingDesign.samplingScope.specificCategory.other.category}
 									{:else}
 										{category}
 									{/if}
