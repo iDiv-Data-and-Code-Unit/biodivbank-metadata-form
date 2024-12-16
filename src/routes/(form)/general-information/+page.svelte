@@ -45,13 +45,10 @@
 
 	onMount(() => {
 		async function load() {
-			let id = 2;
+			let id: number | undefined;
 
-			if ($params?.id) {
-				id = +JSON.parse($params.id);
-			}
-
-			datasetIdStore.set(id);
+			if ($params?.id) id = +JSON.parse($params.id);
+			if (id) datasetIdStore.set(id);
 
 			if (localStorage) {
 				const localDatasets = localStorage.getItem('localDatasets');
@@ -71,7 +68,7 @@
 			// need to change	this to load from store but with a reset option from the beginning
 			// or start with a other page as entry	point
 
-			if (localStorage && $generalInformation === undefined) {
+			if (localStorage && $generalInformation === undefined && id) {
 				try {
 					const res = await getMetadata(id);
 					console.log('🚀 ~ load ~ res:', res);
@@ -120,7 +117,7 @@
 	});
 
 	generalInformation.subscribe((value) => {
-		if (localStorage) {
+		if (localStorage && $datasetIdStore) {
 			localDatasetsStore.update((current) => {
 				if (!current) {
 					return [];
