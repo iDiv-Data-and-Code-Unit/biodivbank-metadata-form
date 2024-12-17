@@ -26,7 +26,7 @@
 
 	type dateType = {
 		year: number | undefined;
-		month: string;
+		month: string | undefined;
 		day: number | undefined;
 	};
 
@@ -34,13 +34,13 @@
 
 	let start: dateType = {
 		year: undefined,
-		month: '',
+		month: undefined,
 		day: undefined
 	};
 
 	let end: dateType = {
 		year: undefined,
-		month: '',
+		month: undefined,
 		day: undefined
 	};
 
@@ -74,24 +74,24 @@
 		);
 
 	const updateDate = (type: 'start' | 'end', date: dateType) => {
-		if (date.day != undefined && date.month != '' && date.year != undefined) {
-			const m = months.indexOf(date.month as (typeof months)[number]);
+		if (date.year != undefined) {
+			const m = date.month ? months.indexOf(date.month as (typeof months)[number]) : 0;
 			$datasetOverview.temporalScope = {
 				...$datasetOverview.temporalScope!,
-				[type]: new Date(date.year, m, date.day)
+				[type]: new Date(date.year, m, date.day ?? 1)
 			};
 		}
 	};
 
 	const onMonthChange = (type: 'start' | 'end') => {
-		if (type === 'start') {
+		if (type === 'start' && start.month) {
 			start.day = start.day
 				? start.day > maxDaysStartMonth[start.month]
 					? maxDaysStartMonth[start.month]
 					: start.day
 				: undefined;
 			maxDaysStartMonth = maxDays(start);
-		} else {
+		} else if (type === 'end' && end.month) {
 			end.day = end.day
 				? end.day > maxDaysEndMonth[end.month]
 					? maxDaysEndMonth[end.month]
