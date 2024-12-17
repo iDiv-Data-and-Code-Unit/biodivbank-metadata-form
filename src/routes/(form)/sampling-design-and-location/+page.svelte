@@ -82,6 +82,7 @@
 				if (index === -1) {
 					current.push({
 						id: $datasetIdStore,
+						metadataStructureId: $metadataStructureIdStore as number,
 						generalInformation: $generalInformation,
 						datasetOverview: $datasetOverview,
 						samplingDesign: value
@@ -89,6 +90,7 @@
 				} else {
 					current[index] = {
 						id: $datasetIdStore,
+						metadataStructureId: $metadataStructureIdStore as number,
 						generalInformation: $generalInformation,
 						datasetOverview: $datasetOverview,
 						samplingDesign: value

@@ -60,6 +60,7 @@
 					generalInformation.set(localDataset.generalInformation);
 					datasetOverview.set(localDataset.datasetOverview);
 					samplingDesign.set(localDataset.samplingDesign);
+					metadataStructureIdStore.set(localDataset.metadataStructureId);
 				}
 			}
 
@@ -126,6 +127,7 @@
 				if (index === -1) {
 					current.push({
 						id: $datasetIdStore,
+						metadataStructureId: $metadataStructureIdStore as number,
 						generalInformation: value,
 						datasetOverview: $datasetOverview,
 						samplingDesign: $samplingDesign
@@ -133,6 +135,7 @@
 				} else {
 					current[index] = {
 						id: $datasetIdStore,
+						metadataStructureId: $metadataStructureIdStore as number,
 						generalInformation: value,
 						datasetOverview: $datasetOverview,
 						samplingDesign: $samplingDesign

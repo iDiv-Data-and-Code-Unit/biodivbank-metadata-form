@@ -10,6 +10,7 @@ export type GeneralInformation = z.infer<typeof generalInformationSchema>
 export type DatasetOverview = z.infer<typeof datasetOverviewSchema>
 export type LocalDataset = {
 	id: number;
+	metadataStructureId: number;
 	generalInformation: GeneralInformation;
 	datasetOverview: DatasetOverview;
 	samplingDesign: SamplingDesign;
