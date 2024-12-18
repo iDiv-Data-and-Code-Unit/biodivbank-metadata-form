@@ -34,9 +34,11 @@
 		generalInformation.update((gi) => {
 			gi.resources = resources
 				.map((s) => {
-					const d: resourceType = { ...s };
-					// delete d.internalId;   // no internalId in resourceType
-					return d;
+					return {
+						type: s.type,
+						otherType: s.otherType,
+						doi: s.doi
+					};
 				})
 				.filter((e) => e.doi !== '');
 			console.log('store:', gi.resources);
