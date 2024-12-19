@@ -39,7 +39,7 @@
 				bind:value={$samplingDesign.samplingLocation.riverCrossSection.bank}
 			>
 				<option value="Select..." disabled />
-				<option value="On bank">On bank</option>
+				<option value="On Bank">On bank</option>
 				<option value="In substrate">In substrate</option>
 			</select>
 		</label>
@@ -96,7 +96,7 @@
 			>
 				<option value="" disabled />
 				<option value="BenthicWaterLayer">Benthic water layer</option>
-				<option value="On substrate">On substrate</option>
+				<option value="On subtrate">On substrate</option>
 				<option value="In substrate">In substrate</option>
 			</select>
 		</label>

@@ -41,6 +41,17 @@
 			excluded: ''
 		}
 	};
+
+	$: $samplingDesign.samplingScope.specificCategory.sex.selected =
+		$samplingDesign.samplingScope.specificCategory.category.includes('Sex');
+	$: $samplingDesign.samplingScope.specificCategory.lifeStageAgeClass.selected =
+		$samplingDesign.samplingScope.specificCategory.category.includes('Life stage / age class');
+	$: $samplingDesign.samplingScope.specificCategory.reproductiveCondition.selected =
+		$samplingDesign.samplingScope.specificCategory.category.includes('Reproductive condition');
+	$: $samplingDesign.samplingScope.specificCategory.growthForm.selected =
+		$samplingDesign.samplingScope.specificCategory.category.includes('Growth form');
+	$: $samplingDesign.samplingScope.specificCategory.other.selected =
+		$samplingDesign.samplingScope.specificCategory.category.includes('Other category');
 </script>
 
 <!-- <Question

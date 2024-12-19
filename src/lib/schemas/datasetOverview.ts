@@ -101,11 +101,11 @@ export const DataOriginSchema = z.object({
 export const TemporalScopeSchema = z.object({
 	start: z.date(),
 	end: z.date()
-}).optional();
+})
 
 export const FieldStationSchema = z.object({
 	name: z.string(),
-	rorId: z.string().regex(new RegExp('^0[a-z|0-9]{6}[0-9]{2}$')).optional(),
+	rorId: z.string().regex(new RegExp('^0[a-z|0-9]{6}[0-9]{2}$')).optional().or(z.literal('')),
 	noRorId: z.boolean().default(false)
 }).superRefine(({ rorId, noRorId }, fieldStationCtx) => {
 	if (!noRorId && !rorId) {

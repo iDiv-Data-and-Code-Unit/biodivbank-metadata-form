@@ -171,8 +171,8 @@ export const stageThreeMarkRecaptureEnum = z.enum([
 export const EffortIdenticalEnum = z.enum(['Yes', 'No', 'Unsure', 'Not applicable (only 1 sampling event)']);
 export const ZoneEnum = z.enum([
   'Source Zone (crenon)',
-  'Upstream / transition zone  (rhithron)',
-  'Downstream / floodplain zone  (potamon)',
+  'Upstream / transition zone (rhithron)',
+  'Downstream / floodplain zone (potamon)',
   'Mouth',
   'Other'
 ]);
@@ -243,10 +243,10 @@ export const stageOneInventoryProcess = z.object({
   stageOne: z.array(stageOneInventoryProcessEnum),
   stageTwo: z.object({
     restrictedSearch: z.array(stageTwoRestrictedSearchEnum),
-    openSearch: z.never(),
-    opportunisticSearch: z.never(),
-    trapOrSample: z.never(),
-    adventitious: z.never()
+    openSearch: z.never().or(z.literal('')),
+    opportunisticSearch: z.never().or(z.literal('')),
+    trapOrSample: z.never().or(z.literal('')),
+    adventitious: z.never().or(z.literal(''))
   }),
   stageThree: z.object({
     plot: z.array(stageThreePlotEnum),
@@ -400,10 +400,10 @@ export const stageOneMethodType = z.object({
         });
       }
     }),
-    corer: z.never(),
-    grab: z.never(),
-    tullgrenFunnel: z.never(),
-    eDNA: z.never()
+    corer: z.never().or(z.literal('')),
+    grab: z.never().or(z.literal('')),
+    tullgrenFunnel: z.never().or(z.literal('')),
+    eDNA: z.never().or(z.literal(''))
   })
 }).superRefine(({ stageOne, stageTwo, stageThree }, methodTypeCtx) => {
   if (!stageOne.includes('Capture') && stageTwo.capture.length > 0) {
@@ -637,9 +637,12 @@ export const riverZoneSchema = z
 export const streamOrderSchema = z
   .object({
     classificationSystem: ClassificationSystemEnum,
-    values: z.array(StreamOrderValueEnum),
+    values: z.preprocess(
+      (values) => (Array.isArray(values) ? values.map((value) => `${value}`) : values),
+      z.array(z.string())
+    ),
     other: z.string().optional()
-  });
+  })
 // ! I don't think there needs to be a check for "Other" type
 // .superRefine(({ classificationSystem, other }, streamOrderCtx) => {
 //   if (classificationSystem === 'Other' && !other) {
@@ -660,62 +663,63 @@ export const riverCrossSectionSchema = z
     other: z.string().optional()
   })
   .superRefine(({ type, bank, surface, bed, other }, riverCrossSectionCtx) => {
-    if (type.includes('Bank') && bank.length === 0) {
-      riverCrossSectionCtx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: 'Bank is required when selected',
-        path: ['bank']
-      });
-    }
-    if (type.includes('Surface') && surface.length === 0) {
-      riverCrossSectionCtx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: 'Surface is required when selected',
-        path: ['surface']
-      });
-    }
-    if (type.includes('Bed') && bed.length === 0) {
-      riverCrossSectionCtx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: 'Bed is required when selected',
-        path: ['bed']
-      });
-    }
-    if (type.includes('Surface') && bed.length === 0) {
-      riverCrossSectionCtx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: 'Bed is required when Surface is selected',
-        path: ['bed']
-      });
-    }
-    if (type.includes('Bank') && bed.length === 0) {
-      riverCrossSectionCtx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: 'Bed is required when Bank is selected',
-        path: ['bed']
-      });
-    }
-    if (!type.includes('Bank') && bank.length > 0) {
-      riverCrossSectionCtx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: 'Bank is not allowed when not selected',
-        path: ['bank']
-      });
-    }
-    if (!type.includes('Surface') && surface.length > 0) {
-      riverCrossSectionCtx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: 'Surface is not allowed when not selected',
-        path: ['surface']
-      });
-    }
-    if (!type.includes('Bed') && bed.length > 0) {
-      riverCrossSectionCtx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: 'Bed is not allowed when not selected',
-        path: ['bed']
-      });
-    }
+    // TODO: Logic is wrong here, types on the UI do not have Bank, Surface, Bed
+    // if (type.includes('Bank') && bank.length === 0) {
+    //   riverCrossSectionCtx.addIssue({
+    //     code: z.ZodIssueCode.custom,
+    //     message: 'Bank is required when selected',
+    //     path: ['bank']
+    //   });
+    // }
+    // if (type.includes('Surface') && surface.length === 0) {
+    //   riverCrossSectionCtx.addIssue({
+    //     code: z.ZodIssueCode.custom,
+    //     message: 'Surface is required when selected',
+    //     path: ['surface']
+    //   });
+    // }
+    // if (type.includes('Bed') && bed.length === 0) {
+    //   riverCrossSectionCtx.addIssue({
+    //     code: z.ZodIssueCode.custom,
+    //     message: 'Bed is required when selected',
+    //     path: ['bed']
+    //   });
+    // }
+    // if (type.includes('Surface') && bed.length === 0) {
+    //   riverCrossSectionCtx.addIssue({
+    //     code: z.ZodIssueCode.custom,
+    //     message: 'Bed is required when Surface is selected',
+    //     path: ['bed']
+    //   });
+    // }
+    // if (type.includes('Bank') && bed.length === 0) {
+    //   riverCrossSectionCtx.addIssue({
+    //     code: z.ZodIssueCode.custom,
+    //     message: 'Bed is required when Bank is selected',
+    //     path: ['bed']
+    //   });
+    // }
+    // if (!type.includes('Bank') && bank.length > 0) {
+    //   riverCrossSectionCtx.addIssue({
+    //     code: z.ZodIssueCode.custom,
+    //     message: 'Bank is not allowed when not selected',
+    //     path: ['bank']
+    //   });
+    // }
+    // if (!type.includes('Surface') && surface.length > 0) {
+    //   riverCrossSectionCtx.addIssue({
+    //     code: z.ZodIssueCode.custom,
+    //     message: 'Surface is not allowed when not selected',
+    //     path: ['surface']
+    //   });
+    // }
+    // if (!type.includes('Bed') && bed.length > 0) {
+    //   riverCrossSectionCtx.addIssue({
+    //     code: z.ZodIssueCode.custom,
+    //     message: 'Bed is not allowed when not selected',
+    //     path: ['bed']
+    //   });
+    // }
     if (type.includes('Other area?') && !other) {
       riverCrossSectionCtx.addIssue({
         code: z.ZodIssueCode.custom,
